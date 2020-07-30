@@ -5,10 +5,23 @@
  */
 package com.bitlab.dao;
 
+import com.bitlab.connection.ConnectionFactory;
+import com.bitlab.entities.Employee;
+import javax.persistence.EntityManager;
+
 /**
  *
  * @author Andrea
  */
-public class EmployeesDao {
+public class EmployeesDao extends AbstractDao<Employee>{
+
+    public EmployeesDao(Class<Employee> entityClass) {
+        super(entityClass);
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return ConnectionFactory.getConecction().getFactory().createEntityManager();
+    }
     
 }
