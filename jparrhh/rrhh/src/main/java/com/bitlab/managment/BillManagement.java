@@ -24,7 +24,7 @@ public class BillManagement extends AbstractManagment<Bill> {
     }
 
     @Override
-    public AbstractDao<Bill> getControler() {
+    public AbstractDao<Bill> getController() {
         return billDao;
     }
 
