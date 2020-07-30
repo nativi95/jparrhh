@@ -26,7 +26,7 @@ public abstract class AbstractManagment<T> {
     
     @PostConstruct
     public void init(){
-    entities= getControler().findAll();
+    entities= getController().findAll();
     }
     
     @PreDestroy
@@ -36,5 +36,5 @@ public abstract class AbstractManagment<T> {
     EntityClass = null;
     }
     
-    public abstract AbstractDao<T> getControler();
+    public abstract AbstractDao<T> getController();
 }
