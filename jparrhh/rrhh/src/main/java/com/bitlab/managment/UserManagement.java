@@ -6,30 +6,30 @@
 package com.bitlab.managment;
 
 import com.bitlab.dao.AbstractDao;
-import com.bitlab.dao.BillDao;
-import com.bitlab.entities.Bill;
+import com.bitlab.dao.UserDao;
+import com.bitlab.entities.User;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+
 /**
  *
- * @author juana
+ * @author nativi
  */
 @ManagedBean
 @ViewScoped
-public class BillManagement extends AbstractManagment<Bill> {
+public class UserManagement extends AbstractManagment<User> {
 
-    private BillDao billDao;
+    private UserDao userDao;
 
-    public BillManagement() {
-        super(Bill.class);
-        billDao = new BillDao();
-
+    public UserManagement() {
+        super(User.class);
+        userDao = new UserDao();
     }
 
     @Override
-    public AbstractDao<Bill> getController() {
-        return billDao;
+    public AbstractDao<User> getController() {
+        return userDao;
     }
 
 }
