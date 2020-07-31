@@ -14,6 +14,7 @@ import javax.annotation.PreDestroy;
  *
  * @author juana
  */
+
 public abstract class AbstractManagment<T> {
     
     private T entitySelected;
@@ -37,4 +38,22 @@ public abstract class AbstractManagment<T> {
     }
     
     public abstract AbstractDao<T> getController();
+
+    public T getEntitySelected() {
+        return entitySelected;
+    }
+
+    public void setEntitySelected(T entitySelected) {
+        this.entitySelected = entitySelected;
+    }
+
+    public List<T> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<T> entities) {
+        this.entities = entities;
+    }
+    
+    
 }

@@ -15,8 +15,8 @@ import javax.persistence.EntityManager;
  */
 public class EmployeesDao extends AbstractDao<Employee>{
 
-    public EmployeesDao(Class<Employee> entityClass) {
-        super(entityClass);
+    public EmployeesDao() {
+        super(Employee.class);
     }
 
     @Override
