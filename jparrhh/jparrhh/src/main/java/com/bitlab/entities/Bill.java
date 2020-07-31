@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author juana
+ * @author nativi
  */
 @Entity
 @Table(name = "emp_bil_bill", catalog = "employees", schema = "")

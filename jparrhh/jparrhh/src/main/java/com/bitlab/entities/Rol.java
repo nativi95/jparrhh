@@ -7,57 +7,53 @@ package com.bitlab.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author juana
+ * @author nativi
  */
 @Entity
-@Table(name = "emp_usr_user", catalog = "employees", schema = "")
+@Table(name = "emp_rol_rol", catalog = "employees", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUsrUserNo", query = "SELECT u FROM User u WHERE u.usrUserNo = :usrUserNo"),
-    @NamedQuery(name = "User.findByUsrUser", query = "SELECT u FROM User u WHERE u.usrUser = :usrUser"),
-    @NamedQuery(name = "User.findByUserPassword", query = "SELECT u FROM User u WHERE u.userPassword = :userPassword"),
-    @NamedQuery(name = "User.findByAusercreate", query = "SELECT u FROM User u WHERE u.ausercreate = :ausercreate"),
-    @NamedQuery(name = "User.findByAdatecreate", query = "SELECT u FROM User u WHERE u.adatecreate = :adatecreate"),
-    @NamedQuery(name = "User.findByAuserchange", query = "SELECT u FROM User u WHERE u.auserchange = :auserchange"),
-    @NamedQuery(name = "User.findByAdatechange", query = "SELECT u FROM User u WHERE u.adatechange = :adatechange")})
-public class User implements Serializable {
+    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
+    @NamedQuery(name = "Rol.findByRolRolNo", query = "SELECT r FROM Rol r WHERE r.rolRolNo = :rolRolNo"),
+    @NamedQuery(name = "Rol.findByRolRol", query = "SELECT r FROM Rol r WHERE r.rolRol = :rolRol"),
+    @NamedQuery(name = "Rol.findByAusercreate", query = "SELECT r FROM Rol r WHERE r.ausercreate = :ausercreate"),
+    @NamedQuery(name = "Rol.findByAdatecreate", query = "SELECT r FROM Rol r WHERE r.adatecreate = :adatecreate"),
+    @NamedQuery(name = "Rol.findByAuserchange", query = "SELECT r FROM Rol r WHERE r.auserchange = :auserchange"),
+    @NamedQuery(name = "Rol.findByAdatechange", query = "SELECT r FROM Rol r WHERE r.adatechange = :adatechange")})
+public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "usr_user_no")
-    private Integer usrUserNo;
+    @Column(name = "rol_rol_no")
+    private Integer rolRolNo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(name = "usr_user")
-    private String usrUser;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 130)
-    @Column(name = "user_password")
-    private String userPassword;
+    @Column(name = "rol_rol")
+    private String rolRol;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -78,49 +74,39 @@ public class User implements Serializable {
     @Column(name = "A_date_change")
     @Temporal(TemporalType.DATE)
     private Date adatechange;
-    @JoinColumn(name = "usr_rol_no", referencedColumnName = "rol_rol_no")
-    @ManyToOne(optional = false)
-    private Rol usrRolNo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrRolNo")
+    private List<User> userList;
 
-    public User() {
+    public Rol() {
     }
 
-    public User(Integer usrUserNo) {
-        this.usrUserNo = usrUserNo;
+    public Rol(Integer rolRolNo) {
+        this.rolRolNo = rolRolNo;
     }
 
-    public User(Integer usrUserNo, String usrUser, String userPassword, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
-        this.usrUserNo = usrUserNo;
-        this.usrUser = usrUser;
-        this.userPassword = userPassword;
+    public Rol(Integer rolRolNo, String rolRol, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
+        this.rolRolNo = rolRolNo;
+        this.rolRol = rolRol;
         this.ausercreate = ausercreate;
         this.adatecreate = adatecreate;
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
 
-    public Integer getUsrUserNo() {
-        return usrUserNo;
+    public Integer getRolRolNo() {
+        return rolRolNo;
     }
 
-    public void setUsrUserNo(Integer usrUserNo) {
-        this.usrUserNo = usrUserNo;
+    public void setRolRolNo(Integer rolRolNo) {
+        this.rolRolNo = rolRolNo;
     }
 
-    public String getUsrUser() {
-        return usrUser;
+    public String getRolRol() {
+        return rolRol;
     }
 
-    public void setUsrUser(String usrUser) {
-        this.usrUser = usrUser;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setRolRol(String rolRol) {
+        this.rolRol = rolRol;
     }
 
     public String getAusercreate() {
@@ -155,29 +141,30 @@ public class User implements Serializable {
         this.adatechange = adatechange;
     }
 
-    public Rol getUsrRolNo() {
-        return usrRolNo;
+    @XmlTransient
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setUsrRolNo(Rol usrRolNo) {
-        this.usrRolNo = usrRolNo;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (usrUserNo != null ? usrUserNo.hashCode() : 0);
+        hash += (rolRolNo != null ? rolRolNo.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Rol)) {
             return false;
         }
-        User other = (User) object;
-        if ((this.usrUserNo == null && other.usrUserNo != null) || (this.usrUserNo != null && !this.usrUserNo.equals(other.usrUserNo))) {
+        Rol other = (Rol) object;
+        if ((this.rolRolNo == null && other.rolRolNo != null) || (this.rolRolNo != null && !this.rolRolNo.equals(other.rolRolNo))) {
             return false;
         }
         return true;
@@ -185,7 +172,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.User[ usrUserNo=" + usrUserNo + " ]";
+        return "com.bitlab.entities.Rol[ rolRolNo=" + rolRolNo + " ]";
     }
     
 }

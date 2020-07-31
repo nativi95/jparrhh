@@ -7,53 +7,57 @@ package com.bitlab.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author juana
+ * @author nativi
  */
 @Entity
-@Table(name = "emp_pos_position", catalog = "employees", schema = "")
+@Table(name = "emp_usr_user", catalog = "employees", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
-    @NamedQuery(name = "Position.findByPosPositionNo", query = "SELECT p FROM Position p WHERE p.posPositionNo = :posPositionNo"),
-    @NamedQuery(name = "Position.findByPosPosition", query = "SELECT p FROM Position p WHERE p.posPosition = :posPosition"),
-    @NamedQuery(name = "Position.findByAusercreate", query = "SELECT p FROM Position p WHERE p.ausercreate = :ausercreate"),
-    @NamedQuery(name = "Position.findByAdatecreate", query = "SELECT p FROM Position p WHERE p.adatecreate = :adatecreate"),
-    @NamedQuery(name = "Position.findByAuserchange", query = "SELECT p FROM Position p WHERE p.auserchange = :auserchange"),
-    @NamedQuery(name = "Position.findByAdatechange", query = "SELECT p FROM Position p WHERE p.adatechange = :adatechange")})
-public class Position implements Serializable {
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "User.findByUsrUserNo", query = "SELECT u FROM User u WHERE u.usrUserNo = :usrUserNo"),
+    @NamedQuery(name = "User.findByUsrUser", query = "SELECT u FROM User u WHERE u.usrUser = :usrUser"),
+    @NamedQuery(name = "User.findByUserPassword", query = "SELECT u FROM User u WHERE u.userPassword = :userPassword"),
+    @NamedQuery(name = "User.findByAusercreate", query = "SELECT u FROM User u WHERE u.ausercreate = :ausercreate"),
+    @NamedQuery(name = "User.findByAdatecreate", query = "SELECT u FROM User u WHERE u.adatecreate = :adatecreate"),
+    @NamedQuery(name = "User.findByAuserchange", query = "SELECT u FROM User u WHERE u.auserchange = :auserchange"),
+    @NamedQuery(name = "User.findByAdatechange", query = "SELECT u FROM User u WHERE u.adatechange = :adatechange")})
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "pos_position_no")
-    private Integer posPositionNo;
+    @Column(name = "usr_user_no")
+    private Integer usrUserNo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "pos_position")
-    private String posPosition;
+    @Size(min = 1, max = 10)
+    @Column(name = "usr_user")
+    private String usrUser;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 130)
+    @Column(name = "user_password")
+    private String userPassword;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -74,39 +78,49 @@ public class Position implements Serializable {
     @Column(name = "A_date_change")
     @Temporal(TemporalType.DATE)
     private Date adatechange;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empPositionNo")
-    private List<Employee> employeeList;
+    @JoinColumn(name = "usr_rol_no", referencedColumnName = "rol_rol_no")
+    @ManyToOne(optional = false)
+    private Rol usrRolNo;
 
-    public Position() {
+    public User() {
     }
 
-    public Position(Integer posPositionNo) {
-        this.posPositionNo = posPositionNo;
+    public User(Integer usrUserNo) {
+        this.usrUserNo = usrUserNo;
     }
 
-    public Position(Integer posPositionNo, String posPosition, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
-        this.posPositionNo = posPositionNo;
-        this.posPosition = posPosition;
+    public User(Integer usrUserNo, String usrUser, String userPassword, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
+        this.usrUserNo = usrUserNo;
+        this.usrUser = usrUser;
+        this.userPassword = userPassword;
         this.ausercreate = ausercreate;
         this.adatecreate = adatecreate;
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
 
-    public Integer getPosPositionNo() {
-        return posPositionNo;
+    public Integer getUsrUserNo() {
+        return usrUserNo;
     }
 
-    public void setPosPositionNo(Integer posPositionNo) {
-        this.posPositionNo = posPositionNo;
+    public void setUsrUserNo(Integer usrUserNo) {
+        this.usrUserNo = usrUserNo;
     }
 
-    public String getPosPosition() {
-        return posPosition;
+    public String getUsrUser() {
+        return usrUser;
     }
 
-    public void setPosPosition(String posPosition) {
-        this.posPosition = posPosition;
+    public void setUsrUser(String usrUser) {
+        this.usrUser = usrUser;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getAusercreate() {
@@ -141,30 +155,29 @@ public class Position implements Serializable {
         this.adatechange = adatechange;
     }
 
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public Rol getUsrRolNo() {
+        return usrRolNo;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setUsrRolNo(Rol usrRolNo) {
+        this.usrRolNo = usrRolNo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (posPositionNo != null ? posPositionNo.hashCode() : 0);
+        hash += (usrUserNo != null ? usrUserNo.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Position)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Position other = (Position) object;
-        if ((this.posPositionNo == null && other.posPositionNo != null) || (this.posPositionNo != null && !this.posPositionNo.equals(other.posPositionNo))) {
+        User other = (User) object;
+        if ((this.usrUserNo == null && other.usrUserNo != null) || (this.usrUserNo != null && !this.usrUserNo.equals(other.usrUserNo))) {
             return false;
         }
         return true;
@@ -172,7 +185,7 @@ public class Position implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.Position[ posPositionNo=" + posPositionNo + " ]";
+        return "com.bitlab.entities.User[ usrUserNo=" + usrUserNo + " ]";
     }
     
 }
