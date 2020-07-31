@@ -28,32 +28,32 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author juana
+ * @author nativi
  */
 @Entity
-@Table(name = "emp_rol_rol", catalog = "employees", schema = "")
+@Table(name = "emp_dep_department", catalog = "employees", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
-    @NamedQuery(name = "Rol.findByRolRolNo", query = "SELECT r FROM Rol r WHERE r.rolRolNo = :rolRolNo"),
-    @NamedQuery(name = "Rol.findByRolRol", query = "SELECT r FROM Rol r WHERE r.rolRol = :rolRol"),
-    @NamedQuery(name = "Rol.findByAusercreate", query = "SELECT r FROM Rol r WHERE r.ausercreate = :ausercreate"),
-    @NamedQuery(name = "Rol.findByAdatecreate", query = "SELECT r FROM Rol r WHERE r.adatecreate = :adatecreate"),
-    @NamedQuery(name = "Rol.findByAuserchange", query = "SELECT r FROM Rol r WHERE r.auserchange = :auserchange"),
-    @NamedQuery(name = "Rol.findByAdatechange", query = "SELECT r FROM Rol r WHERE r.adatechange = :adatechange")})
-public class Rol implements Serializable {
+    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d"),
+    @NamedQuery(name = "Department.findByDepDeptNo", query = "SELECT d FROM Department d WHERE d.depDeptNo = :depDeptNo"),
+    @NamedQuery(name = "Department.findByDepDeptName", query = "SELECT d FROM Department d WHERE d.depDeptName = :depDeptName"),
+    @NamedQuery(name = "Department.findByAusercreate", query = "SELECT d FROM Department d WHERE d.ausercreate = :ausercreate"),
+    @NamedQuery(name = "Department.findByAdatecreate", query = "SELECT d FROM Department d WHERE d.adatecreate = :adatecreate"),
+    @NamedQuery(name = "Department.findByAuserchange", query = "SELECT d FROM Department d WHERE d.auserchange = :auserchange"),
+    @NamedQuery(name = "Department.findByAdatechange", query = "SELECT d FROM Department d WHERE d.adatechange = :adatechange")})
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "rol_rol_no")
-    private Integer rolRolNo;
+    @Column(name = "dep_dept_no")
+    private Integer depDeptNo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "rol_rol")
-    private String rolRol;
+    @Size(min = 1, max = 40)
+    @Column(name = "dep_dept_name")
+    private String depDeptName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -74,39 +74,39 @@ public class Rol implements Serializable {
     @Column(name = "A_date_change")
     @Temporal(TemporalType.DATE)
     private Date adatechange;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrRolNo")
-    private List<User> userList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empDeptNo")
+    private List<Employee> employeeList;
 
-    public Rol() {
+    public Department() {
     }
 
-    public Rol(Integer rolRolNo) {
-        this.rolRolNo = rolRolNo;
+    public Department(Integer depDeptNo) {
+        this.depDeptNo = depDeptNo;
     }
 
-    public Rol(Integer rolRolNo, String rolRol, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
-        this.rolRolNo = rolRolNo;
-        this.rolRol = rolRol;
+    public Department(Integer depDeptNo, String depDeptName, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
+        this.depDeptNo = depDeptNo;
+        this.depDeptName = depDeptName;
         this.ausercreate = ausercreate;
         this.adatecreate = adatecreate;
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
 
-    public Integer getRolRolNo() {
-        return rolRolNo;
+    public Integer getDepDeptNo() {
+        return depDeptNo;
     }
 
-    public void setRolRolNo(Integer rolRolNo) {
-        this.rolRolNo = rolRolNo;
+    public void setDepDeptNo(Integer depDeptNo) {
+        this.depDeptNo = depDeptNo;
     }
 
-    public String getRolRol() {
-        return rolRol;
+    public String getDepDeptName() {
+        return depDeptName;
     }
 
-    public void setRolRol(String rolRol) {
-        this.rolRol = rolRol;
+    public void setDepDeptName(String depDeptName) {
+        this.depDeptName = depDeptName;
     }
 
     public String getAusercreate() {
@@ -142,29 +142,29 @@ public class Rol implements Serializable {
     }
 
     @XmlTransient
-    public List<User> getUserList() {
-        return userList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (rolRolNo != null ? rolRolNo.hashCode() : 0);
+        hash += (depDeptNo != null ? depDeptNo.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Rol)) {
+        if (!(object instanceof Department)) {
             return false;
         }
-        Rol other = (Rol) object;
-        if ((this.rolRolNo == null && other.rolRolNo != null) || (this.rolRolNo != null && !this.rolRolNo.equals(other.rolRolNo))) {
+        Department other = (Department) object;
+        if ((this.depDeptNo == null && other.depDeptNo != null) || (this.depDeptNo != null && !this.depDeptNo.equals(other.depDeptNo))) {
             return false;
         }
         return true;
@@ -172,7 +172,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.Rol[ rolRolNo=" + rolRolNo + " ]";
+        return "com.bitlab.entities.Department[ depDeptNo=" + depDeptNo + " ]";
     }
     
 }

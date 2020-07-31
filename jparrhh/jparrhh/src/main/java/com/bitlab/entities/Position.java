@@ -28,32 +28,32 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author juana
+ * @author nativi
  */
 @Entity
-@Table(name = "emp_dep_department", catalog = "employees", schema = "")
+@Table(name = "emp_pos_position", catalog = "employees", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d"),
-    @NamedQuery(name = "Department.findByDepDeptNo", query = "SELECT d FROM Department d WHERE d.depDeptNo = :depDeptNo"),
-    @NamedQuery(name = "Department.findByDepDeptName", query = "SELECT d FROM Department d WHERE d.depDeptName = :depDeptName"),
-    @NamedQuery(name = "Department.findByAusercreate", query = "SELECT d FROM Department d WHERE d.ausercreate = :ausercreate"),
-    @NamedQuery(name = "Department.findByAdatecreate", query = "SELECT d FROM Department d WHERE d.adatecreate = :adatecreate"),
-    @NamedQuery(name = "Department.findByAuserchange", query = "SELECT d FROM Department d WHERE d.auserchange = :auserchange"),
-    @NamedQuery(name = "Department.findByAdatechange", query = "SELECT d FROM Department d WHERE d.adatechange = :adatechange")})
-public class Department implements Serializable {
+    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
+    @NamedQuery(name = "Position.findByPosPositionNo", query = "SELECT p FROM Position p WHERE p.posPositionNo = :posPositionNo"),
+    @NamedQuery(name = "Position.findByPosPosition", query = "SELECT p FROM Position p WHERE p.posPosition = :posPosition"),
+    @NamedQuery(name = "Position.findByAusercreate", query = "SELECT p FROM Position p WHERE p.ausercreate = :ausercreate"),
+    @NamedQuery(name = "Position.findByAdatecreate", query = "SELECT p FROM Position p WHERE p.adatecreate = :adatecreate"),
+    @NamedQuery(name = "Position.findByAuserchange", query = "SELECT p FROM Position p WHERE p.auserchange = :auserchange"),
+    @NamedQuery(name = "Position.findByAdatechange", query = "SELECT p FROM Position p WHERE p.adatechange = :adatechange")})
+public class Position implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "dep_dept_no")
-    private Integer depDeptNo;
+    @Column(name = "pos_position_no")
+    private Integer posPositionNo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "dep_dept_name")
-    private String depDeptName;
+    @Size(min = 1, max = 50)
+    @Column(name = "pos_position")
+    private String posPosition;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -74,39 +74,39 @@ public class Department implements Serializable {
     @Column(name = "A_date_change")
     @Temporal(TemporalType.DATE)
     private Date adatechange;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empDeptNo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empPositionNo")
     private List<Employee> employeeList;
 
-    public Department() {
+    public Position() {
     }
 
-    public Department(Integer depDeptNo) {
-        this.depDeptNo = depDeptNo;
+    public Position(Integer posPositionNo) {
+        this.posPositionNo = posPositionNo;
     }
 
-    public Department(Integer depDeptNo, String depDeptName, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
-        this.depDeptNo = depDeptNo;
-        this.depDeptName = depDeptName;
+    public Position(Integer posPositionNo, String posPosition, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
+        this.posPositionNo = posPositionNo;
+        this.posPosition = posPosition;
         this.ausercreate = ausercreate;
         this.adatecreate = adatecreate;
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
 
-    public Integer getDepDeptNo() {
-        return depDeptNo;
+    public Integer getPosPositionNo() {
+        return posPositionNo;
     }
 
-    public void setDepDeptNo(Integer depDeptNo) {
-        this.depDeptNo = depDeptNo;
+    public void setPosPositionNo(Integer posPositionNo) {
+        this.posPositionNo = posPositionNo;
     }
 
-    public String getDepDeptName() {
-        return depDeptName;
+    public String getPosPosition() {
+        return posPosition;
     }
 
-    public void setDepDeptName(String depDeptName) {
-        this.depDeptName = depDeptName;
+    public void setPosPosition(String posPosition) {
+        this.posPosition = posPosition;
     }
 
     public String getAusercreate() {
@@ -153,18 +153,18 @@ public class Department implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (depDeptNo != null ? depDeptNo.hashCode() : 0);
+        hash += (posPositionNo != null ? posPositionNo.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Department)) {
+        if (!(object instanceof Position)) {
             return false;
         }
-        Department other = (Department) object;
-        if ((this.depDeptNo == null && other.depDeptNo != null) || (this.depDeptNo != null && !this.depDeptNo.equals(other.depDeptNo))) {
+        Position other = (Position) object;
+        if ((this.posPositionNo == null && other.posPositionNo != null) || (this.posPositionNo != null && !this.posPositionNo.equals(other.posPositionNo))) {
             return false;
         }
         return true;
@@ -172,7 +172,7 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.Department[ depDeptNo=" + depDeptNo + " ]";
+        return "com.bitlab.entities.Position[ posPositionNo=" + posPositionNo + " ]";
     }
     
 }
