@@ -8,11 +8,15 @@ package com.bitlab.managment;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.EmployeesDao;
 import com.bitlab.entities.Employee;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Andrea
  */
+@ManagedBean
+@ViewScoped
 public class EmployeeManagement extends AbstractManagment<Employee>{
 
     private EmployeesDao employeeDao;
