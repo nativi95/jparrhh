@@ -31,5 +31,7 @@ public class UserManagement extends AbstractManagment<User> {
     public AbstractDao<User> getController() {
         return userDao;
     }
+    
+    
 
 }
