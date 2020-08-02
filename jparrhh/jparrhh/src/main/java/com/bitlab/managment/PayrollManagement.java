@@ -9,7 +9,7 @@ import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.PayrollDao;
 import com.bitlab.entities.Payroll;
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
