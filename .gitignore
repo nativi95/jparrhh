@@ -23,3 +23,6 @@
 hs_err_pid*
 /jparrhh/jparrhh/target/
 /jparrhh/rrhh/target/
+/jpa/build/
+/jpa/dist/
+/jpa/nbproject/private/
