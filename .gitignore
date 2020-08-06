@@ -24,7 +24,15 @@ hs_err_pid*
 /jparrhh/nbproject/private/*
 /jparrhh/dist
 /jparrhh/build
+/jparrhh/nbproject/genfiles.properties
+/jparrhh/nbproject/ant-deploy.xml
+/jparrhh/nbproject/build-impl.xml
+/jparrhh/nbproject/
 
 /jpa/build/
 /jpa/dist/
+/jpa/nbproject/genfiles.properties
+/jpa/nbproject/ant-deploy.xml
+/jpa/nbproject/build-impl.xml
+/jpa/nbproject/
 /jpa/nbproject/private/*
