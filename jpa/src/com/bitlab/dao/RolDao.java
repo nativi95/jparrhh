@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RolDao extends AbstractDao<Rol> {
 
-    private static Logger logger = LoggerFactory.getLogger(RolDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(RolDao.class);
 
     public RolDao() {
         super(Rol.class);
