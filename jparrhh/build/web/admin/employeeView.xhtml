@@ -8,6 +8,9 @@
 
     <ui:define name="content">
         <h:form id="form">
+            <p:commandButton value="Nuevo Empleado" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
+            <br />
+            <br />
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
 
             <p:dataTable id="basicDT" var="car" value="#{dtSelectionView.cars1}">
