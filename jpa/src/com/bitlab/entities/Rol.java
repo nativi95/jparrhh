@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "emp_rol_rol", catalog = "employees", schema = "")
 @XmlRootElement
+//------------------------------------Seccion de NamedQueries-----------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
     @NamedQuery(name = "Rol.findByRolRolNo", query = "SELECT r FROM Rol r WHERE r.rolRolNo = :rolRolNo"),
@@ -39,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rol.findByAdatecreate", query = "SELECT r FROM Rol r WHERE r.adatecreate = :adatecreate"),
     @NamedQuery(name = "Rol.findByAuserchange", query = "SELECT r FROM Rol r WHERE r.auserchange = :auserchange"),
     @NamedQuery(name = "Rol.findByAdatechange", query = "SELECT r FROM Rol r WHERE r.adatechange = :adatechange")})
+
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,14 +68,34 @@ public class Rol implements Serializable {
     private Date adatechange;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrRolNo")
     private List<User> userList;
-
+    
+    /**
+     * Constructor vacio
+     *
+     */
     public Rol() {
     }
 
+        /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Rol(Integer rolRolNo) {
         this.rolRolNo = rolRolNo;
     }
-
+    /**
+     * Contructor recibe todos los campos de Rol
+     *
+     * @param Integer rolRolNo numero de rol de empleado 
+     * @param String rolRol Descripcion del rol empleado 
+     *
+     * @param String UserCreate usuario de auditoria crear
+     * @param dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param dateChange fecha de actualizacion
+     *
+     */
     public Rol(Integer rolRolNo, String rolRol, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.rolRolNo = rolRolNo;
         this.rolRol = rolRol;
@@ -82,7 +104,7 @@ public class Rol implements Serializable {
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
-
+    //-------------------Getters y Setters--------------------------------------------
     public Integer getRolRolNo() {
         return rolRolNo;
     }
@@ -139,14 +161,23 @@ public class Rol implements Serializable {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
-
+    
+    /**
+     * Metodo HashCode Convierte la entidad en codigo Hash
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (rolRolNo != null ? rolRolNo.hashCode() : 0);
         return hash;
     }
-
+    /**
+     * Metodo Equals Compara un objeto con entidad
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -159,7 +190,7 @@ public class Rol implements Serializable {
         }
         return true;
     }
-
+//----------------------------ToString---------------------------------------------------------------
     @Override
     public String toString() {
         return "entities.Rol[ rolRolNo=" + rolRolNo + " ]";

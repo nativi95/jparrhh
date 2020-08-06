@@ -5,7 +5,7 @@
  */
 package jpa;
 
-import com.bitlab.dao.UserDao;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

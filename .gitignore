@@ -26,3 +26,5 @@ hs_err_pid*
 /jpa/build/
 /jpa/dist/
 /jpa/nbproject/private/
+/jparrhh/nbproject/private/
+/jparrhh/build/
