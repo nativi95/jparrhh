@@ -7,9 +7,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="form">
+        <h:form id="form">  
+            <p:commandButton value="Nuevo Departamento" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
+            <br />
+            <br />
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-
             <p:dataTable id="basicDT" var="car" value="#{dtSelectionView.cars1}">
                 <f:facet name="header">
                     Basic
@@ -32,6 +34,8 @@
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
+            
+            
 
             <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center;">
