@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
@@ -66,37 +65,7 @@
 
                         <!-- Sidebar Menu -->
                         <nav class="mt-2">
-                            <ui:insert  name="left">
-                                <h:form style="margin-top:  8%; margin-left: 4%; margin-right: 4%">
-                                    <p:growl>
-                                        <p:autoUpdate />
-                                    </p:growl>
-
-                                    <p:panelMenu style="width:100%;">
-                                        <p:submenu  label="Gestiones">
-                                           <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-home" />
-                                           <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-home" />
-                                           <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-home" />
-                                           <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-home" />
-                                        </p:submenu>
-                                        <p:submenu label="Non-Ajax Menuitem">
-                                            <p:menuitem style="color:white" value="Delete" action="#{menuView.delete}"  ajax="false" icon="pi pi-times"/>
-                                        </p:submenu>
-                                        <p:separator />
-                                        <p:submenu label="Navigations" >
-                                            <p:submenu label="Links" icon="pi pi-home">
-                                                <p:submenu label="PrimeFaces" icon="pi pi-briefcase">
-                                                    <p:menuitem style="color:white" value="Home" url="pruebas.rh" icon="pi pi-home" />
-                                                    <p:menuitem style="color:white" value="Docs" url="http://www.primefaces.org/documentation" icon="pi pi-file" />
-                                                    <p:menuitem style="color:white" value="Download" url="http://www.primefaces.org/downloads" icon="pi pi-arrow-down" />
-                                                    <p:menuitem style="color:white" value="Support" url="http://www.primefaces.org/support" icon="pi pi-briefcase" />
-                                                </p:submenu>
-                                            </p:submenu>
-                                            <p:menuitem style="color:white" value="Mobile" icon="pi pi-mobile" />
-                                        </p:submenu>
-                                    </p:panelMenu>
-                                </h:form>
-                            </ui:insert>
+                            
                         </nav>
                         <!-- /.sidebar-menu -->
                     </div>
@@ -127,7 +96,7 @@
 
                         <!-- Default box -->
                         <ui:insert name="content">
-                            
+
                         </ui:insert>
                         <!-- /.card -->
 

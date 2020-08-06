@@ -23,17 +23,18 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class SessionManagement extends AbstractManagement<User> {
-    
+
     private UserDao userDao;
     private ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();//Permitira realizar la redirecion y la sesion
     private String route = null;//sera la ruta a donde enciara
 
     public SessionManagement() {
         super(User.class);
-        userDao = new UserDao();
+        this.userDao = new UserDao();
     }
-    
+
     public void LogIn() {
+        userDao = new UserDao();
         setEntity(userDao.login(getEntity()));//se llena entity con la busqueda del login
 
         if (getEntity() != null) {
@@ -50,45 +51,45 @@ public class SessionManagement extends AbstractManagement<User> {
             } catch (IOException ex) {
                 Logger.getLogger(SessionManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } else {
             message("No se pudo iniciar sesión", "Algunos de los datos no esta correcto", "WARN");
         }
-        
-    }
-    
-    public void checkSession(int rol) {
-        
-            String route = null;
-            setEntity((User) externalContext.getSessionMap().get("User"));//se obtiene la sesion actual
-            if (getEntity() != null) {
-                if (getEntity().getUsrRolNo().getRolRolNo() == rol) {
-                    
-                } else {
-                    if (getEntity().getUsrRolNo().getRolRolNo() == 1) {
-                        redirect("rrhh/index");
-                        
-                    } else {
-                        redirect("admin/index");
-                        
-                    }
-                }
-            } else {
-                
-                redirect("index");
-            }
 
     }
-    
-    public void logOut() {
-        
+
+    public void checkSession(int rol) {
+        userDao = new UserDao();
+        String route = null;
+        setEntity((User) externalContext.getSessionMap().get("User"));//se obtiene la sesion actual
+        if (getEntity() != null) {
+            if (getEntity().getUsrRolNo().getRolRolNo() == rol) {
+
+            } else {
+                if (getEntity().getUsrRolNo().getRolRolNo() == 1) {
+                    redirect("rrhh/index");
+
+                } else {
+                    redirect("admin/index");
+
+                }
+            }
+        } else {
+
             redirect("index");
-      
+        }
+
     }
-    
+
+    public void logOut() {
+
+        redirect("index");
+
+    }
+
     @Override
     public AbstractDao<User> getController() {
         return userDao;
     }
-    
+
 }

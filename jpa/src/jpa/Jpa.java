@@ -5,12 +5,7 @@
  */
 package jpa;
 
-import com.bitlab.dao.RolDao;
 import com.bitlab.dao.UserDao;
-import com.bitlab.entities.Rol;
-import com.bitlab.entities.User;
-import com.bitlab.utils.Sha;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,13 +20,12 @@ public class Jpa {
      */
     public static void main(String[] args) {
         try {
-            RolDao rd= new RolDao();
-            UserDao r = new UserDao();
-            User input = new User(0, "karla", Sha.encrypt("12345"), "yo", new Date(), "yo", new Date(), rd.find(1));
-            System.out.println(r.login(input));
+            UserDao r= new UserDao();
+            
+            System.out.println(r.find(1).toString());
         } catch (Exception ex) {
             Logger.getLogger(Jpa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }
