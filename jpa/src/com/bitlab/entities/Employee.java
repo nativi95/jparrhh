@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "emp_emp_employee", catalog = "employees", schema = "")
 @XmlRootElement
+//------------------------------------Seccion de NamedQueries-----------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.findByEmpEmpNo", query = "SELECT e FROM Employee e WHERE e.empEmpNo = :empEmpNo"),
@@ -97,13 +98,37 @@ public class Employee implements Serializable {
     @ManyToOne(optional = false)
     private Department empDeptNo;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public Employee() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Employee(Integer empEmpNo) {
         this.empEmpNo = empEmpNo;
     }
 
+    /**
+     * Contructor recibe todos los campos
+     *
+     * @param Integer EmpNo numero de empleado
+     * @param String empFirstName Primer nombre del empleado
+     * @param String empLastName Segundo nombre del empleado
+     * @param String UserCreate usuario de auditoria crear
+     * @param String empEmail email de Empleado
+     * @param Character empGender genero del empleado
+     * @param Date empHireDate Fecha de Contratacion
+     * @param dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param dateChange fecha de actualizacion
+     *
+     */
     public Employee(Integer empEmpNo, Date empBirthDate, String empFirstName, String empLastName, Character empGender, Date empHireDate, String empEmail, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.empEmpNo = empEmpNo;
         this.empBirthDate = empBirthDate;
@@ -117,7 +142,7 @@ public class Employee implements Serializable {
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
-
+//-------------------Getters y Setters--------------------------------------------
     public Integer getEmpEmpNo() {
         return empEmpNo;
     }
@@ -230,14 +255,22 @@ public class Employee implements Serializable {
     public void setEmpDeptNo(Department empDeptNo) {
         this.empDeptNo = empDeptNo;
     }
-
+    /**
+     * Metodo HashCode Convierte la entidad en codigo Hash
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (empEmpNo != null ? empEmpNo.hashCode() : 0);
         return hash;
     }
-
+    /**
+     * Metodo Equals Compara un objeto con entidad
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -250,10 +283,10 @@ public class Employee implements Serializable {
         }
         return true;
     }
-
+//----------------------------ToString---------------------------------------------------------------
     @Override
     public String toString() {
         return "entities.Employee[ empEmpNo=" + empEmpNo + " ]";
     }
-    
+
 }

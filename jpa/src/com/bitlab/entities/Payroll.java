@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "emp_pay_payroll", catalog = "employees", schema = "")
 @XmlRootElement
+//------------------------------------Seccion de NamedQueries-----------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Payroll.findAll", query = "SELECT p FROM Payroll p"),
     @NamedQuery(name = "Payroll.findByPayPayrollNo", query = "SELECT p FROM Payroll p WHERE p.payPayrollNo = :payPayrollNo"),
@@ -77,14 +78,34 @@ public class Payroll implements Serializable {
     private Employee payEmpNo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bilPayrollNo")
     private List<Bill> billList;
-
+    
+    /**
+     * Constructor vacio
+     *
+     */
     public Payroll() {
     }
-
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Payroll(Integer payPayrollNo) {
         this.payPayrollNo = payPayrollNo;
     }
-
+    /**
+     * Contructor recibe todos los campos de Payroll
+     *
+     * @param Integer payPayrollNo numero de planilla
+     * @param Date payFromDate Fecha Desde
+     * @param Date payToDateSegundo Fecha Hasta
+     * 
+     * @param String UserCreate usuario de auditoria crear
+     * @param dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param dateChange fecha de actualizacion
+     *
+     */
     public Payroll(Integer payPayrollNo, Date payFromDate, Date payToDate, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.payPayrollNo = payPayrollNo;
         this.payFromDate = payFromDate;
@@ -94,7 +115,8 @@ public class Payroll implements Serializable {
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
-
+    
+//-------------------Getters y Setters--------------------------------------------
     public Integer getPayPayrollNo() {
         return payPayrollNo;
     }
@@ -167,14 +189,22 @@ public class Payroll implements Serializable {
     public void setBillList(List<Bill> billList) {
         this.billList = billList;
     }
-
+    /**
+     * Metodo HashCode Convierte la entidad en codigo Hash
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (payPayrollNo != null ? payPayrollNo.hashCode() : 0);
         return hash;
     }
-
+    /**
+     * Metodo Equals Compara un objeto con entidad
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -187,7 +217,7 @@ public class Payroll implements Serializable {
         }
         return true;
     }
-
+//----------------------------ToString---------------------------------------------------------------
     @Override
     public String toString() {
         return "entities.Payroll[ payPayrollNo=" + payPayrollNo + " ]";

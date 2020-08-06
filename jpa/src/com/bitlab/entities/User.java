@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "emp_usr_user", catalog = "employees", schema = "")
 @XmlRootElement
+//------------------------------------Seccion de NamedQueries-----------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUsrUserNo", query = "SELECT u FROM User u WHERE u.usrUserNo = :usrUserNo"),
@@ -70,13 +71,36 @@ public class User implements Serializable {
     @ManyToOne(optional = false)
     private Rol usrRolNo;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public User() {
     }
+
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
 
     public User(Integer usrUserNo) {
         this.usrUserNo = usrUserNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de User
+     *
+     * @param Integer usrUserNo numero de Usuario
+     * @param String usrUser Descripcion del usuario
+     * @param String userPassword Contraseña del Usuario
+     * @param Rol usrRolNo tipo de Rol del empleado
+     * @param String UserCreate usuario de auditoria crear
+     * @param dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param dateChange fecha de actualizacion
+     *
+     */
     public User(Integer usrUserNo, String usrUser, String userPassword, String ausercreate, Date adatecreate, String auserchange, Date adatechange, Rol usrRolNo) {
         this.usrUserNo = usrUserNo;
         this.usrUser = usrUser;
@@ -88,6 +112,7 @@ public class User implements Serializable {
         this.usrRolNo = usrRolNo;
     }
 
+    //-------------------Getters y Setters--------------------------------------------
     public Integer getUsrUserNo() {
         return usrUserNo;
     }
@@ -152,6 +177,11 @@ public class User implements Serializable {
         this.usrRolNo = usrRolNo;
     }
 
+    /**
+     * Metodo HashCode Convierte la entidad en codigo Hash
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -159,6 +189,11 @@ public class User implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals Compara un objeto con entidad
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -171,6 +206,7 @@ public class User implements Serializable {
         }
         return true;
     }
+//----------------------------ToString---------------------------------------------------------------
 
     @Override
     public String toString() {
