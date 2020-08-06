@@ -77,7 +77,7 @@ public class User implements Serializable {
         this.usrUserNo = usrUserNo;
     }
 
-    public User(Integer usrUserNo, String usrUser, String userPassword, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
+    public User(Integer usrUserNo, String usrUser, String userPassword, String ausercreate, Date adatecreate, String auserchange, Date adatechange, Rol usrRolNo) {
         this.usrUserNo = usrUserNo;
         this.usrUser = usrUser;
         this.userPassword = userPassword;
@@ -85,6 +85,7 @@ public class User implements Serializable {
         this.adatecreate = adatecreate;
         this.auserchange = auserchange;
         this.adatechange = adatechange;
+        this.usrRolNo = usrRolNo;
     }
 
     public Integer getUsrUserNo() {
@@ -173,7 +174,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.User[ usrUserNo=" + usrUserNo + " ]";
+        return "User{" + "usrUserNo=" + usrUserNo + ", usrUser=" + usrUser + ", userPassword=" + userPassword + ", ausercreate=" + ausercreate + ", adatecreate=" + adatecreate + ", auserchange=" + auserchange + ", adatechange=" + adatechange + ", usrRolNo=" + usrRolNo.getRolRol() + '}';
     }
-    
+
 }
