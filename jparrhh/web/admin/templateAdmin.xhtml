@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
@@ -13,7 +14,6 @@
         <!-- overlayScrollbars -->
         <link href="../res/css/adminlte.css" rel="stylesheet" type="text/css"/>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-
     </h:head>
     <h:body>
         <body class="hold-transition sidebar-mini">
@@ -46,14 +46,13 @@
                 <!-- Main Sidebar Container -->
                 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed;z-index: 1;">
                     <!-- Brand Logo -->
-
-                    <h:form>
-                        <!--<p:growl id="growl" life="2000" />-->
-                        <p:commandLink id="ajax" action="../index.xhtml" class="brand-link">
-                            <h:outputText value="RRHH Home" styleClass="brand-text font-weight-light" />
-                        </p:commandLink>
-                    </h:form>
-
+                    <a href="../../index3.html" class="brand-link">
+                        <!--                        <img src="../../dist/img/AdminLTELogo.png"
+                                                     alt="AdminLTE Logo"
+                                                     class="brand-image img-circle elevation-3"
+                                                     style="opacity: .8"/>-->
+                        <span class="brand-text font-weight-light">AdminLTE 3</span>
+                    </a>
 
                     <!-- Sidebar -->
                     <div class="sidebar">
@@ -77,14 +76,26 @@
 
                                     <p:panelMenu style="width:100%;">
                                         <p:submenu  label="Gestiones">
-                                            <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-home" />
-                                            <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-home" />
-                                            <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-home" />
-                                            <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-home" />
+                                           <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-home" />
+                                           <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-home" />
+                                           <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-home" />
+                                           <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-home" />
                                         </p:submenu>
-
+                                        <p:submenu label="Non-Ajax Menuitem">
+                                            <p:menuitem style="color:white" value="Delete" action="#{menuView.delete}"  ajax="false" icon="pi pi-times"/>
+                                        </p:submenu>
                                         <p:separator />
-
+                                        <p:submenu label="Navigations" >
+                                            <p:submenu label="Links" icon="pi pi-home">
+                                                <p:submenu label="PrimeFaces" icon="pi pi-briefcase">
+                                                    <p:menuitem style="color:white" value="Home" url="pruebas.rh" icon="pi pi-home" />
+                                                    <p:menuitem style="color:white" value="Docs" url="http://www.primefaces.org/documentation" icon="pi pi-file" />
+                                                    <p:menuitem style="color:white" value="Download" url="http://www.primefaces.org/downloads" icon="pi pi-arrow-down" />
+                                                    <p:menuitem style="color:white" value="Support" url="http://www.primefaces.org/support" icon="pi pi-briefcase" />
+                                                </p:submenu>
+                                            </p:submenu>
+                                            <p:menuitem style="color:white" value="Mobile" icon="pi pi-mobile" />
+                                        </p:submenu>
                                     </p:panelMenu>
                                 </h:form>
                             </ui:insert>
@@ -117,6 +128,7 @@
                     <section class="content">
 
                         <!-- Default box -->
+
                         <ui:insert name="content">
 
                         </ui:insert>
@@ -132,13 +144,16 @@
                 </footer>
             </div>
             <!-- ./wrapper -->
-            <!--<script src="../../plugins/jquery/jquery.min.js"></script>-->
+            <!--<script src="../res/js/jquery.js" type="text/javascript"></script>-->
+
+            <!--<script src="../res/js/jquery.min.js" type="text/javascript"></script>-->
             <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
             <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
-            
+            <!-- Bootstrap 4 -->
+            <script src="../res/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+            <!-- AdminLTE App -->
             <script src="../res/js/adminlte.min.js" type="text/javascript"></script>
             <!-- AdminLTE for demo purposes -->
-            <!--<script src="../../dist/js/demo.js"></script>-->
             <script src="../res/js/demo.js" type="text/javascript"></script>
         </body>
     </h:body>

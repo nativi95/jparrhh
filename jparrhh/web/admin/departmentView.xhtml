@@ -9,9 +9,9 @@
     <ui:define name="content">
         <h:form id="form">  
             <p:commandButton value="Nuevo Departamento" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
-            <br />
+           
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:dataTable id="basicDT" var="car" value="#{dtSelectionView.cars1}">
+            <p:dataTable id="basicDT" var="car" style="margin-top: 5%" value="#{dtSelectionView.cars1}">
                 <f:facet name="header">
                     Basic
                 </f:facet>
