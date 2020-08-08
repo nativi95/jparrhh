@@ -103,15 +103,15 @@
                             <h:form>
                                 <div class="form-group">
                                     <h:outputText value="Usuario"/>
-                                    <p:inputText  styleClass="form-control" a:placeholder="Usuario" ></p:inputText>
+                                    <p:inputText value="#{sessionManagement.entity.usrUser}"  styleClass="form-control" a:placeholder="Usuario" ></p:inputText>
                                 </div>
                                 <div class="form-group">
                                     <h:outputText value="Contraseña"/>
-                                    <p:inputText type="password"  id="password"  styleClass="form-control" a:placeholder="Contraseña"/>
+                                    <p:inputText type="password" value="#{sessionManagement.entity.userPassword}" id="password"  styleClass="form-control" a:placeholder="Contraseña"/>
                                 </div>
 
                                 <div class="col-md-12 text-center ">
-                                    <p:commandButton  styleClass=" btn btn-block mybtn btn-primary tx-tfm" value="Iniciar sesión"></p:commandButton>
+                                    <p:commandButton action="#{sessionManagement.logIn()}" styleClass="btn btn-block mybtn btn-primary tx-tfm" value="Iniciar sesión"></p:commandButton>
                                 </div>
                             </h:form>
 

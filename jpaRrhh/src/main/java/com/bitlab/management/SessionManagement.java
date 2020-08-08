@@ -5,6 +5,7 @@
  */
 package com.bitlab.management;
 
+import com.bitlab.Utils.Sha;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.UserDao;
 import com.bitlab.entities.User;
@@ -28,13 +29,22 @@ public class SessionManagement extends AbstractManagement<User> {
     private ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();//Permitira realizar la redirecion y la sesion
     private String route = null;//sera la ruta a donde enciara
 
+    
+    
     public SessionManagement() {
         super(User.class);
         this.userDao = new UserDao();
+        try {
+            newEntity();
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(SessionManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void LogIn() {
+    public void logIn() {
         userDao = new UserDao();
+        getEntity().setUserPassword(Sha.encrypt(getEntity().getUserPassword()));
+        System.out.println("+++++++++++++++++++++"+getEntity());
         setEntity(userDao.login(getEntity()));//se llena entity con la busqueda del login
 
         if (getEntity() != null) {
@@ -45,13 +55,9 @@ public class SessionManagement extends AbstractManagement<User> {
             } else {
                 redirect("admin/index");
             }
-            try {
-                externalContext.redirect(route);//envia al xhtml segun ruta
+         
                 message("Sesión iniciada", "Bienvenido " + getEntity().getUsrUser(), "INFO");
-            } catch (IOException ex) {
-                Logger.getLogger(SessionManagement.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+           
         } else {
             message("No se pudo iniciar sesión", "Algunos de los datos no esta correcto", "WARN");
         }
