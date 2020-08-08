@@ -32,6 +32,7 @@ public abstract class AbstractManagement<T> {
 
     public AbstractManagement(Class<T> entityClass) {
         this.entityClass = entityClass;
+        
     }
     
     public void newEntity() throws NoSuchMethodException{
@@ -45,6 +46,11 @@ public abstract class AbstractManagement<T> {
     @PostConstruct
     public void init() {
         entities = getController().findAll();
+        try {
+            newEntity();
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @PreDestroy

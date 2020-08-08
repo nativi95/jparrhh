@@ -26,11 +26,7 @@ import javax.faces.context.FacesContext;
 public class SessionManagement extends AbstractManagement<User> {
 
     private UserDao userDao;
-    private ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();//Permitira realizar la redirecion y la sesion
-    private String route = null;//sera la ruta a donde enciara
 
-    
-    
     public SessionManagement() {
         super(User.class);
         this.userDao = new UserDao();
@@ -43,31 +39,38 @@ public class SessionManagement extends AbstractManagement<User> {
 
     public void logIn() {
         userDao = new UserDao();
-        getEntity().setUserPassword(Sha.encrypt(getEntity().getUserPassword()));
-        System.out.println("+++++++++++++++++++++"+getEntity());
-        setEntity(userDao.login(getEntity()));//se llena entity con la busqueda del login
+        System.out.println("primero+++++++++++++++" + entity);
+        entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
+        System.out.println("+++++++++++++++" + entity);
+        entity = userDao.login(entity);//se llena entity con la busqueda del login
+        System.out.println("+++++++++++++++ despues del dao" + entity);
+        if (entity != null) {
 
-        if (getEntity() != null) {
-            externalContext.getSessionMap().put("User", getEntity());// se crea sesion con objeto de tipo user y clave User
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", entity);// se crea sesion con objeto de tipo user y clave User
 
-            if (getEntity().getUsrRolNo().getRolRolNo() == 1) {
+            if (entity.getUsrRolNo().getRolRolNo() == 1) {
                 redirect("rrhh/index");
             } else {
+
                 redirect("admin/index");
+
             }
-         
-                message("Sesión iniciada", "Bienvenido " + getEntity().getUsrUser(), "INFO");
-           
+
+            message("Sesión iniciada", "Bienvenido " + entity.getUsrUser(), "INFO");
+
         } else {
             message("No se pudo iniciar sesión", "Algunos de los datos no esta correcto", "WARN");
+
+            entity = new User();
+
         }
 
     }
 
     public void checkSession(int rol) {
         userDao = new UserDao();
-        String route = null;
-        setEntity((User) externalContext.getSessionMap().get("User"));//se obtiene la sesion actual
+
+        setEntity((User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User"));//se obtiene la sesion actual
         if (getEntity() != null) {
             if (getEntity().getUsrRolNo().getRolRolNo() == rol) {
 

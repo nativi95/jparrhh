@@ -86,7 +86,7 @@
         <title>rrhh</title>
     </h:head>
     <h:body>
-
+        <p:growl id="msj" showDetail="true" sticky="true"/>
         <div class="container">
             <br/>
             <br/>
@@ -111,7 +111,7 @@
                                 </div>
 
                                 <div class="col-md-12 text-center ">
-                                    <p:commandButton action="#{sessionManagement.logIn()}" styleClass="btn btn-block mybtn btn-primary tx-tfm" value="Iniciar sesión"></p:commandButton>
+                                    <p:commandButton update=":msj" action="#{sessionManagement.logIn()}" styleClass="btn btn-block mybtn btn-primary tx-tfm" value="Iniciar sesión"></p:commandButton>
                                 </div>
                             </h:form>
 
@@ -121,13 +121,6 @@
                 </div>
             </div>
         </div> 
-        
-        <div>
-            <h:form>
-                
-                <p:commandButton action="#{userManagement.findEntity(1)}"/>
-            </h:form>
-        </div>
 
         <script>
             $("#signup").click(function () {

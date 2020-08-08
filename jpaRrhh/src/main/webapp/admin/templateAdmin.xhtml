@@ -16,7 +16,8 @@
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:head>
     <h:body>
-        <f:event type="preRenderView" listener="#{sessionManagement.checkSession(2)}"/>
+        
+        <p:growl id="msj" showDetail="true" sticky="true" /> 
         <body class="hold-transition sidebar-mini">
             <!-- Site wrapper -->
             <div class="wrapper">
@@ -37,7 +38,7 @@
                         </ul>
 
                         <!--Right navbar links--> 
-
+                        <p:commandButton value="Salir" action="#{sessionManagement.logOut()}"/>
 
                     </ui:insert>
 
@@ -63,7 +64,7 @@
                                 <!--<img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/>-->
                             </div>
                             <div class="info">
-                                <a href="#" class="d-block">Alexander Pierce</a>
+                                <h:outputLabel value="#{sessionManagement.entity.usrUser}"></h:outputLabel>
                             </div>
                         </div>
 
