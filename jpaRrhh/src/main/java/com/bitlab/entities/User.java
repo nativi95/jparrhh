@@ -185,7 +185,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.User[ usrUserNo=" + usrUserNo + " ]";
+        return "User{" + "usrUserNo=" + usrUserNo + ", usrUser=" + usrUser + ", userPassword=" + userPassword + ", ausercreate=" + ausercreate + ", adatecreate=" + adatecreate + ", auserchange=" + auserchange + ", adatechange=" + adatechange + ", usrRolNo=" + usrRolNo + '}';
     }
+
+  
     
 }

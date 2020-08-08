@@ -7,6 +7,7 @@ package com.bitlab.management;
 
 import com.bitlab.dao.AbstractDao;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +26,20 @@ public abstract class AbstractManagement<T> {
     private final String ERROR = "error";
     private final String INFO = "info";
 
-    private T entity;
-    private List<T> entities;
+    protected T entity;
+    protected List<T> entities;
     private Class<T> entityClass;
 
     public AbstractManagement(Class<T> entityClass) {
         this.entityClass = entityClass;
+    }
+    
+    public void newEntity() throws NoSuchMethodException{
+        try {
+            entity= entityClass.getConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @PostConstruct
@@ -127,7 +136,7 @@ public abstract class AbstractManagement<T> {
 
     public void redirect(String page) {//permite redireccionar a la pagina extablecida
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("jparrhh/" + page + ".rh");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/jpaRrhh/" + page + ".rh");
         } catch (IOException ex) {
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
         }

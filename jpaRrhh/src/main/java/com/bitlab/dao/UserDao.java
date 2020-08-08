@@ -36,42 +36,13 @@ public class UserDao extends AbstractDao<User> {
 //         logger.debug("Se obtiene Entity Manager");
         EntityManager em = getEntityManager();
 //        logger.debug("Se Crea la Consulta");
-        String sql = "SELECT u.usrUserNo, u.usrUser, u.ausercreate, u.adatecreate, u.auserchange, u.adatechange, r.rolRolNo, r.rolRol FROM User AS u JOIN u.usrRolNo r WHERE u.usrUser=?1 AND u.userPassword=?2";
+        String sql = "SELECT u FROM User AS u JOIN u.usrRolNo r WHERE u.usrUser=?1 AND u.userPassword=?2";
         Query q = null;
         try {
-//             logger.debug("Se crea Query  de tipo User");
-            q = em.createQuery(sql, User.class);
-//            logger.debug("Se setea el primer valor");
-            q.setParameter(1, input.getUsrUser());
-//            logger.debug("Se setea el segundo valor");
-            q.setParameter(2, input.getUserPassword());
-            List<Object[]> list = q.getResultList();
-//            logger.debug("Se obtuvieron datos en una lista");
-            User u = null;
-            Rol r;
-            
-            for (Object[] obj : list) {
-//                logger.debug("Recorriendo la Lista");
-                u = new User((Integer) obj[0]);
-//                logger.debug("Creando Nuevo Usuario");
-                u.setUsrUser((String) obj[1]);
-//                logger.debug("Setea Nombre de Usuario");
-                u.setAusercreate((String) obj[2]);
-//                logger.debug("Setea Usuario Creador");
-                u.setAdatecreate((Date) obj[3]);
-                //logger.debug("Setea Fecha de Creacion");
-                u.setAuserchange((String) obj[4]);
-                //logger.debug("Setea Usuario que ha cambia datos");
-                u.setAdatechange((Date) obj[5]);
-                //logger.debug("Setea Fecha de Cambio de datos");
-                r = new Rol((Integer) obj[6]);
-                //logger.debug("Creando Rol de Usuario");
-                r.setRolRol((String) obj[7]);
-                //logger.debug("Setea Rol de Usuario");
-                u.setUsrRolNo(r);
-               
-            }
-            return u;
+q=em.createQuery(sql, User.class);
+q.setParameter(1, input.getUsrUser());
+q.setParameter(1, input.getUserPassword());
+            return (User)q.getSingleResult();
         } catch (Exception e) {
             return null;
         } finally {
