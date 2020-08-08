@@ -21,6 +21,7 @@ import javax.persistence.Query;
  */
 public class UserDao extends AbstractDao<User> {
 //private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+
     public UserDao() {
         super(User.class);
 //        logger.debug("Se inicia metodo constructor");
@@ -36,15 +37,20 @@ public class UserDao extends AbstractDao<User> {
 //         logger.debug("Se obtiene Entity Manager");
         EntityManager em = getEntityManager();
 //        logger.debug("Se Crea la Consulta");
-        String sql = "SELECT u FROM User AS u JOIN u.usrRolNo r WHERE u.usrUser=?1 AND u.userPassword=?2";
+        String sql = "SELECT u FROM User u WHERE u.usrUser=?1 AND u.userPassword=?2";
         Query q = null;
         try {
-q=em.createQuery(sql, User.class);
-q.setParameter(1, input.getUsrUser());
-q.setParameter(1, input.getUserPassword());
-            return (User)q.getSingleResult();
+            
+            q = em.createQuery(sql, User.class);
+            q.setParameter(1, input.getUsrUser());
+            q.setParameter(2, input.getUserPassword());
+            
+            input=(User) q.getResultList().get(0);
+            
+            return input;
         } catch (Exception e) {
-            return null;
+            throw e;
+            
         } finally {
             if (em.isOpen()) {
                 //logger.debug("Cerrando Conexion");
