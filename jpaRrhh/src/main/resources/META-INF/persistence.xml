@@ -3,6 +3,7 @@
   <persistence-unit name="jparrhhPU" transaction-type="RESOURCE_LOCAL">
     <non-jta-data-source>jdbc/employees</non-jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+    </properties>
   </persistence-unit>
 </persistence>
