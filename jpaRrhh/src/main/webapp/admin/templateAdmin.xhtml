@@ -76,26 +76,14 @@
 
                                     <p:panelMenu style="width:100%;">
                                         <p:submenu  label="Gestiones">
-                                           <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-home" />
-                                           <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-home" />
-                                           <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-home" />
-                                           <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-home" />
+                                           <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-briefcase" />
+                                           <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-users" />
+                                           <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-user" />
+                                           <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-th-large" />
                                         </p:submenu>
-                                        <p:submenu label="Non-Ajax Menuitem">
-                                            <p:menuitem style="color:white" value="Delete" action="#{menuView.delete}"  ajax="false" icon="pi pi-times"/>
-                                        </p:submenu>
+                                        
                                         <p:separator />
-                                        <p:submenu label="Navigations" >
-                                            <p:submenu label="Links" icon="pi pi-home">
-                                                <p:submenu label="PrimeFaces" icon="pi pi-briefcase">
-                                                    <p:menuitem style="color:white" value="Home" url="pruebas.rh" icon="pi pi-home" />
-                                                    <p:menuitem style="color:white" value="Docs" url="http://www.primefaces.org/documentation" icon="pi pi-file" />
-                                                    <p:menuitem style="color:white" value="Download" url="http://www.primefaces.org/downloads" icon="pi pi-arrow-down" />
-                                                    <p:menuitem style="color:white" value="Support" url="http://www.primefaces.org/support" icon="pi pi-briefcase" />
-                                                </p:submenu>
-                                            </p:submenu>
-                                            <p:menuitem style="color:white" value="Mobile" icon="pi pi-mobile" />
-                                        </p:submenu>
+                                        
                                     </p:panelMenu>
                                 </h:form>
                             </ui:insert>
