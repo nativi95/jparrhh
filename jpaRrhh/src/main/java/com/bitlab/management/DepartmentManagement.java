@@ -8,7 +8,10 @@ package com.bitlab.management;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.DepartmentDao;
 import com.bitlab.entities.Department;
+import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -18,7 +21,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class DepartmentManagement extends AbstractManagement<Department> {
+public class DepartmentManagement extends AbstractManagement<Department> implements Serializable{
 
     private DepartmentDao deparmentDao;
 
@@ -50,6 +53,21 @@ public class DepartmentManagement extends AbstractManagement<Department> {
     @Override
     public void setEntities(List<Department> entities) {
         this.entities = entities;
+    }
+
+   
+    public void update() {
+        try {
+            System.out.println("La entidad es " + entity);
+            getController().create(entity);
+            System.out.println("despues de actualizar " + entity);
+            message("Transacción exitosa", "Se actualizó el elemento seleccionado", "info");
+
+        } catch (Exception ex) {
+            message("No se completó la transacción", "No fue actualizado por " + ex.getMessage(), "error");
+            System.out.println("++++++++++++++error " + entity);
+            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
