@@ -27,7 +27,7 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
     }
 
     @Override
-    public AbstractDao<Employee> getController() {
+    public EmployeeDao getController() {
         return employeeDao;
     }
 
