@@ -32,14 +32,9 @@
                         </p:growl>
 
                         <p:panelMenu style="width:100%;">
-                            <p:submenu  label="Ajax Menuitems">
-                                <p:menuitem style="color:white" value="Save" action="#{menuView.save}" icon="pi pi-save" />
-                                <p:menuitem style="color:white" value="Update" action="#{menuView.update}"  icon="pi pi-refresh" />
-                            </p:submenu>
-                            <p:submenu label="Non-Ajax Menuitem">
-                                <p:menuitem style="color:white" value="Delete" action="#{menuView.delete}"  ajax="false" icon="pi pi-times"/>
-                            </p:submenu>
-                            <p:separator />
+                            
+                            
+                            
                             <p:submenu label="Navigations" >
                                 <p:submenu label="Links" icon="pi pi-home">
                                     <p:submenu label="PrimeFaces" icon="pi pi-briefcase">
@@ -51,6 +46,7 @@
                                 </p:submenu>
                                 <p:menuitem style="color:white" value="Mobile" icon="pi pi-mobile" />
                             </p:submenu>
+                            <p:separator />
                         </p:panelMenu>
                     </h:form>
                 </ui:insert>

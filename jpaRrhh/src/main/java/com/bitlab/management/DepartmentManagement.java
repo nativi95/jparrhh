@@ -27,8 +27,8 @@ public class DepartmentManagement extends AbstractManagement<Department> {
     }
 
     @Override
-    public AbstractDao<Department> getController() {
+    public DepartmentDao getController() {
         return deparmentDao;
     }
-
+    
 }
