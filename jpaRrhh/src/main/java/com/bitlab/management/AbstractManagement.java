@@ -6,6 +6,7 @@
 package com.bitlab.management;
 
 import com.bitlab.dao.AbstractDao;
+import com.bitlab.entities.Position;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -32,12 +33,12 @@ public abstract class AbstractManagement<T> {
 
     public AbstractManagement(Class<T> entityClass) {
         this.entityClass = entityClass;
-        
+
     }
-    
-    public void newEntity() throws NoSuchMethodException{
+
+    public void newEntity() throws NoSuchMethodException {
         try {
-            entity= entityClass.getConstructor().newInstance();
+            entity = entityClass.getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,21 +62,13 @@ public abstract class AbstractManagement<T> {
 
     public abstract AbstractDao<T> getController();
 
-    public T getEntity() {
-        return entity;
-    }
+    public abstract T getEntity();
 
-    public void setEntity(T entity) {
-        this.entity = entity;
-    }
+    public abstract void setEntity(T entity);
 
-    public List<T> getEntities() {
-        return entities;
-    }
+    public abstract List<T> getEntities();
 
-    public void setEntities(List<T> entities) {
-        this.entities = entities;
-    }
+    public abstract void setEntities(List<T> entities);
 
     public void createEntity() {
         try {
@@ -147,4 +140,6 @@ public abstract class AbstractManagement<T> {
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
 }
