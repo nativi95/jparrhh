@@ -88,8 +88,17 @@
                         <h:outputText value="Puesto" />
                         <p:selectOneMenu value="#{employeeManagement.entity.empPositionNo}">
                             <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems value="#{positionManagement.entities}" var="pos">
-                                <f:selectItem itemLabel="#{pos.posPosition}" itemValue="#{pos.posPosition}"/>
+                            <f:selectItems itemLabel="#{pos.posPosition}" var="pos" value="#{employeeManagement.positions}">
+
+                            </f:selectItems>
+
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Departamento" />
+                        <p:selectOneMenu value="#{employeeManagement.entity.empDeptNo}">
+                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
+                            <f:selectItems itemLabel="#{dep.posPosition}" var="dept" value="#{employeeManagement.departments}">
+
                             </f:selectItems>
 
                         </p:selectOneMenu>

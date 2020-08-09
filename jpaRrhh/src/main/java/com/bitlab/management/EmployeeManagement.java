@@ -5,9 +5,12 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
+import com.bitlab.dao.DepartmentDao;
 import com.bitlab.dao.EmployeeDao;
+import com.bitlab.dao.PositionDao;
+import com.bitlab.entities.Department;
 import com.bitlab.entities.Employee;
+import com.bitlab.entities.Position;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,9 +25,16 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
 
     private EmployeeDao employeeDao;
 
+    
+    private DepartmentDao departmentDao;
+
+    private PositionDao positionDao;
+    
     public EmployeeManagement() {
         super(Employee.class);
         employeeDao = new EmployeeDao();
+        departmentDao = new DepartmentDao();
+        positionDao = new PositionDao();
     }
 
     @Override
@@ -52,5 +62,22 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
     public void setEntities(List<Employee> entities) {
         this.entities = entities;
     }
+    
+    @Override
+    public void createEntity(){
+        
+    super.createEntity();
+    }
+
+    public List<Position> getPositions() {
+        return positionDao.findAll();
+    }
+
+    public List<Position> getDepartments() {
+        return positionDao.findAll();
+    }
+  
+    
+    
 
 }

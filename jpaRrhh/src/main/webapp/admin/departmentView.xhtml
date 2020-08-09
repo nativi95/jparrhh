@@ -74,23 +74,24 @@
                         <h:outputText value="Usuario actualización" />
                         <p:inputText value="#{departmentManagement.entity.auserchange}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{departmentManagement.createEntity()}"
+                    <p:commandButton action="#{departmentManagement.createEntity()}"
                                      value="Crear" 
-                                     update=":form"
+                                     rendered="#{departmentManagement.entity.depDeptNo==null}"
                                      oncomplete="PF('deptDialog').hide()"
-                                     rendered="#{departmentManagement.entity.depDeptNo==null}" />
+                                     update=":form:table :formMsj:msj"
+                                     process="@this"/>
                     <p:commandButton actionListener="#{departmentManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{departmentManagement.entity.depDeptNo!=null}" 
                                      oncomplete="PF('deptDialog').hide()"
-                                     update=":form"/>
-                    <p:commandButton actionListener="#{departmentManagement.deteleEntity()}" 
+                                     update=":form:table :formMsj:msj"/>
+                    <p:commandButton action="#{departmentManagement.deteleEntity()}" 
                                      value="Eliminar" 
-                                     style="border: none;"
-                                     styleClass="bg-danger"
-                                     rendered="#{departmentManagement.entity.depDeptNo!=null}" 
+                                     rendered="#{departmentManagement.entity.depDeptNo!=null}"
                                      oncomplete="PF('deptDialog').hide()"
-                                     update=":form"/>
+                                     update=":form:table :formMsj:msj"
+                                     style="border: none;"
+                                     styleClass="bg-danger"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>
