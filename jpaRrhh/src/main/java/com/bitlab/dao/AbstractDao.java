@@ -16,12 +16,23 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 public abstract class AbstractDao<T> {
 
+    /**
+     * Constante para definir la transaccion create
+     */
     private final String CREATE = "create";
+    /**
+     * Constante para definir la transaccion remove
+     */
 
     private final String REMOVE = "remove";
-
+    /**
+     * Constante para definir la transaccion update
+     */
     private final String UPDATE = "update";
 
+    /**
+     * objeto que establece la clase de la entidad
+     */
     private Class<T> entityClass;
 
     public AbstractDao(Class<T> entityClass) {
@@ -85,8 +96,7 @@ public abstract class AbstractDao<T> {
     }
 
     /**
-     * Metodo FindAll() Metodo devuelve en una los resultados obtenidos de la
-     * consulta
+     * Metodo FindAll() Metodo devuelve en una lista de la entidad
      *
      * @return List<T>
      */
@@ -103,6 +113,15 @@ public abstract class AbstractDao<T> {
         }
     }
 
+    /**
+     *
+     * Metodo que ejecuta la transaccion deseada, recibiendo la entidad y el
+     * nombre de la transaccion en un string
+     *
+     * @param method
+     * @param entity
+     * @throws Exception
+     */
     public void transaction(String method, T entity) throws Exception {
         EntityManager em = getEntityManager();
         try {
