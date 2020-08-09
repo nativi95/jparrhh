@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "emp_bil_bill", catalog = "employees", schema = "")
 @XmlRootElement
+//---------------------------------Named Queries---------------------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Bill.findAll", query = "SELECT b FROM Bill b"),
     @NamedQuery(name = "Bill.findByBillBillNo", query = "SELECT b FROM Bill b WHERE b.billBillNo = :billBillNo"),
@@ -40,6 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Bill.findByAdatecreate", query = "SELECT b FROM Bill b WHERE b.adatecreate = :adatecreate"),
     @NamedQuery(name = "Bill.findByAuserchange", query = "SELECT b FROM Bill b WHERE b.auserchange = :auserchange"),
     @NamedQuery(name = "Bill.findByAdatechange", query = "SELECT b FROM Bill b WHERE b.adatechange = :adatechange")})
+
 public class Bill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,13 +83,35 @@ public class Bill implements Serializable {
     @ManyToOne(optional = false)
     private Payroll bilPayrollNo;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public Bill() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Bill(Integer billBillNo) {
         this.billBillNo = billBillNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de Employee
+     *
+     * @param Integer billBillNo numero correlativo
+     * @param float bilValue valor de pago 
+     * @param String bilDescription Descripcion del valor
+    
+     * @param String UserCreate usuario de auditoria crear
+     * @param Date dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param Date dateChange fecha de actualizacion
+     *
+     */
     public Bill(Integer billBillNo, float bilValue, String bilDescription, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.billBillNo = billBillNo;
         this.bilValue = bilValue;
@@ -97,6 +121,7 @@ public class Bill implements Serializable {
         this.auserchange = auserchange;
         this.adatechange = adatechange;
     }
+    //---------------------------------------Getters y Setters -----------------------------------------------------
 
     public Integer getBillBillNo() {
         return billBillNo;
@@ -162,6 +187,11 @@ public class Bill implements Serializable {
         this.bilPayrollNo = bilPayrollNo;
     }
 
+    /**
+     * Metodo Hashcode
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -169,6 +199,11 @@ public class Bill implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -181,10 +216,11 @@ public class Bill implements Serializable {
         }
         return true;
     }
+//---------------------------------------------ToString-----------------------------------------------------
 
     @Override
     public String toString() {
         return "com.bitlab.entities.Bill[ billBillNo=" + billBillNo + " ]";
     }
-    
+
 }

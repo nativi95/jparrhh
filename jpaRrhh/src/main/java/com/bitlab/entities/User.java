@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "emp_usr_user", catalog = "employees", schema = "")
 @XmlRootElement
+//---------------------------------Named Queries------------------------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUsrUserNo", query = "SELECT u FROM User u WHERE u.usrUserNo = :usrUserNo"),
@@ -82,13 +83,35 @@ public class User implements Serializable {
     @ManyToOne(optional = false)
     private Rol usrRolNo;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public User() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public User(Integer usrUserNo) {
         this.usrUserNo = usrUserNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de User
+     *
+     * @param Integer usrUserNo Numero de Usuario
+     * @param String usrUser Tipo de Usuario
+     * @param String userPassword Contraseña del Usuario
+     *
+     * @param String UserCreate usuario de auditoria crear
+     * @param Date dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param Date dateChange fecha de actualizacion
+     *
+     */
     public User(Integer usrUserNo, String usrUser, String userPassword, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.usrUserNo = usrUserNo;
         this.usrUser = usrUser;
@@ -99,6 +122,7 @@ public class User implements Serializable {
         this.adatechange = adatechange;
     }
 
+    //---------------------------------------Getters y Setters -----------------------------------------------------
     public Integer getUsrUserNo() {
         return usrUserNo;
     }
@@ -163,6 +187,11 @@ public class User implements Serializable {
         this.usrRolNo = usrRolNo;
     }
 
+    /**
+     * Metodo Hashcode
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -170,6 +199,11 @@ public class User implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -182,12 +216,11 @@ public class User implements Serializable {
         }
         return true;
     }
+//---------------------------------------------ToString-----------------------------------------------------
 
     @Override
     public String toString() {
         return "User{" + "usrUserNo=" + usrUserNo + ", usrUser=" + usrUser + ", userPassword=" + userPassword + ", ausercreate=" + ausercreate + ", adatecreate=" + adatecreate + ", auserchange=" + auserchange + ", adatechange=" + adatechange + ", usrRolNo=" + usrRolNo + '}';
     }
 
-  
-    
 }

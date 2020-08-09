@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "emp_emp_employee", catalog = "employees", schema = "")
 @XmlRootElement
+//---------------------------------Named Queries------------------------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.findByEmpEmpNo", query = "SELECT e FROM Employee e WHERE e.empEmpNo = :empEmpNo"),
@@ -114,13 +115,39 @@ public class Employee implements Serializable {
     @ManyToOne(optional = false)
     private Department empDeptNo;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public Employee() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Employee(Integer empEmpNo) {
         this.empEmpNo = empEmpNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de Employee
+     *
+     * @param Integer empEmpNo Numero de Empleado
+     * @param Date empBirthDate Fecha de Nacimiento del Empleado
+     * @param String empFirstName Primer Nombre del Empleado
+     * @param String empLastName Segundo Nombre del Empleado
+     * @param Character empGender Genero del Empleado
+     * @param Date empHireDate Fecha de Contratacion del Empleado
+     * @param String empEmail Email del Empleado
+     *
+     * @param String UserCreate usuario de auditoria crear
+     * @param Date dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param Date dateChange fecha de actualizacion
+     *
+     */
     public Employee(Integer empEmpNo, Date empBirthDate, String empFirstName, String empLastName, Character empGender, Date empHireDate, String empEmail, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.empEmpNo = empEmpNo;
         this.empBirthDate = empBirthDate;
@@ -135,6 +162,7 @@ public class Employee implements Serializable {
         this.adatechange = adatechange;
     }
 
+    //---------------------------------------Getters y Setters -----------------------------------------------------
     public Integer getEmpEmpNo() {
         return empEmpNo;
     }
@@ -248,6 +276,11 @@ public class Employee implements Serializable {
         this.empDeptNo = empDeptNo;
     }
 
+    /**
+     * Metodo Hashcode
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -255,6 +288,11 @@ public class Employee implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -267,10 +305,11 @@ public class Employee implements Serializable {
         }
         return true;
     }
+//---------------------------------------------ToString-----------------------------------------------------
 
     @Override
     public String toString() {
         return "com.bitlab.entities.Employee[ empEmpNo=" + empEmpNo + " ]";
     }
-    
+
 }

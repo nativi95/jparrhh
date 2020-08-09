@@ -14,35 +14,61 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author juana
  */
-public abstract class AbstractDao<T>{
- 
+public abstract class AbstractDao<T> {
+
     private final String CREATE = "create";
-  
+
     private final String REMOVE = "remove";
-   
+
     private final String UPDATE = "update";
 
     private Class<T> entityClass;
 
-  
     public AbstractDao(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
-  
+    /**
+     * metodo para agregar un campo
+     *
+     * @param entity de la base de datos
+     * @throws Exception
+     *
+     */
     public void create(T entity) throws Exception {
         transaction(CREATE, entity);
     }
 
-   
+    /**
+     * metodo para eliminar un campo
+     *
+     * @param id llave identificadora del campo
+     * @throws Exception
+     *
+     */
     public void delete(T entity) throws Exception {
         transaction(REMOVE, entity);
     }
 
+    /**
+     * metodo para ejecutar UPDATE y actualiza un campo
+     *
+     * @param entity llave identificadora del campo y las actualizaciones del
+     * registro
+     * @throws Exception
+     *
+     */
     public void update(T entity) throws Exception {
         transaction(UPDATE, entity);
     }
 
+    /**
+     * metodo para realizar busqueda condicionado por ID
+     *
+     * @param id llave identificadora del campo
+     * @throws Exception
+     *
+     */
     public T find(Object id) throws Exception {
         EntityManager em = getEntityManager();
         try {
@@ -58,7 +84,12 @@ public abstract class AbstractDao<T>{
 
     }
 
-   
+    /**
+     * Metodo FindAll() Metodo devuelve en una los resultados obtenidos de la
+     * consulta
+     *
+     * @return List<T>
+     */
     public List<T> findAll() {
         EntityManager em = getEntityManager();
         try {
@@ -72,7 +103,6 @@ public abstract class AbstractDao<T>{
         }
     }
 
-   
     public void transaction(String method, T entity) throws Exception {
         EntityManager em = getEntityManager();
         try {
@@ -99,7 +129,7 @@ public abstract class AbstractDao<T>{
             }
         }
     }
-    
+
     public abstract EntityManager getEntityManager();
 
 }
