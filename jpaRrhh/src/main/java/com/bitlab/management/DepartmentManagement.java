@@ -55,19 +55,4 @@ public class DepartmentManagement extends AbstractManagement<Department> impleme
         this.entities = entities;
     }
 
-   
-    public void update() {
-        try {
-            System.out.println("La entidad es " + entity);
-            getController().create(entity);
-            System.out.println("despues de actualizar " + entity);
-            message("Transacción exitosa", "Se actualizó el elemento seleccionado", "info");
-
-        } catch (Exception ex) {
-            message("No se completó la transacción", "No fue actualizado por " + ex.getMessage(), "error");
-            System.out.println("++++++++++++++error " + entity);
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
 }

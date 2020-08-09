@@ -13,7 +13,7 @@
             </p:commandButton>
         </h:form>
 
-        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        
         <h:form id="form"> 
             <p:dataTable id="table" scrollable="true" scrollWidth="95%" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
@@ -41,8 +41,9 @@
             </p:dataTable>
         </h:form>
         <h:form id="card"> 
-            <p:dialog closable="false" style="height: auto;" header="Información del departamento" widgetVar="deptDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog closable="false" style="height: auto;" widgetVar="deptDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <f:facet name="header">
+                    Información del departamento
                     <p:commandButton 
                         style="float: right; border: none;"
                         actionListener="#{departmentManagement.init()}" 
@@ -62,27 +63,27 @@
                         <p:inputText value="#{departmentManagement.entity.depDeptName}" />
 
                         <h:outputText value="Fecha creación" />
-                        <p:calendar value="#{departmentManagement.entity.adatecreate}" pattern="yyyy-MMM-dd"/>
+                        <p:calendar value="#{departmentManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
 
                         <h:outputText value="Usuario creación" />
                         <p:inputText value="#{departmentManagement.entity.ausercreate}" />
 
                         <h:outputText value="Fecha de actualización" />
-                        <p:calendar value="#{departmentManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
+                        <p:calendar value="#{departmentManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
 
                         <h:outputText value="Usuario actualización" />
                         <p:inputText value="#{departmentManagement.entity.auserchange}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentManagement.createEntity()}"
                                      value="Crear" 
-                                     update="form"
+                                     update=":form"
                                      oncomplete="PF('deptDialog').hide()"
                                      rendered="#{departmentManagement.entity.depDeptNo==null}" />
                     <p:commandButton actionListener="#{departmentManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{departmentManagement.entity.depDeptNo!=null}" 
                                      oncomplete="PF('deptDialog').hide()"
-                                     update="form"/>
+                                     update=":form"/>
                     <p:commandButton actionListener="#{departmentManagement.deteleEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
