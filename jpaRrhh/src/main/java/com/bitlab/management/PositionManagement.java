@@ -26,8 +26,12 @@ public class PositionManagement extends AbstractManagement<Position> {
         positionDao = new PositionDao();
     }
 
+//    @Override
+//    public AbstractDao<Position> getController() {
+//        return positionDao;
+//    }
     @Override
-    public AbstractDao<Position> getController() {
+    public PositionDao getController() {
         return positionDao;
     }
 
