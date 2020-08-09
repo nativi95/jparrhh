@@ -10,7 +10,6 @@
         <h:form id="form">  
 
             <p:commandButton value="Nuevo Departamento" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
-            <h:outputLabel value="#{departmentManagement.entities.get(0)}" />
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             
             <p:dataTable scrollable="true" scrollWidth="95%" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
