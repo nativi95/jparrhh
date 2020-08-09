@@ -36,13 +36,15 @@
                             <li class="nav-item d-none d-sm-inline-block">
                                 <a href="#" class="nav-link">Contact</a>
                             </li>
+                            <li class="nav-item d-none d-sm-inline-block">
+                                <h:form>
+                                    <b> <h:commandLink class="nav-link" value="Salir" action="#{sessionManagement.logOut()}"/></b>
+                                </h:form>
+                            </li>
                         </ul>
 
                         <!--Right navbar links--> 
-                        <h:form>
-                           <p:commandButton value="Salir" action="#{sessionManagement.logOut()}"/>
 
-                        </h:form>
 
                     </ui:insert>
 
@@ -82,14 +84,14 @@
 
                                     <p:panelMenu style="width:100%;">
                                         <p:submenu  label="Gestiones">
-                                           <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-briefcase" />
-                                           <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-users" />
-                                           <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-user" />
-                                           <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-th-large" />
+                                            <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-briefcase" />
+                                            <p:menuitem style="color:white" value="Empleados" url="employeeView.rh" icon="pi pi-users" />
+                                            <p:menuitem style="color:white" value="Usuarios" url="userView.rh" icon="pi pi-user" />
+                                            <p:menuitem style="color:white" value="Roles" url="rolView.rh" icon="pi pi-th-large" />
                                         </p:submenu>
-                                        
+
                                         <p:separator />
-                                        
+
                                     </p:panelMenu>
                                 </h:form>
                             </ui:insert>
