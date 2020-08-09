@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author nativi
+ * * @author nativi
  */
 @Entity
 @Table(name = "emp_dep_department", catalog = "employees", schema = "")
 @XmlRootElement
+//---------------------------------Named Queries------------------------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d"),
     @NamedQuery(name = "Department.findByDepDeptNo", query = "SELECT d FROM Department d WHERE d.depDeptNo = :depDeptNo"),
@@ -77,13 +77,36 @@ public class Department implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empDeptNo")
     private List<Employee> employeeList;
 
+    /**
+     * Constructor vacio
+     *
+     */
+    
     public Department() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Department(Integer depDeptNo) {
         this.depDeptNo = depDeptNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de Employee
+     *
+     * @param Integer depDeptNo Numero de Depto
+     * @param String depDeptName Nombre de Depto
+     *
+     *
+     * @param String UserCreate usuario de auditoria crear
+     * @param Date dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param Date dateChange fecha de actualizacion
+     *
+     */
     public Department(Integer depDeptNo, String depDeptName, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.depDeptNo = depDeptNo;
         this.depDeptName = depDeptName;
@@ -93,6 +116,7 @@ public class Department implements Serializable {
         this.adatechange = adatechange;
     }
 
+    //---------------------------------------Getters y Setters -----------------------------------------------------
     public Integer getDepDeptNo() {
         return depDeptNo;
     }
@@ -150,6 +174,11 @@ public class Department implements Serializable {
         this.employeeList = employeeList;
     }
 
+    /**
+     * Metodo Hashcode
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -157,6 +186,11 @@ public class Department implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -169,10 +203,11 @@ public class Department implements Serializable {
         }
         return true;
     }
+//---------------------------------------------ToString-----------------------------------------------------
 
     @Override
     public String toString() {
         return "com.bitlab.entities.Department[ depDeptNo=" + depDeptNo + " ]";
     }
-    
+
 }

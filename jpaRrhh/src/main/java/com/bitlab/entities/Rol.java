@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "emp_rol_rol", catalog = "employees", schema = "")
 @XmlRootElement
+//---------------------------------Named Queries------------------------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
     @NamedQuery(name = "Rol.findByRolRolNo", query = "SELECT r FROM Rol r WHERE r.rolRolNo = :rolRolNo"),
@@ -77,13 +78,34 @@ public class Rol implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrRolNo")
     private List<User> userList;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public Rol() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Rol(Integer rolRolNo) {
         this.rolRolNo = rolRolNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de Rol
+     *
+     * @param Integer rolRolNo Numero de Rol
+     * @param String rolRol Tipo de Rol
+     *
+     * @param String UserCreate usuario de auditoria crear
+     * @param Date dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param Date dateChange fecha de actualizacion
+     *
+     */
     public Rol(Integer rolRolNo, String rolRol, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.rolRolNo = rolRolNo;
         this.rolRol = rolRol;
@@ -93,6 +115,7 @@ public class Rol implements Serializable {
         this.adatechange = adatechange;
     }
 
+    //---------------------------------------Getters y Setters -----------------------------------------------------
     public Integer getRolRolNo() {
         return rolRolNo;
     }
@@ -150,6 +173,11 @@ public class Rol implements Serializable {
         this.userList = userList;
     }
 
+    /**
+     * Metodo Hashcode
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -157,6 +185,11 @@ public class Rol implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -169,10 +202,11 @@ public class Rol implements Serializable {
         }
         return true;
     }
+//---------------------------------------------ToString-----------------------------------------------------
 
     @Override
     public String toString() {
         return "com.bitlab.entities.Rol[ rolRolNo=" + rolRolNo + " ]";
     }
-    
+
 }

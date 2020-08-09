@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "emp_pos_position", catalog = "employees", schema = "")
 @XmlRootElement
+//---------------------------------Named Queries------------------------------------------------------------------------------
 @NamedQueries({
     @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
     @NamedQuery(name = "Position.findByPosPositionNo", query = "SELECT p FROM Position p WHERE p.posPositionNo = :posPositionNo"),
@@ -77,13 +78,34 @@ public class Position implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empPositionNo")
     private List<Employee> employeeList;
 
+    /**
+     * Constructor vacio
+     *
+     */
     public Position() {
     }
 
+    /**
+     * Constructor con id primario
+     *
+     * @param integer
+     */
     public Position(Integer posPositionNo) {
         this.posPositionNo = posPositionNo;
     }
 
+    /**
+     * Contructor recibe todos los campos de Position
+     *
+     * @param Integer posPositionNo Numero de Posicion
+     * @param String posPosition Tipo de Posicion
+     *
+     * @param String UserCreate usuario de auditoria crear
+     * @param Date dateCreate fecha de creacion
+     * @param String userChange usuario de auditoria actualizar
+     * @param Date dateChange fecha de actualizacion
+     *
+     */
     public Position(Integer posPositionNo, String posPosition, String ausercreate, Date adatecreate, String auserchange, Date adatechange) {
         this.posPositionNo = posPositionNo;
         this.posPosition = posPosition;
@@ -93,6 +115,7 @@ public class Position implements Serializable {
         this.adatechange = adatechange;
     }
 
+    //---------------------------------------Getters y Setters -----------------------------------------------------
     public Integer getPosPositionNo() {
         return posPositionNo;
     }
@@ -150,6 +173,11 @@ public class Position implements Serializable {
         this.employeeList = employeeList;
     }
 
+    /**
+     * Metodo Hashcode
+     *
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -157,6 +185,11 @@ public class Position implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo Equals
+     *
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -169,10 +202,11 @@ public class Position implements Serializable {
         }
         return true;
     }
+//---------------------------------------------ToString-----------------------------------------------------
 
     @Override
     public String toString() {
         return "com.bitlab.entities.Position[ posPositionNo=" + posPositionNo + " ]";
     }
-    
+
 }
