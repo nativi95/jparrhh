@@ -14,32 +14,32 @@
         </h:form>
 
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" scrollable="true" scrollWidth="95%" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
+                <f:facet name="header">
+                    Lista de departamentos
+                </f:facet>
+                <p:column style="width: 4%" headerText="No.Departamento">
+                    <h:outputText value="#{dept.depDeptNo}" />
+                </p:column>
+                <p:column style="width: 8%" headerText="Nombre">
+                    <h:outputText value="#{dept.depDeptName}" />
+                </p:column>
+                <p:column style="width: 8%" headerText="Ultima actualización">
+                    <h:outputText value="#{dept.adatechange}" />
+                </p:column>
+                <p:column style="width: 8%" headerText="Usuario">
+                    <h:outputText value="#{dept.auserchange}" />
+                </p:column>
+                <p:column style="width:4%;text-align: center">
 
-        <p:dataTable id="table" scrollable="true" scrollWidth="95%" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
-            <f:facet name="header">
-                Lista de departamentos
-            </f:facet>
-            <p:column style="width: 4%" headerText="No.Departamento">
-                <h:outputText value="#{dept.depDeptNo}" />
-            </p:column>
-            <p:column style="width: 8%" headerText="Nombre">
-                <h:outputText value="#{dept.depDeptName}" />
-            </p:column>
-            <p:column style="width: 8%" headerText="Ultima actualización">
-                <h:outputText value="#{dept.adatechange}" />
-            </p:column>
-            <p:column style="width: 8%" headerText="Usuario">
-                <h:outputText value="#{dept.auserchange}" />
-            </p:column>
-            <p:column style="width:4%;text-align: center">
-                <h:form id="form"> 
                     <p:commandButton update=":card" oncomplete="PF('deptDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{dept}" target="#{departmentManagement.entity}" />
                     </p:commandButton>
-                </h:form>
-            </p:column>
-        </p:dataTable>
 
+                </p:column>
+            </p:dataTable>
+        </h:form>
         <h:form id="card"> 
             <p:dialog closable="false" style="height: auto;" header="Información del departamento" widgetVar="deptDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <f:facet name="header">
@@ -47,8 +47,8 @@
                         style="float: right; border: none;"
                         actionListener="#{departmentManagement.init()}" 
                         styleClass="bg-danger" 
-                        icon="pi pi-times" 
-                        update=":dialog"
+                        icon="pi pi-times"
+                        process="@this"
                         oncomplete="PF('deptDialog').hide()"/>
                 </f:facet>
                 <p:outputPanel  style="text-align:center;">
@@ -75,21 +75,21 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentManagement.createEntity()}"
                                      value="Crear" 
-                                     update=":table"
+                                     update="form"
                                      oncomplete="PF('deptDialog').hide()"
                                      rendered="#{departmentManagement.entity.depDeptNo==null}" />
                     <p:commandButton actionListener="#{departmentManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{departmentManagement.entity.depDeptNo!=null}" 
                                      oncomplete="PF('deptDialog').hide()"
-                                     update=":table"/>
+                                     update="form"/>
                     <p:commandButton actionListener="#{departmentManagement.deteleEntity()}" 
                                      value="Eliminar" 
+                                     style="border: none;"
                                      styleClass="bg-danger"
                                      rendered="#{departmentManagement.entity.depDeptNo!=null}" 
                                      oncomplete="PF('deptDialog').hide()"
-                                     update=":table"/>
-
+                                     update=":form"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>
