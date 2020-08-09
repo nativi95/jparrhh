@@ -8,34 +8,34 @@
 
     <ui:define name="content">
         <h:form id="form">  
+            
             <p:commandButton value="Nuevo Departamento" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
-           
+            <h:outputLabel value="#{departmentManagement.entities.get(0)}" />
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:dataTable id="basicDT" var="car" style="margin-top: 5%" value="#{dtSelectionView.cars1}">
+            
+            <p:dataTable var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
-                    Basic
+                    Lista de departamentos
                 </f:facet>
                 <p:column headerText="No.Departamento">
-                    <h:outputText value="#{car.id}" />
+                    <h:outputText value="#{dept.depDeptNo}" />
                 </p:column>
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{car.year}" />
+                    <h:outputText value="#{dept.depDeptName}" />
                 </p:column>
                 <p:column headerText="Ultima actualización">
-                    <h:outputText value="#{car.brand}" />
+                    <h:outputText value="#{dept.adatechange}" />
                 </p:column>
                 <p:column headerText="Usuario">
-                    <h:outputText value="#{car.color}" />
+                    <h:outputText value="#{dept.auserchange}" />
                 </p:column>
                 <p:column style="width:32px;text-align: center">
                     <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
-                        <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
+                        <f:setPropertyActionListener value="#{dept}" target="#{departmentManagement.entity}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
-            
-            
-
+           
             <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center;">
                     <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" columnClasses="label,value">
