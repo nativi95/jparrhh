@@ -73,8 +73,8 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
         return positionDao.findAll();
     }
 
-    public List<Position> getDepartments() {
-        return positionDao.findAll();
+    public List<Department> getDepartments() {
+        return departmentDao.findAll();
     }
   
     

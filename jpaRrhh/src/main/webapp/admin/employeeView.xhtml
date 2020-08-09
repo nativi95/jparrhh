@@ -97,7 +97,7 @@
                         <h:outputText value="Departamento" />
                         <p:selectOneMenu value="#{employeeManagement.entity.empDeptNo}">
                             <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{dep.posPosition}" var="dept" value="#{employeeManagement.departments}">
+                            <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" value="#{employeeManagement.departments}">
 
                             </f:selectItems>
 
