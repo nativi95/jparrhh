@@ -9,9 +9,11 @@
     <ui:define name="content">
         <h:form id="form">  
 
-            <p:commandButton value="Nuevo rol" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
+            <p:commandButton value="Nuevo Rol" update=":card" oncomplete="PF('rolDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+                <f:setPropertyActionListener value="#{rolManagement.newEntity()}" target="#{rolManagement.entity}" />
+            </p:commandButton>
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            
+
             <p:dataTable var="rol" style="margin-top: 5%" value="#{rolManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
                     Lista de roles
@@ -38,29 +40,33 @@
         <h:form id="card"> 
             <p:dialog style="height: auto;" header="Información del rol" widgetVar="rolDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel  style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty rolManagement.entity}" columnClasses="label,value">
-                        <f:facet name="header">
-<!--                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> -->
-                        </f:facet>
+                    <h:form>
+                        <p:panelGrid  columns="2" columnClasses="label,value">
+                            <f:facet name="header">
+    <!--                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> -->
+                            </f:facet>
 
-                        <h:outputText value="No.Rol" />
-                        <h:inputText value="#{rolManagement.entity.rolRolNo}" />
+                            <h:outputText rendered="#{not empty rolManagement.entity}" value="No.Rol" />
+                            <h:outputText rendered="#{not empty rolManagement.entity}" value="#{rolManagement.entity.rolRolNo}" />
 
-                        <h:outputText value="Nombre" />
-                        <h:inputText value="#{rolManagement.entity.rolRol}" />
+                            <h:outputText value="Nombre" />
+                            <h:inputText value="#{rolManagement.entity.rolRol}" />
 
-                        <h:outputText value="Creación" />
-                        <p:calendar value="#{rolManagement.entity.adatecreate}" pattern="yyyy-MMM-dd" />
+                            <h:outputText value="Creación" />
+                            <p:calendar value="#{rolManagement.entity.adatecreate}" pattern="yyyy-MMM-dd" />
 
-                        <h:outputText value="Usuario creación" />
-                        <h:inputText value="#{rolManagement.entity.ausercreate}" />
+                            <h:outputText value="Usuario creación" />
+                            <h:inputText value="#{rolManagement.entity.ausercreate}" />
 
-                        <h:outputText value="Actualización" />
-                        <p:calendar value="#{rolManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
+                            <h:outputText value="Actualización" />
+                            <p:calendar value="#{rolManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
 
-                        <h:outputText value="Usuario actualización" />
-                        <h:inputText value="#{rolManagement.entity.auserchange}" />
-                    </p:panelGrid>
+                            <h:outputText value="Usuario actualización" />
+                            <h:inputText value="#{rolManagement.entity.auserchange}" />
+                        </p:panelGrid>
+                        <p:commandButton update=":msj" action="#{rolManagement.createEntity()}" value="Crear" rendered="#{empty rolManagement.entity}" />
+                        <p:commandButton update=":msj" action="#{rolManagement.updateEntity()}" value="Actualizar" rendered="#{not empty rolManagement.entity}" />
+                    </h:form>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>
