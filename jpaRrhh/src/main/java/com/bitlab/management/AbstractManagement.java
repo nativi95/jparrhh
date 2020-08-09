@@ -72,7 +72,9 @@ public abstract class AbstractManagement<T> {
 
     public void createEntity() {
         try {
+            System.out.println("++++++++++++++++++++++++++++++++++ La entidad es "+entity);
             getController().create(entity);
+            System.out.println("+++++++++++++++++++Creacion ");
             message("Transacción exitosa", "Se agregó un nuevo elemento", INFO);
         } catch (Exception ex) {
             message("No se completó la transacción", "No fue creado por " + ex.getMessage(), ERROR);
