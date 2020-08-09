@@ -122,17 +122,17 @@
                                  value="Actualizar" 
                                  rendered="#{employeeManagement.entity.empEmpNo!=null}" 
                                  oncomplete="PF('empDialog').hide()"
-                                 update=":form:table :formMsj:msj"/>
+                                 update=":form :formMsj:msj"/>
                 <p:commandButton actionListener="#{employeeManagement.createEntity}" 
                                  value="Agregar" 
                                  rendered="#{employeeManagement.entity.empEmpNo==null}" 
                                  oncomplete="PF('empDialog').hide()"
-                                 update=":form:table :formMsj:msj"/>
+                                 update=":form :formMsj:msj"/>
                 <p:commandButton actionListener="#{employeeManagement.deteleEntity}" 
                                  value="Eliminar" 
                                  rendered="#{employeeManagement.entity.empEmpNo!=null}" 
                                  oncomplete="PF('empDialog').hide()"
-                                 update=":form:table :formMsj:msj"
+                                 update=":form :formMsj:msj"
                                  styleClass="bg-danger"
                                  style="border: none"/>
 
