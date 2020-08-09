@@ -8,6 +8,7 @@ package com.bitlab.management;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.BillDao;
 import com.bitlab.entities.Bill;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -27,6 +28,26 @@ private BillDao billDao;
     @Override
     public AbstractDao<Bill> getController() {
        return billDao; 
+    }
+
+    @Override
+    public Bill getEntity() {
+    return entity;    
+    }
+
+    @Override
+    public void setEntity(Bill entity) {
+    this.entity=entity;
+    }
+
+    @Override
+    public List<Bill> getEntities() {
+     return entities;
+    }
+
+    @Override
+    public void setEntities(List<Bill> entities) {
+      this.entities=entities;  
     }
     
 }

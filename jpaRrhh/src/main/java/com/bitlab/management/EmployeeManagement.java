@@ -8,6 +8,7 @@ package com.bitlab.management;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.EmployeeDao;
 import com.bitlab.entities.Employee;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -29,6 +30,27 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
     @Override
     public EmployeeDao getController() {
         return employeeDao;
+    }
+
+    @Override
+    public Employee getEntity() {
+        return entity;
+    }
+
+    @Override
+    public void setEntity(Employee entity) {
+
+        this.entity = entity;
+    }
+
+    @Override
+    public List<Employee> getEntities() {
+        return entities;
+    }
+
+    @Override
+    public void setEntities(List<Employee> entities) {
+        this.entities = entities;
     }
 
 }

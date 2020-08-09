@@ -8,9 +8,9 @@ package com.bitlab.management;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.entities.Rol;
 import com.bitlab.dao.RolDao;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 
 /**
  *
@@ -18,8 +18,8 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class RolManagement extends AbstractManagement<Rol>{
-    
+public class RolManagement extends AbstractManagement<Rol> {
+
     private RolDao rolDao;
 
     public RolManagement() {
@@ -29,7 +29,27 @@ public class RolManagement extends AbstractManagement<Rol>{
 
     @Override
     public AbstractDao<Rol> getController() {
-    return rolDao;
+        return rolDao;
     }
-    
+
+    @Override
+    public Rol getEntity() {
+        return entity;
+    }
+
+    @Override
+    public void setEntity(Rol entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public List<Rol> getEntities() {
+        return entities;
+    }
+
+    @Override
+    public void setEntities(List<Rol> entities) {
+        this.entities = entities;
+    }
+
 }

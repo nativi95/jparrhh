@@ -5,9 +5,9 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.PositionDao;
 import com.bitlab.entities.Position;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -33,6 +33,26 @@ public class PositionManagement extends AbstractManagement<Position> {
     @Override
     public PositionDao getController() {
         return positionDao;
+    }
+
+    @Override
+    public Position getEntity() {
+        return entity;
+    }
+
+    @Override
+    public void setEntity(Position entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public List<Position> getEntities() {
+        return entities;
+    }
+
+    @Override
+    public void setEntities(List<Position> entities) {
+       this.entities = entities;
     }
 
 }

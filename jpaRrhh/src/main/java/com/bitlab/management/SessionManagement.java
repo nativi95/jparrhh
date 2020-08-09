@@ -10,6 +10,7 @@ import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.UserDao;
 import com.bitlab.entities.User;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -99,6 +100,26 @@ public class SessionManagement extends AbstractManagement<User> {
     @Override
     public AbstractDao<User> getController() {
         return userDao;
+    }
+
+    @Override
+    public User getEntity() {
+        return entity;
+    }
+
+    @Override
+    public void setEntity(User entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public List<User> getEntities() {
+        return entities;
+    }
+
+    @Override
+    public void setEntities(List<User> entities) {
+        this.entities = entities;
     }
 
 }
