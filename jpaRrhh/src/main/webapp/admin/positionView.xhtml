@@ -7,60 +7,90 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="form">  
-            
-            <p:commandButton value="Nuevo puesto" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:dataTable scrollable="true" scrollWidth="100%" var="position" style="margin-top: 5%" value="#{positionManagement.entities}" paginator="true" rows="25" reflow="true">
+        <h:form>
+            <p:commandButton value="Nuevo puesto" update=":card" oncomplete="PF('positionDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            </p:commandButton>
+        </h:form>
+
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" var="position" style="margin-top: 5%" value="#{positionManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
-                    Lista de departamentos
+                    Lista de puestos
                 </f:facet>
-                <p:column headerText="No.Posición">
+                <p:column headerText="No.Puesto">
                     <h:outputText value="#{position.posPositionNo}" />
                 </p:column>
                 <p:column headerText="Nombre">
                     <h:outputText value="#{position.posPosition}" />
                 </p:column>
-                <p:column headerText="Actualización">
+                <p:column headerText="Ultima actualización">
                     <h:outputText value="#{position.adatechange}" />
                 </p:column>
                 <p:column headerText="Usuario">
                     <h:outputText value="#{position.auserchange}" />
                 </p:column>
-                <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":carDetail" oncomplete="PF('positionDialog').show()" icon="pi pi-search" title="View">
+                <p:column style="width:4%;text-align: center">
+
+                    <p:commandButton update=":card" oncomplete="PF('positionDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{position}" target="#{positionManagement.entity}" />
                     </p:commandButton>
+
                 </p:column>
             </p:dataTable>
-           </h:form>
-        <h:form id="carDetail"> 
-            <p:dialog style="height: auto;" header="Información del Puesto" widgetVar="positionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        </h:form>
+        <h:form id="card"> 
+            <p:dialog closable="false" style="height: auto;" widgetVar="positionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Informacion del puesto
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{positionManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('positionDialog').hide()"/>
+                </f:facet>
                 <p:outputPanel  style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty positionManagement.entity}" columnClasses="label,value">
-                        <f:facet name="header">
-<!--                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> -->
-                        </f:facet>
 
-                        <h:outputText value="No.Posición:" />
-                        <h:inputText value="#{positionManagement.entity.posPositionNo}" />
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
+
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="No.Puesto" />
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="#{positionManagement.entity.posPositionNo}" />
 
                         <h:outputText value="Nombre" />
-                        <h:inputText value="#{positionManagement.entity.posPosition}" />
+                        <p:inputText value="#{positionManagement.entity.posPosition}" />
 
-                        <h:outputText value="Creación" />
-                        <h:inputText value="#{positionManagement.entity.ausercreate}" style="color:#{dtSelectionView.selectedCar.color}"/>
+                        <h:outputText value="Fecha creación" />
+                        <p:calendar value="#{positionManagement.entity.adatecreate}" pattern="yyyy-MMM-dd"/>
 
                         <h:outputText value="Usuario creación" />
-                        <h:inputText value="#{positionManagement.entity.ausercreate}" />
-                        
-                        <h:outputText value="Actualización" />
+                        <p:inputText value="#{positionManagement.entity.ausercreate}" />
+
+                        <h:outputText value="Fecha de actualización" />
                         <p:calendar value="#{positionManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
-                        
+
                         <h:outputText value="Usuario actualización" />
-                        <p:calendar value="#{positionManagement.entity.auserchange}" pattern="yyyy-MMM-dd"/>
+                        <p:inputText value="#{positionManagement.entity.auserchange}"/>
                     </p:panelGrid>
+                    <p:commandButton actionListener="#{positionManagement.createEntity()}"
+                                     value="Crear" 
+                                     update="form"
+                                     oncomplete="PF('positionDialog').hide()"
+                                     rendered="#{positionManagement.entity.posPositionNo==null}" />
+                    <p:commandButton actionListener="#{positionManagement.updateEntity()}" 
+                                     value="Actualizar" 
+                                     rendered="#{positionManagement.entity.posPositionNo!=null}" 
+                                     oncomplete="PF('positionDialog').hide()"
+                                     update="form"/>
+                    <p:commandButton actionListener="#{positionManagement.deteleEntity()}" 
+                                     value="Eliminar" 
+                                     style="border: none;"
+                                     styleClass="bg-danger"
+                                     rendered="#{positionManagement.entity.posPositionNo!=null}" 
+                                     oncomplete="PF('positionDialog').hide()"
+                                     update=":form"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>
