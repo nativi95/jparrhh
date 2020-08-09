@@ -8,7 +8,7 @@
 
     <ui:define name="content">
         <h:form id="form">  
-            
+
             <p:commandButton value="Nuevo Departamento" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
             <h:outputLabel value="#{departmentManagement.entities.get(0)}" />
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
@@ -30,41 +30,40 @@
                     <h:outputText value="#{dept.auserchange}" />
                 </p:column>
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                    <p:commandButton update=":card" oncomplete="PF('deptDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{dept}" target="#{departmentManagement.entity}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
-           
-            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" columnClasses="label,value">
+        </h:form>
+        <h:form id="card"> 
+            <p:dialog style="height: auto;" header="Información del departamento" widgetVar="deptDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel  style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty departmentManagement.entity}" columnClasses="label,value">
                         <f:facet name="header">
-                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> 
+<!--                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> -->
                         </f:facet>
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.id}" />
+                        <h:outputText value="No.Departamento" />
+                        <h:inputText value="#{departmentManagement.entity.depDeptNo}" />
 
-                        <h:outputText value="Year" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+                        <h:outputText value="Nombre" />
+                        <h:inputText value="#{departmentManagement.entity.depDeptName}" />
 
-                        <h:outputText value="Color:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+                        <h:outputText value="Creación" />
+                        <h:inputText value="#{departmentManagement.entity.ausercreate}" style="color:#{dtSelectionView.selectedCar.color}"/>
 
-                        <h:outputText value="Price" />
-                        <h:outputText value="$#{dtSelectionView.selectedCar.price}" />
+                        <h:outputText value="Usuario creación" />
+                        <h:inputText value="#{departmentManagement.entity.ausercreate}" />
+
+                        <h:outputText value="Actualización" />
+                        <p:calendar value="#{departmentManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
+
+                        <h:outputText value="Usuario actualización" />
+                        <p:calendar value="#{departmentManagement.entity.auserchange}" pattern="yyyy-MMM-dd"/>
                     </p:panelGrid>
                 </p:outputPanel>
-            </p:dialog>
-
-            <p:dialog header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
-                <p:outputPanel id="multiCarDetail" style="text-align:center;">
-                    <ui:repeat value="#{dtSelectionView.selectedCars}" var="car">
-                        <h:outputText value="#{car.id} - #{car.brand}" style="display:block"/>
-                    </ui:repeat>
-                </p:outputPanel>
-            </p:dialog>
+            </p:dialog>            
         </h:form>
     </ui:define>
 
