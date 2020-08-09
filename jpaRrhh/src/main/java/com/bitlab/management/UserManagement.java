@@ -6,7 +6,9 @@
 package com.bitlab.management;
 
 import com.bitlab.dao.AbstractDao;
+import com.bitlab.dao.RolDao;
 import com.bitlab.dao.UserDao;
+import com.bitlab.entities.Rol;
 import com.bitlab.entities.User;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -21,10 +23,11 @@ import javax.faces.bean.ViewScoped;
 public class UserManagement extends AbstractManagement<User> {
 
     private UserDao userDao;
-
+    private RolDao rolDao;
     public UserManagement() {
         super(User.class);
         userDao = new UserDao();
+        rolDao = new RolDao();
     }
 
     @Override
@@ -51,4 +54,9 @@ public class UserManagement extends AbstractManagement<User> {
     public void setEntities(List<User> entities) {
         this.entities = entities;
     }
+    
+    public List<Rol> getRol() {
+        return rolDao.findAll();
+    }
+
 }
