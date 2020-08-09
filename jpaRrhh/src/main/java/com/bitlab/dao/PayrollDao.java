@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * @author CarlosAlex
  */
 public class PayrollDao extends AbstractDao<Payroll> {
-    private static Logger logger = LoggerFactory.getLogger(PayrollDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(PayrollDao.class);
     public PayrollDao() {
         super(Payroll.class);
         logger.debug("Se inicia metodo constructor");

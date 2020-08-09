@@ -118,7 +118,27 @@
 
                     </p:panelGrid>
                 </p:outputPanel>
+                <p:commandButton actionListener="#{employeeManagement.updateEntity}" 
+                                 value="Actualizar" 
+                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
+                                 oncomplete="PF('empDialog').hide()"
+                                 update=":form:table :formMsj:msj"/>
+                <p:commandButton actionListener="#{employeeManagement.createEntity}" 
+                                 value="Agregar" 
+                                 rendered="#{employeeManagement.entity.empEmpNo==null}" 
+                                 oncomplete="PF('empDialog').hide()"
+                                 update=":form:table :formMsj:msj"/>
+                <p:commandButton actionListener="#{employeeManagement.deteleEntity}" 
+                                 value="Eliminar" 
+                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
+                                 oncomplete="PF('empDialog').hide()"
+                                 update=":form:table :formMsj:msj"
+                                 styleClass="bg-danger"
+                                 style="border: none"/>
+
+
             </p:dialog>
+
         </h:form>
     </ui:define>
 

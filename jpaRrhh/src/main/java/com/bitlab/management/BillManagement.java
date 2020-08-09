@@ -26,7 +26,7 @@ private BillDao billDao;
     }
 
     @Override
-    public AbstractDao<Bill> getController() {
+    public BillDao getController() {
        return billDao; 
     }
 

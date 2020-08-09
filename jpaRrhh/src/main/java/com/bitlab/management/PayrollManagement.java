@@ -28,7 +28,7 @@ public class PayrollManagement extends AbstractManagement<Payroll> {
     }
 
     @Override
-    public AbstractDao<Payroll> getController() {
+    public PayrollDao getController() {
         return payrollDao;
     }
 

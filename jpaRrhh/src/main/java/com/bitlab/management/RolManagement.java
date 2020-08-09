@@ -28,7 +28,7 @@ public class RolManagement extends AbstractManagement<Rol> {
     }
 
     @Override
-    public AbstractDao<Rol> getController() {
+    public RolDao getController() {
         return rolDao;
     }
 

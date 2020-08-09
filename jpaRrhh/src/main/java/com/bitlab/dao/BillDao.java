@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class BillDao extends AbstractDao<Bill> {
    
-    private static Logger logger = LoggerFactory.getLogger(BillDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(BillDao.class);
 
     public BillDao() {
         super(Bill.class);

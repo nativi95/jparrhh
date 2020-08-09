@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * @author Andrea
  */
 public class EmployeeDao extends AbstractDao<Employee>{
-    private static Logger logger = LoggerFactory.getLogger(DepartmentDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(DepartmentDao.class);
     public EmployeeDao() {
         super(Employee.class);
         logger.debug("Se inicia metodo constructor");

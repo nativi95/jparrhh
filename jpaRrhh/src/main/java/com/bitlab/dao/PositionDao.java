@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PositionDao extends AbstractDao<Position> {
 
-    private static Logger logger = LoggerFactory.getLogger(PositionDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(PositionDao.class);
 
     public PositionDao() {
         super(Position.class);

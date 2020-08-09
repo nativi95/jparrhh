@@ -98,7 +98,7 @@ public class SessionManagement extends AbstractManagement<User> {
     }
 
     @Override
-    public AbstractDao<User> getController() {
+    public UserDao getController() {
         return userDao;
     }
 
