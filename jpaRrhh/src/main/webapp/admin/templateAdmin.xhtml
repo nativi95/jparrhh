@@ -16,7 +16,11 @@
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:head>
     <h:body>
-
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+             
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+        </p:dialog>
         <p:growl id="msj" showDetail="true" sticky="true" /> 
 
         <body class="hold-transition sidebar-mini">
