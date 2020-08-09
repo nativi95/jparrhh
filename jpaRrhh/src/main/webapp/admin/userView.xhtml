@@ -65,16 +65,20 @@
                         <h:outputText value="Nombre usuario" />
                         <p:inputText value="#{userManagement.entity.usrUser}" />
 
-                        <h:outputLabel for="pwd1" value="Contraseña: *" />
+                        <h:outputText value="Contraseña: *" />
                         <p:password id="pwd1" value="#{userManagement.entity.userPassword}" match="pwd2" label="Password 1" required="true" />
 
-                        <h:outputLabel for="pwd2" value="Confirmar contraseña: *" />
+                        <h:outputText value="Confirmar contraseña: *" />
                         <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
 
                         <h:outputText value="Rol" />
-                        <p:selectOneMenu id="rolSelect" value="#{rolManagement.entity.rolRolNo}" style="width:100%">
-                            <f:selectItem itemLabel="Seleccione..." noSelectionOption="false" />
-                            <f:selectItems itemLabel="#{rolManagement.entity.rolRol}" itemValue="#{rolManagement.entity.rolRolNo}" />                            
+
+                        <p:selectOneMenu value="#{userManagement.entity.usrRolNo}" style="width: 100%">
+                            <f:selectItem itemLabel="Seleccione..." noSelectionOption="false"></f:selectItem> 
+                            <f:selectItems itemLabel="#{rol.rolRol}" var="rol" value="#{userManagement.rol}">
+
+                            </f:selectItems>
+
                         </p:selectOneMenu>
 
                         <h:outputText value="Fecha creación" />
