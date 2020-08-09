@@ -12,27 +12,33 @@
             
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
 
-            <p:dataTable style="margin-top: 5%" id="basicDT" var="emp" value="#{employeeManagement.entities}">
+            <p:dataTable scrollable="true" scrollWidth="95%" style="margin-top: 5%;" id="basicDT" var="emp" value="#{employeeManagement.entities}">
                 <f:facet name="header">
-                    Basic
+                    Empleados
                 </f:facet>
-                <p:column headerText="Nombre">
-                    <h:outputText value="#{emp.empFirstName}" />
+                <p:column style="width: 100px" headerText="Nombre">
+                    <h:outputText style="display: block" value="#{emp.empFirstName}" /><h:outputText style="display: block"  value="#{emp.empLastName}" />
                 </p:column>
-                <p:column headerText="Apellido">
-                    <h:outputText value="#{emp.empLastName}" />
+                <p:column style="width: 100px" headerText="Fecha de contración">
+                    <h:outputText value="#{emp.empHireDate}"/>
                 </p:column>
-                <p:column headerText="Fecha nacimiento">
-                    <h:outputText  />
+                <p:column style="width: 100px" headerText="Fecha nacimiento">
+                    <h:outputText value="#{emp.empBirthDate}" />
                 </p:column>
-                <p:column headerText="Genero">
-                    <h:outputText  />
+                <p:column style="width: 50px" headerText="Genero">
+                    <h:outputText value="#{emp.empGender}" />
                 </p:column>
-                <p:column headerText="Cargo">
-                    <h:outputText  />
+                <p:column style="width: 100px" headerText="Cargo">
+                    <h:outputText value="#{emp.empPositionNo.posPosition}" />
                 </p:column>
-                <p:column headerText="Departamento">
-                    <h:outputText  />
+                <p:column style="width: 100px" headerText="Departamento">
+                    <h:outputText value="#{emp.empDeptNo.depDeptName}" />
+                </p:column>
+                <p:column style="width: 100px" headerText="Creación">
+                    <h:outputText style="display: block"  value="#{emp.ausercreate}" /><h:outputText style="display: block"  value="#{emp.adatecreate}" />
+                </p:column>
+                 <p:column style="width: 100px" headerText="Última actualización">
+                     <h:outputText style="display: block"  value="#{emp.adatechange}" /><h:outputText style="display: block"  value="#{emp.adatechange}" />
                 </p:column>
                 <p:column style="width:32px;text-align: center">
                     <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
