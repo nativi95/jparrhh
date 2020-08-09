@@ -51,12 +51,10 @@ public class Position implements Serializable {
     private Integer posPositionNo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "pos_position")
     private String posPosition;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "A_user_create")
     private String ausercreate;
     @Basic(optional = false)
@@ -66,7 +64,6 @@ public class Position implements Serializable {
     private Date adatecreate;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "A_user_change")
     private String auserchange;
     @Basic(optional = false)
