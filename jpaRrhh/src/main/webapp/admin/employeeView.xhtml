@@ -16,31 +16,31 @@
                 <f:facet name="header">
                     Empleados
                 </f:facet>
-                <p:column style="width: 100px" headerText="Nombre">
+                <p:column style="width: 8%" headerText="Nombre">
                     <h:outputText style="display: block" value="#{emp.empFirstName}" /><h:outputText style="display: block"  value="#{emp.empLastName}" />
                 </p:column>
-                <p:column style="width: 100px" headerText="Fecha de contración">
+                <p:column style="width: 8%" headerText="Fecha de contración">
                     <h:outputText value="#{emp.empHireDate}"/>
                 </p:column>
-                <p:column style="width: 100px" headerText="Fecha nacimiento">
+                <p:column style="width: 8%" headerText="Fecha nacimiento">
                     <h:outputText value="#{emp.empBirthDate}" />
                 </p:column>
-                <p:column style="width: 50px" headerText="Genero">
+                <p:column style="width: 5%" headerText="Genero">
                     <h:outputText value="#{emp.empGender}" />
                 </p:column>
-                <p:column style="width: 100px" headerText="Cargo">
+                <p:column style="width: 8%" headerText="Cargo">
                     <h:outputText value="#{emp.empPositionNo.posPosition}" />
                 </p:column>
-                <p:column style="width: 100px" headerText="Departamento">
+                <p:column style="width: 8%" headerText="Departamento">
                     <h:outputText value="#{emp.empDeptNo.depDeptName}" />
                 </p:column>
-                <p:column style="width: 100px" headerText="Creación">
+                <p:column style="width: 8%" headerText="Creación">
                     <h:outputText style="display: block"  value="#{emp.ausercreate}" /><h:outputText style="display: block"  value="#{emp.adatecreate}" />
                 </p:column>
-                 <p:column style="width: 100px" headerText="Última actualización">
+                 <p:column style="width: 8%" headerText="Última actualización">
                      <h:outputText style="display: block"  value="#{emp.adatechange}" /><h:outputText style="display: block"  value="#{emp.adatechange}" />
                 </p:column>
-                <p:column style="width:32px;text-align: center">
+                <p:column style="width:4%;text-align: center">
                     <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
                     </p:commandButton>
