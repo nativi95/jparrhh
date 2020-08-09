@@ -13,7 +13,7 @@
             <h:outputLabel value="#{departmentManagement.entities.get(0)}" />
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             
-            <p:dataTable var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
+            <p:dataTable scrollable="true" scrollWidth="95%" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
                     Lista de departamentos
                 </f:facet>

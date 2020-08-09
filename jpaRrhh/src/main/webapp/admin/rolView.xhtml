@@ -11,7 +11,7 @@
             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
             <p:commandButton value="Nuevo Rol" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
           
-            <p:dataTable id="basicDT" style="margin-top: 5%" var="car" value="#{dtSelectionView.cars1}">
+            <p:dataTable scrollable="true" scrollWidth="95%" id="basicDT" style="margin-top: 5%" var="car" value="#{dtSelectionView.cars1}">
                 <f:facet name="header">
                     Basic
                 </f:facet>
