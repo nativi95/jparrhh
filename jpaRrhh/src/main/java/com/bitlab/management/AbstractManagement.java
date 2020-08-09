@@ -72,7 +72,7 @@ public abstract class AbstractManagement<T> {
 
     public void createEntity() {
         try {
-            System.out.println("++++++++++++++++++++++++++++++++++ La entidad es "+entity);
+            System.out.println("++++++++++++++++++++++++++++++++++ La entidad es " + entity);
             getController().create(entity);
             System.out.println("+++++++++++++++++++Creacion ");
             message("Transacción exitosa", "Se agregó un nuevo elemento", INFO);
@@ -80,30 +80,48 @@ public abstract class AbstractManagement<T> {
             message("No se completó la transacción", "No fue creado por " + ex.getMessage(), ERROR);
 
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                newEntity();
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void deteleEntity() {
         try {
-            getController().create(entity);
+            getController().delete(entity);
             message("Transacción exitosa", "Se eliminó el elemento seleccionado", INFO);
         } catch (Exception ex) {
 
             message("No se completó la transacción", "No fue eliminado por " + ex.getMessage(), ERROR);
 
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                newEntity();
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void updateEntity() {
         try {
-            getController().create(entity);
+            getController().update(entity);
             message("Transacción exitosa", "Se actualizó el elemento seleccionado", INFO);
+            
+        } catch (Exception e) {
+            message("No se completó la transacción", "No fue actualizado por " + e.getMessage(), ERROR);
 
-        } catch (Exception ex) {
-            message("No se completó la transacción", "No fue actualizado por " + ex.getMessage(), ERROR);
-
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, e);
+        }finally{
+            try {
+                newEntity();
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -143,5 +161,4 @@ public abstract class AbstractManagement<T> {
         }
     }
 
-    
 }
