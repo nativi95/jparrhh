@@ -7,66 +7,90 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="form">  
 
-            <p:commandButton value="Nuevo Rol" update=":card" oncomplete="PF('rolDialog').show()" icon="pi pi-plus" title="Nuevo registro">
-                <f:setPropertyActionListener value="#{rolManagement.newEntity()}" target="#{rolManagement.entity}" />
+        <h:form>
+            <p:commandButton value="Nuevo rol" update=":card" oncomplete="PF('rolDialog').show()" icon="pi pi-plus" title="Nuevo registro">
             </p:commandButton>
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        </h:form>
 
-            <p:dataTable var="rol" style="margin-top: 5%" value="#{rolManagement.entities}" paginator="true" rows="25" reflow="true">
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" var="rol" style="margin-top: 5%" value="#{rolManagement.entities}" paginator="true" rows="10" reflow="true">
                 <f:facet name="header">
                     Lista de roles
                 </f:facet>
-                <p:column headerText="No.Rol">
+                <p:column headerText="No.rol">
                     <h:outputText value="#{rol.rolRolNo}" />
                 </p:column>
                 <p:column headerText="Nombre">
                     <h:outputText value="#{rol.rolRol}" />
                 </p:column>
-                <p:column headerText="Actualización">
+                <p:column headerText="Ultima actualización">
                     <h:outputText value="#{rol.adatechange}" />
                 </p:column>
                 <p:column headerText="Usuario">
                     <h:outputText value="#{rol.auserchange}" />
                 </p:column>
-                <p:column style="width:32px;text-align: center">
+                <p:column style="width:4%;text-align: center">
+
                     <p:commandButton update=":card" oncomplete="PF('rolDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{rol}" target="#{rolManagement.entity}" />
                     </p:commandButton>
+
                 </p:column>
             </p:dataTable>
         </h:form>
         <h:form id="card"> 
-            <p:dialog style="height: auto;" header="Información del rol" widgetVar="rolDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog closable="false" style="height: auto;" header="Información del rol" widgetVar="rolDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Información del rol
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{rolManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('rolDialog').hide()"/>
+                </f:facet>
                 <p:outputPanel  style="text-align:center;">
-                    <h:form>
-                        <p:panelGrid  columns="2" columnClasses="label,value">
-                            <f:facet name="header">
-    <!--                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> -->
-                            </f:facet>
 
-                            <h:outputText rendered="#{not empty rolManagement.entity}" value="No.Rol" />
-                            <h:outputText rendered="#{not empty rolManagement.entity}" value="#{rolManagement.entity.rolRolNo}" />
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
 
-                            <h:outputText value="Nombre" />
-                            <h:inputText value="#{rolManagement.entity.rolRol}" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="No.Rol" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="#{rolManagement.entity.rolRolNo}" />
 
-                            <h:outputText value="Creación" />
-                            <p:calendar value="#{rolManagement.entity.adatecreate}" pattern="yyyy-MMM-dd" />
+                        <h:outputText value="Nombre" />
+                        <p:inputText value="#{rolManagement.entity.rolRol}" />
 
-                            <h:outputText value="Usuario creación" />
-                            <h:inputText value="#{rolManagement.entity.ausercreate}" />
+                        <h:outputText value="Fecha creación" />
+                        <p:calendar value="#{rolManagement.entity.adatecreate}" pattern="yyyy-MMM-dd"/>
 
-                            <h:outputText value="Actualización" />
-                            <p:calendar value="#{rolManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
+                        <h:outputText value="Usuario creación" />
+                        <p:inputText value="#{rolManagement.entity.ausercreate}" />
 
-                            <h:outputText value="Usuario actualización" />
-                            <h:inputText value="#{rolManagement.entity.auserchange}" />
-                        </p:panelGrid>
-                        <p:commandButton update=":msj" action="#{rolManagement.createEntity()}" value="Crear" rendered="#{empty rolManagement.entity}" />
-                        <p:commandButton update=":msj" action="#{rolManagement.updateEntity()}" value="Actualizar" rendered="#{not empty rolManagement.entity}" />
-                    </h:form>
+                        <h:outputText value="Fecha de actualización" />
+                        <p:calendar value="#{rolManagement.entity.adatechange}" pattern="yyyy-MMM-dd"/>
+
+                        <h:outputText value="Usuario actualización" />
+                        <p:inputText value="#{rolManagement.entity.auserchange}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolManagement.createEntity()}"
+                                     value="Crear" 
+                                     update="form"
+                                     oncomplete="PF('rolDialog').hide()"
+                                     rendered="#{rolManagement.entity.rolRolNo==null}" />
+                    <p:commandButton actionListener="#{rolManagement.updateEntity()}" 
+                                     value="Actualizar" 
+                                     rendered="#{rolManagement.entity.rolRolNo!=null}" 
+                                     oncomplete="PF('rolDialog').hide()"
+                                     update="form"/>
+                    <p:commandButton actionListener="#{rolManagement.deteleEntity()}" 
+                                     value="Eliminar" 
+                                     style="border: none;"
+                                     styleClass="bg-danger"
+                                     rendered="#{rolManagement.entity.rolRolNo!=null}" 
+                                     oncomplete="PF('rolDialog').hide()"
+                                     update=":form"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>

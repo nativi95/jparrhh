@@ -18,10 +18,12 @@
     <h:body>
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
              
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" styleClass="bg-primary">
+            <h:outputText value="CARGANDO..." />
         </p:dialog>
-        <p:growl id="msj" showDetail="true" sticky="true" /> 
+        <h:form id="formMsj">
+            <p:growl id="msj" showDetail="true" sticky="true" />
+        </h:form>        
 
         <body class="hold-transition sidebar-mini">
             <!-- Site wrapper -->
