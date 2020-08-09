@@ -7,62 +7,107 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="form">
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:commandButton value="Nuevo Usuario" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
-            
-            <p:dataTable scrollable="true" scrollWidth="95%" style="margin-top: 5%" id="basicDT" var="car" value="#{dtSelectionView.cars1}">
+
+        <h:form>
+            <p:commandButton value="Nuevo usuario" update=":card" oncomplete="PF('usuDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            </p:commandButton>
+        </h:form>
+
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" var="usu" style="margin-top: 5%" value="#{userManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
-                    Basic
+                    Lista de usuarios
                 </f:facet>
                 <p:column headerText="No.Usuario">
-                    <h:outputText value="#{car.id}" />
+                    <h:outputText value="#{usu.usrUserNo}" />
                 </p:column>
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{car.year}" />
+                    <h:outputText value="#{usu.usrUser}" />
                 </p:column>
-                <p:column headerText="Fecha creación">
-                    <h:outputText value="#{car.brand}" />
+                <p:column headerText="Rol">
+                    <h:outputText value="#{usu.usrRolNo.rolRol}" />
                 </p:column>
-                <p:column headerText="Fecha actualización">
-                    <h:outputText value="#{car.color}" />
+                <p:column headerText="Ultima actualización">
+                    <h:outputText value="#{usu.adatechange}" />
                 </p:column>
-                <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
-                        <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{usu.auserchange}" />
+                </p:column>
+                <p:column style="width:4%;text-align: center">
+
+                    <p:commandButton update=":card" oncomplete="PF('usuDialog').show()" icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{usu}" target="#{userManagement.entity}" />
                     </p:commandButton>
+
                 </p:column>
             </p:dataTable>
+        </h:form>
+        <h:form id="card"> 
+            <p:dialog closable="false" style="height: auto;" widgetVar="usuDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Informacion del usuario
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{userManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('usuDialog').hide()"/>
+                </f:facet>
+                <p:outputPanel  style="text-align:center;">
 
-            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" columnClasses="label,value">
-                        <f:facet name="header">
-                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> 
-                        </f:facet>
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.id}" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="No.Usuario" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.usrUserNo}" />
 
-                        <h:outputText value="Year" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+                        <h:outputText value="Nombre usuario" />
+                        <p:inputText value="#{userManagement.entity.usrUser}" />
 
-                        <h:outputText value="Color:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+                        <h:outputLabel for="pwd1" value="Contraseña: *" />
+                        <p:password id="pwd1" value="#{userManagement.entity.userPassword}" match="pwd2" label="Password 1" required="true" />
 
-                        <h:outputText value="Price" />
-                        <h:outputText value="$#{dtSelectionView.selectedCar.price}" />
+                        <h:outputLabel for="pwd2" value="Confirmar contraseña: *" />
+                        <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
+
+                        <h:outputText value="Rol" />
+                        <p:selectOneMenu id="rolSelect" value="#{rolManagement.entity.rolRolNo}" style="width:100%">
+                            <f:selectItem itemLabel="Seleccione..." noSelectionOption="false" />
+                            <f:selectItems itemLabel="#{rolManagement.entity.rolRol}" itemValue="#{rolManagement.entity.rolRolNo}" />                            
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Fecha creación" />
+                        <p:calendar value="#{userManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
+
+                        <h:outputText value="Usuario creación" />
+                        <p:inputText value="#{userManagement.entity.ausercreate}" />
+
+                        <h:outputText value="Fecha de actualización" />
+                        <p:calendar value="#{userManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
+
+                        <h:outputText value="Usuario actualización" />
+                        <p:inputText value="#{userManagement.entity.auserchange}"/>
                     </p:panelGrid>
+                    <p:commandButton actionListener="#{userManagement.createEntity()}"
+                                     value="Crear" 
+                                     update="form"
+                                     oncomplete="PF('usuDialog').hide()"
+                                     rendered="#{userManagement.entity.usrUserNo==null}" />
+                    <p:commandButton actionListener="#{userManagement.updateEntity()}" 
+                                     value="Actualizar" 
+                                     rendered="#{userManagement.entity.usrUserNo!=null}" 
+                                     oncomplete="PF('usuDialog').hide()"
+                                     update="form"/>
+                    <p:commandButton actionListener="#{userManagement.deteleEntity()}" 
+                                     value="Eliminar" 
+                                     style="border: none;"
+                                     styleClass="bg-danger"
+                                     rendered="#{userManagement.entity.usrUserNo!=null}" 
+                                     oncomplete="PF('usuDialog').hide()"
+                                     update=":form"/>
                 </p:outputPanel>
-            </p:dialog>
-
-            <p:dialog header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
-                <p:outputPanel id="multiCarDetail" style="text-align:center;">
-                    <ui:repeat value="#{dtSelectionView.selectedCars}" var="car">
-                        <h:outputText value="#{car.id} - #{car.brand}" style="display:block"/>
-                    </ui:repeat>
-                </p:outputPanel>
-            </p:dialog>
+            </p:dialog>            
         </h:form>
     </ui:define>
 
