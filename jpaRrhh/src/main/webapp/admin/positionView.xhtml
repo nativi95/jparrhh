@@ -76,21 +76,21 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{positionManagement.createEntity()}"
                                      value="Crear" 
-                                     update="form"
+                                     update=":form:table :formMsj:msj"
                                      oncomplete="PF('positionDialog').hide()"
                                      rendered="#{positionManagement.entity.posPositionNo==null}" />
                     <p:commandButton actionListener="#{positionManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{positionManagement.entity.posPositionNo!=null}" 
                                      oncomplete="PF('positionDialog').hide()"
-                                     update="form"/>
+                                     update=":form:table :formMsj:msj"/>
                     <p:commandButton actionListener="#{positionManagement.deteleEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
                                      styleClass="bg-danger"
                                      rendered="#{positionManagement.entity.posPositionNo!=null}" 
                                      oncomplete="PF('positionDialog').hide()"
-                                     update=":form"/>
+                                     update=":form:table :formMsj:msj"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>
