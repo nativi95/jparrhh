@@ -21,7 +21,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class DepartmentManagement extends AbstractManagement<Department> implements Serializable{
+public class DepartmentManagement extends AbstractManagement<Department>{
 
     private DepartmentDao deparmentDao;
 
