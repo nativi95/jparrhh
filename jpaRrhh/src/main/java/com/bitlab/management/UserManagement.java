@@ -5,7 +5,6 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.RolDao;
 import com.bitlab.dao.UserDao;
 import com.bitlab.entities.Rol;

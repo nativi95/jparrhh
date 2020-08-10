@@ -82,6 +82,7 @@ public abstract class AbstractManagement<T> {
         }finally{
             try {
                 newEntity();
+                System.out.println("LA entidad al iniciar es "+entity);
             } catch (NoSuchMethodException ex) {
                 Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
