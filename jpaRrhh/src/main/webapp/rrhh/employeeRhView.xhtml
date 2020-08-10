@@ -8,68 +8,137 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:commandButton value="Nuevo Empleado" id="nuevo" action="#{buttonView.buttonAction}" style="margin-right:20px;" icon="pi pi-plus" />
-            
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+            <p:commandButton value="Nuevo Empleado" update=":card" oncomplete="PF('empDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            </p:commandButton>
 
-            <p:dataTable style="margin-top: 5%" id="basicDT" var="car" value="#{dtSelectionView.cars1}">
+            <p:dataTable scrollable="true" scrollWidth="95%" style="margin-top: 5%;" id="basicDT" var="emp" value="#{employeeManagement.entities}">
                 <f:facet name="header">
-                    Basic
+                    Empleados
                 </f:facet>
-                <p:column headerText="Nombre">
-                    <h:outputText value="#{car.id}" />
+                <p:column style="width: 8%" headerText="Nombre">
+                    <h:outputText style="display: block" value="#{emp.empFirstName}" /><h:outputText style="display: block"  value="#{emp.empLastName}" />
                 </p:column>
-                <p:column headerText="Apellido">
-                    <h:outputText value="#{car.year}" />
+                <p:column style="width: 8%" headerText="Fecha de contración">
+                    <h:outputText value="#{emp.empHireDate}"/>
                 </p:column>
-                <p:column headerText="Fecha nacimiento">
-                    <h:outputText value="#{car.brand}" />
+                <p:column style="width: 8%" headerText="Fecha nacimiento">
+                    <h:outputText value="#{emp.empBirthDate}" />
                 </p:column>
-                <p:column headerText="Genero">
-                    <h:outputText value="#{car.color}" />
+                <p:column style="width: 5%" headerText="Genero">
+                    <h:outputText value="#{emp.empGender}" />
                 </p:column>
-                <p:column headerText="Cargo">
-                    <h:outputText value="#{car.color}" />
+                <p:column style="width: 8%" headerText="Cargo">
+                    <h:outputText value="#{emp.empPositionNo.posPosition}" />
                 </p:column>
-                <p:column headerText="Departamento">
-                    <h:outputText value="#{car.color}" />
+                <p:column style="width: 8%" headerText="Departamento">
+                    <h:outputText value="#{emp.empDeptNo.depDeptName}" />
                 </p:column>
-                <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
-                        <f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
+
+                <p:column style="width:4%;text-align: center">
+
+                    <p:commandButton update=":card" oncomplete="PF('empDialog').show()" icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{emp}" target="#{employeeManagement.entity}" />
                     </p:commandButton>
+
                 </p:column>
             </p:dataTable>
+        </h:form>
+        <h:form id="card">
+            <p:dialog closable="false" widgetVar="empDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Información del empleado
+                    <!-- process permite cerrar sin mensajes @this para especificar este dialog-->
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{employeeManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('empDialog').hide()"/>
+                </f:facet>
+                <p:outputPanel  style="text-align:center;">
 
-            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" columnClasses="label,value">
-                        <f:facet name="header">
-                            <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> 
-                        </f:facet>
+                    <p:panelGrid  columns="2" columnClasses="label,value">
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.id}" />
 
-                        <h:outputText value="Year" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Empleado Id:" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.empEmpNo}" />
 
-                        <h:outputText value="Color:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+                        <h:outputText value="Nombre" />
+                        <p:inputText value="#{employeeManagement.entity.empFirstName}" />
 
-                        <h:outputText value="Price" />
-                        <h:outputText value="$#{dtSelectionView.selectedCar.price}" />
+                        <h:outputText value="Apellido" />
+                        <p:inputText value="#{employeeManagement.entity.empLastName}" />
+
+                        <h:outputText value="Género" />
+                        <p:selectOneMenu value="#{employeeManagement.entity.empGender}">
+                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
+
+                            <f:selectItem itemLabel="Femenino" itemValue="F"></f:selectItem>
+                            <f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Fecha de nacimiento" />
+                        <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empBirthDate}" />
+
+                        <h:outputText value="Fecha de contración" />
+                        <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empHireDate}" />
+
+                        <h:outputText value="Puesto" />
+                        <p:selectOneMenu value="#{employeeManagement.entity.empPositionNo}">
+                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
+                            <f:selectItems itemLabel="#{pos.posPosition}" var="pos" value="#{employeeManagement.positions}">
+
+                            </f:selectItems>
+
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Departamento" />
+                        <p:selectOneMenu value="#{employeeManagement.entity.empDeptNo}">
+                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
+                            <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" value="#{employeeManagement.departments}">
+
+                            </f:selectItems>
+
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Fecha de creación" />
+                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.adatecreate}" />
+
+                        <h:outputText value="Usuario de creación" />
+                        <p:inputText value="#{employeeManagement.entity.ausercreate}" />
+
+                        <h:outputText value="Fecha de actualización" />
+                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.adatecreate}" />
+
+                        <h:outputText value="Usuario de actualización" />
+                        <p:inputText value="#{employeeManagement.entity.auserchange}" />
+
+
                     </p:panelGrid>
                 </p:outputPanel>
+                <p:commandButton actionListener="#{employeeManagement.updateEntity}" 
+                                 value="Actualizar" 
+                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
+                                 oncomplete="PF('empDialog').hide()"
+                                 update=":form :formMsj:msj"/>
+                <p:commandButton actionListener="#{employeeManagement.createEntity}" 
+                                 value="Agregar" 
+                                 rendered="#{employeeManagement.entity.empEmpNo==null}" 
+                                 oncomplete="PF('empDialog').hide()"
+                                 update=":form :formMsj:msj"/>
+                <p:commandButton actionListener="#{employeeManagement.deteleEntity}" 
+                                 value="Desactivar" 
+                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
+                                 oncomplete="PF('empDialog').hide()"
+                                 update=":form :formMsj:msj"
+                                 styleClass="bg-danger"
+                                 style="border: none"/>
+
+
             </p:dialog>
 
-            <p:dialog header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
-                <p:outputPanel id="multiCarDetail" style="text-align:center;">
-                    <ui:repeat value="#{dtSelectionView.selectedCars}" var="car">
-                        <h:outputText value="#{car.id} - #{car.brand}" style="display:block"/>
-                    </ui:repeat>
-                </p:outputPanel>
-            </p:dialog>
         </h:form>
     </ui:define>
 

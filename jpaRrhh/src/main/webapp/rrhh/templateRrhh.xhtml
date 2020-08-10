@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
@@ -12,10 +13,19 @@
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
         <!-- overlayScrollbars -->
         <link href="../res/css/adminlte.css" rel="stylesheet" type="text/css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:head>
-    <h:body>
-        <p:growl id="msj" showDetail="true" sticky="true" /> 
-        <body class="hold-transition sidebar-mini">
+    <h:body class="hold-transition sidebar-mini">
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+             
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" styleClass="bg-primary">
+            <h:outputText value="CARGANDO..." />
+        </p:dialog>
+        <h:form id="formMsj">
+            <p:growl id="msj" showDetail="true" sticky="true" />
+        </h:form>        
+
+        
             <!-- Site wrapper -->
             <div class="wrapper">
                 <!-- Navbar -->
@@ -32,9 +42,16 @@
                             <li class="nav-item d-none d-sm-inline-block">
                                 <a href="#" class="nav-link">Contact</a>
                             </li>
+                            <li class="nav-item d-none d-sm-inline-block">
+                                <h:form>
+                                    <b> <h:commandLink class="nav-link" value="Salir" action="#{sessionManagement.logOut()}"/></b>
+                                </h:form>
+                            </li>
                         </ul>
+
                         <!--Right navbar links--> 
-                        <p:commandButton value="Salir" action="#{sessionManagement.logOut()}"/>
+
+
                     </ui:insert>
 
                 </nav>
@@ -59,7 +76,7 @@
                                 <!--<img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/>-->
                             </div>
                             <div class="info">
-                                    <h:outputLabel value="#{sessionManagement.entity.usrUser}"></h:outputLabel>
+                                <h:outputLabel value="#{sessionManagement.entity.usrUser}"></h:outputLabel>
                             </div>
                         </div>
 
@@ -111,8 +128,9 @@
                     <section class="content">
 
                         <!-- Default box -->
+
                         <ui:insert name="content">
-                            
+
                         </ui:insert>
                         <!-- /.card -->
 
@@ -121,17 +139,21 @@
                 </div>
                 <!-- /.content-wrapper -->
 
+               
             </div>
             <!-- ./wrapper -->
+            <!--<script src="../res/js/jquery.js" type="text/javascript"></script>-->
+
+            <!--<script src="../res/js/jquery.min.js" type="text/javascript"></script>-->
             <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
             <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+            <!-- Bootstrap 4 -->
+            <script src="../res/js/bootstrap.bundle.min.js" type="text/javascript"></script>
             <!-- AdminLTE App -->
-            <!--<script src="../../dist/js/adminlte.min.js"></script>-->
             <script src="../res/js/adminlte.min.js" type="text/javascript"></script>
             <!-- AdminLTE for demo purposes -->
-            <!--<script src="../../dist/js/demo.js"></script>-->
             <script src="../res/js/demo.js" type="text/javascript"></script>
-        </body>
+       
     </h:body>
 </html>
 
