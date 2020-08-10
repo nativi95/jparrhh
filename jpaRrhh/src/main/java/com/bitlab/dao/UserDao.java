@@ -12,31 +12,31 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author juana
  */
 public class UserDao extends AbstractDao<User> {
-//private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
 
     public UserDao() {
         super(User.class);
-//        logger.debug("Se inicia metodo constructor");
+
     }
 
     @Override
     public EntityManager getEntityManager() {
-//        logger.debug("Se inicia Get Entity Manager");
+        logger.debug("Se inicia Get Entity Manager");
         return ConnectionFactory.getConecction().getFactory().createEntityManager();
     }
 
     public User login(User input) {
-//         logger.debug("Se obtiene Entity Manager");
+         logger.debug("Se obtiene Entity Manager");
         EntityManager em = getEntityManager();
-//        logger.debug("Se Crea la Consulta");
+        logger.debug("Se Crea la Consulta");
         String sql = "SELECT u FROM User u WHERE u.usrUser=?1 AND u.userPassword=?2";
         Query q = null;
         try {
@@ -53,9 +53,9 @@ public class UserDao extends AbstractDao<User> {
             
         } finally {
             if (em.isOpen()) {
-                //logger.debug("Cerrando Conexion");
+                logger.debug("Cerrando Conexion");
                 em.close();
-                //logger.debug("Conexion Cerrada");
+                logger.debug("Conexion Cerrada");
             }
         }
 
