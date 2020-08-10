@@ -102,17 +102,19 @@
 
                         </p:selectOneMenu>
 
-                        <h:outputText value="Fecha de creación" />
-                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.adatecreate}" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Fecha de creación" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Usuario de creación" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.ausercreate}" />
 
-                        <h:outputText value="Usuario de creación" />
-                        <p:inputText value="#{employeeManagement.entity.ausercreate}" />
-
-                        <h:outputText value="Fecha de actualización" />
-                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.adatecreate}" />
-
-                        <h:outputText value="Usuario de actualización" />
-                        <p:inputText value="#{employeeManagement.entity.auserchange}" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Fecha de actualización" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Usuario de actualización" />
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.auserchange}" />
 
 
                     </p:panelGrid>

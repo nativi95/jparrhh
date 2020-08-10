@@ -5,12 +5,15 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.BillDao;
 import com.bitlab.entities.Bill;
+import com.bitlab.entities.User;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import static javax.ws.rs.client.Entity.entity;
 
 /**
  *
@@ -18,36 +21,59 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class BillManagement extends AbstractManagement<Bill>{
-private BillDao billDao;
+public class BillManagement extends AbstractManagement<Bill> {
+
+    private BillDao billDao;
+
     public BillManagement() {
         super(Bill.class);
-        billDao= new BillDao();
+        billDao = new BillDao();
     }
 
     @Override
     public BillDao getController() {
-       return billDao; 
+        return billDao;
     }
 
     @Override
     public Bill getEntity() {
-    return entity;    
+        return entity;
     }
 
     @Override
     public void setEntity(Bill entity) {
-    this.entity=entity;
+        this.entity = entity;
     }
 
     @Override
     public List<Bill> getEntities() {
-     return entities;
+        return entities;
     }
 
     @Override
     public void setEntities(List<Bill> entities) {
-      this.entities=entities;  
+        this.entities = entities;
     }
-    
+
+    @Override
+    public void createEntity() {
+        entity.setBillBillNo(0);
+        entity.setAdatechange(new Date());
+        entity.setAdatecreate(new Date());
+
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+        entity.setAusercreate(user.getUsrUser());
+        super.createEntity();
+    }
+
+    @Override
+    public void updateEntity() {
+        entity.setBillBillNo(0);
+        entity.setAdatechange(new Date());
+
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+        super.updateEntity();
+    }
 }

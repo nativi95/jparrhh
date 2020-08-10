@@ -8,9 +8,12 @@ package com.bitlab.management;
 import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.PayrollDao;
 import com.bitlab.entities.Payroll;
+import com.bitlab.entities.User;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -50,6 +53,25 @@ public class PayrollManagement extends AbstractManagement<Payroll> {
     @Override
     public void setEntities(List<Payroll> entities) {
         this.entities = entities;
+    }
+    
+    @Override
+    public void createEntity() {
+        entity.setPayPayrollNo(0);
+        entity.setAdatechange(new Date());
+        entity.setAdatecreate(new Date());
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAusercreate(user.getUsrUser());
+        entity.setAuserchange(user.getUsrUser());
+        super.createEntity();
+    }
+    
+    @Override
+    public void updateEntity() {
+        entity.setAdatechange(new Date());
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+        super.updateEntity();
     }
 
 }

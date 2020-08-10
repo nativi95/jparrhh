@@ -57,7 +57,7 @@
                 </f:facet>
                 <p:outputPanel  style="text-align:center;">
 
-                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
+                    <p:panelGrid id="matchGrid" columns="2" style="border: none"  columnClasses="label,value">
 
                         <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="No.Usuario" />
                         <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.usrUserNo}" />
@@ -72,37 +72,39 @@
                         <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
 
                         <h:outputText value="Rol" />
-
                         <p:selectOneMenu value="#{userManagement.entity.usrRolNo}" style="width: 100%">
                             <f:selectItem itemLabel="Seleccione..." noSelectionOption="false"></f:selectItem> 
                             <f:selectItems itemLabel="#{rol.rolRol}" var="rol" value="#{userManagement.rol}">
 
                             </f:selectItems>
-
                         </p:selectOneMenu>
 
-                        <h:outputText value="Fecha creación" />
-                        <p:calendar value="#{userManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Fecha creación" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.adatecreate}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
 
-                        <h:outputText value="Usuario creación" />
-                        <p:inputText value="#{userManagement.entity.ausercreate}" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Usuario creación" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.ausercreate}" />
 
-                        <h:outputText value="Fecha de actualización" />
-                        <p:calendar value="#{userManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Fecha de actualización" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.adatechange}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
 
-                        <h:outputText value="Usuario actualización" />
-                        <p:inputText value="#{userManagement.entity.auserchange}"/>
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Usuario actualización" />
+                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}"  value="#{userManagement.entity.auserchange}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userManagement.createEntity()}"
                                      value="Crear" 
-                                     update="form"
+                                     update=":form matchGrid :formMsj:msj"
                                      oncomplete="PF('usuDialog').hide()"
                                      rendered="#{userManagement.entity.usrUserNo==null}" />
                     <p:commandButton actionListener="#{userManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{userManagement.entity.usrUserNo!=null}" 
                                      oncomplete="PF('usuDialog').hide()"
-                                     update="form"/>
+                                     update=":form :formMsj:msj matchGrid"/>
                     <p:commandButton actionListener="#{userManagement.deteleEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"

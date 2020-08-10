@@ -65,5 +65,13 @@ public class DepartmentManagement extends AbstractManagement<Department> impleme
         entity.setAuserchange(user.getUsrUser());
         super.createEntity();
     }
+    
+    @Override
+    public void updateEntity() {
+        entity.setAdatechange(new Date());
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+        super.updateEntity();
+    }
 
 }

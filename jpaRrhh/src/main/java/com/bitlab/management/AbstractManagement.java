@@ -72,7 +72,6 @@ public abstract class AbstractManagement<T> {
 
     public void createEntity() {
         try {
-            System.out.println("La entidad de creacion era "+entity);
             getController().create(entity);
             message("Transacción exitosa", "Se agregó un nuevo elemento", INFO);
         } catch (Exception ex) {
@@ -82,7 +81,6 @@ public abstract class AbstractManagement<T> {
         }finally{
             try {
                 newEntity();
-                System.out.println("LA entidad al iniciar es "+entity);
             } catch (NoSuchMethodException ex) {
                 Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
