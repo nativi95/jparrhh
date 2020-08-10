@@ -5,15 +5,15 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.DepartmentDao;
 import com.bitlab.entities.Department;
+import com.bitlab.entities.User;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -21,7 +21,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class DepartmentManagement extends AbstractManagement<Department>{
+public class DepartmentManagement extends AbstractManagement<Department> implements Serializable {
 
     private DepartmentDao deparmentDao;
 
@@ -53,6 +53,17 @@ public class DepartmentManagement extends AbstractManagement<Department>{
     @Override
     public void setEntities(List<Department> entities) {
         this.entities = entities;
+    }
+
+    @Override
+    public void createEntity() {
+        entity.setDepDeptNo(0);
+        entity.setAdatechange(new Date());
+        entity.setAdatecreate(new Date());
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAusercreate(user.getUsrUser());
+        entity.setAuserchange(user.getUsrUser());
+        super.createEntity();
     }
 
 }
