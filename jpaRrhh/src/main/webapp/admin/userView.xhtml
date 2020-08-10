@@ -72,9 +72,9 @@
                         <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
 
                         <h:outputText value="Rol" />
-                        <p:selectOneMenu value="#{userManagement.entity.usrRolNo}" style="width: 100%">
+                        <p:selectOneMenu value="#{userManagement.rol.rolRolNo}" style="width: 100%">
                             <f:selectItem itemLabel="Seleccione..." noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{rol.rolRol}" var="rol" value="#{userManagement.rol}">
+                            <f:selectItems itemLabel="#{rol.rolRol}" itemValue="#{rol.rolRolNo}" var="rol" value="#{userManagement.roles}">
 
                             </f:selectItems>
                         </p:selectOneMenu>

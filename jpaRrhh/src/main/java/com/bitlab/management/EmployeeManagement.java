@@ -28,16 +28,20 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
 
     private EmployeeDao employeeDao;
 
-    
     private DepartmentDao departmentDao;
 
     private PositionDao positionDao;
-    
+
+    private Position position;
+    private Department department;
+
     public EmployeeManagement() {
         super(Employee.class);
         employeeDao = new EmployeeDao();
         departmentDao = new DepartmentDao();
         positionDao = new PositionDao();
+        position = new Position();
+        department = new Department();
     }
 
     @Override
@@ -73,10 +77,28 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
     public List<Department> getDepartments() {
         return departmentDao.findAll();
     }
-  
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public void createEntity() {
         entity.setEmpEmpNo(0);
+        entity.setEmpDeptNo(department);
+        entity.setEmpPositionNo(position);
         entity.setAdatechange(new Date());
         entity.setAdatecreate(new Date());
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
@@ -84,14 +106,15 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
         entity.setAuserchange(user.getUsrUser());
         super.createEntity();
     }
-    
+
     @Override
     public void updateEntity() {
         entity.setAdatechange(new Date());
+        entity.setEmpDeptNo(department);
+        entity.setEmpPositionNo(position);
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAuserchange(user.getUsrUser());
         super.updateEntity();
     }
-    
 
 }

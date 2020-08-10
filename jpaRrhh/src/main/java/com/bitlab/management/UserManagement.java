@@ -26,10 +26,12 @@ public class UserManagement extends AbstractManagement<User> {
 
     private UserDao userDao;
     private RolDao rolDao;
+    private Rol rol;
     public UserManagement() {
         super(User.class);
         userDao = new UserDao();
         rolDao = new RolDao();
+        rol = new Rol();
     }
 
     @Override
@@ -57,13 +59,22 @@ public class UserManagement extends AbstractManagement<User> {
         this.entities = entities;
     }
     
-    public List<Rol> getRol() {
+    public List<Rol> getRoles() {
         return rolDao.findAll();
     }
 
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+    
     @Override
     public void createEntity() {
         entity.setUsrUserNo(0);
+        entity.setUsrRolNo(rol);
         entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
         entity.setAdatechange(new Date());
         entity.setAdatecreate(new Date());
@@ -76,6 +87,8 @@ public class UserManagement extends AbstractManagement<User> {
     @Override
     public void updateEntity() {
         entity.setAdatechange(new Date());
+        entity.setUsrRolNo(rol);
+        entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAuserchange(user.getUsrUser());
         super.updateEntity();

@@ -16,6 +16,7 @@
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:head>
     <h:body class="hold-transition sidebar-mini">
+       
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
              
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" styleClass="bg-primary">
@@ -36,13 +37,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                             </li>
-                            <li class="nav-item d-none d-sm-inline-block">
-                                <a href="../../index3.html" class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item d-none d-sm-inline-block">
-                                <a href="#" class="nav-link">Contact</a>
-                            </li>
-                            <li class="nav-item d-none d-sm-inline-block">
+                            
+                            <li style="float: right; border: none;" class="nav-item d-none d-sm-inline-block">
                                 <h:form>
                                     <b> <h:commandLink class="nav-link" value="Salir" action="#{sessionManagement.logOut()}"/></b>
                                 </h:form>
@@ -65,7 +61,7 @@
                                                      alt="AdminLTE Logo"
                                                      class="brand-image img-circle elevation-3"
                                                      style="opacity: .8"/>-->
-                        <span class="brand-text font-weight-light">AdminLTE 3</span>
+                        <b><h:outputText style="font-size: 2rem" styleClass="brand-text font-weight-light" value="#{sessionManagement.entity.usrUser}"/></b>
                     </a>
 
                     <!-- Sidebar -->
@@ -76,18 +72,15 @@
                                 <!--<img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/>-->
                             </div>
                             <div class="info">
-                                <h:outputLabel value="#{sessionManagement.entity.usrUser}"></h:outputLabel>
+                                <h:outputLabel style="color: white" value="#{sessionManagement.entity.usrRolNo.rolRol}"></h:outputLabel>
                             </div>
                         </div>
 
                         <!-- Sidebar Menu -->
                         <nav class="mt-2">
                             <ui:insert  name="left">
-                                <h:form style="margin-top:  8%; margin-left: 4%; margin-right: 4%">
-<!--                                    <p:growl>
-                                        <p:autoUpdate />
-                                    </p:growl>
--->
+                                <h:form>
+
                                     <p:panelMenu style="width:100%;">
                                         <p:submenu  label="Gestiones">
                                            <p:menuitem style="color:white" value="Departamentos" url="departmentView.rh" icon="pi pi-briefcase" />
