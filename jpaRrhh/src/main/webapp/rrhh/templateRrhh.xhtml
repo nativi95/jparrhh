@@ -37,14 +37,8 @@
                                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                             </li>
                             <li class="nav-item d-none d-sm-inline-block">
-                                <a href="../../index3.html" class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item d-none d-sm-inline-block">
-                                <a href="#" class="nav-link">Contact</a>
-                            </li>
-                            <li class="nav-item d-none d-sm-inline-block">
                                 <h:form>
-                                    <b> <h:commandLink class="nav-link" value="Salir" action="#{sessionManagement.logOut()}"/></b>
+                                    <b> <h:commandLink styleClass="nav-link float-right" value="Salir" action="#{sessionManagement.logOut()}"/></b>
                                 </h:form>
                             </li>
                         </ul>
@@ -65,7 +59,7 @@
                                                      alt="AdminLTE Logo"
                                                      class="brand-image img-circle elevation-3"
                                                      style="opacity: .8"/>-->
-                        <span class="brand-text font-weight-light">AdminLTE 3</span>
+                        <span class="brand-text font-weight-light">RRHH Home</span>
                     </a>
 
                     <!-- Sidebar -->
@@ -93,7 +87,7 @@
                                            <p:menuitem style="color:white" value="Empleados" url="employeeRhView.rh" icon="pi pi-user" />
                                         </p:submenu>
                                         <p:submenu label="Pagos">
-                                           <p:menuitem style="color:white" value="Generacion de planillas" url="departmentView.rh" icon="pi pi-home" />
+                                           <p:menuitem style="color:white" value="Generacion de planillas" url="payrollView.rh" icon="pi pi-home" />
                                         </p:submenu>
                                         <p:separator />
                                     </p:panelMenu>
