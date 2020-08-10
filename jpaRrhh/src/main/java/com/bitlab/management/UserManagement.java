@@ -5,14 +5,16 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
+import com.bitlab.Utils.Sha;
 import com.bitlab.dao.RolDao;
 import com.bitlab.dao.UserDao;
 import com.bitlab.entities.Rol;
 import com.bitlab.entities.User;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -59,4 +61,24 @@ public class UserManagement extends AbstractManagement<User> {
         return rolDao.findAll();
     }
 
+    @Override
+    public void createEntity() {
+        entity.setUsrUserNo(0);
+        entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
+        entity.setAdatechange(new Date());
+        entity.setAdatecreate(new Date());
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAusercreate(user.getUsrUser());
+        entity.setAuserchange(user.getUsrUser());
+        super.createEntity();
+    }
+    
+    @Override
+    public void updateEntity() {
+        entity.setAdatechange(new Date());
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+        super.updateEntity();
+    }
+    
 }

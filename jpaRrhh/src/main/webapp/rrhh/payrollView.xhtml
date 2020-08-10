@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./templateAdmin.xhtml"
+                template="./templateRrhh.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -9,35 +9,38 @@
     <ui:define name="content">
 
         <h:form>
-            <p:commandButton value="Nuevo usuario" update=":card" oncomplete="PF('usuDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            <p:commandButton value="Generar planilla" update=":card" oncomplete="PF('payDialog').show()" icon="pi pi-plus" title="Nuevo registro">
             </p:commandButton>
         </h:form>
 
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
         <h:form id="form"> 
-            <p:dataTable id="table" var="usu" style="margin-top: 5%" value="#{userManagement.entities}" paginator="true" rows="25" reflow="true">
+            <p:dataTable id="table" var="pay" style="margin-top: 5%" value="#{payrollManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
                     Lista de usuarios
                 </f:facet>
-                <p:column headerText="No.Usuario">
+                <p:column headerText="No.Planilla">
                     <h:outputText value="#{usu.usrUserNo}" />
                 </p:column>
-                <p:column headerText="Nombre">
+                <p:column headerText="Empleado">
                     <h:outputText value="#{usu.usrUser}" />
                 </p:column>
-                <p:column headerText="Rol">
+                <p:column headerText="Cargo">
                     <h:outputText value="#{usu.usrRolNo.rolRol}" />
                 </p:column>
-                <p:column headerText="Ultima actualización">
+                <p:column headerText="Departamento">
                     <h:outputText value="#{usu.adatechange}" />
                 </p:column>
-                <p:column headerText="Usuario">
+                <p:column headerText="Fecha desde">
+                    <h:outputText value="#{usu.auserchange}" />
+                </p:column>
+                <p:column headerText="Fecha hasta">
                     <h:outputText value="#{usu.auserchange}" />
                 </p:column>
                 <p:column style="width:4%;text-align: center">
 
-                    <p:commandButton update=":card" oncomplete="PF('usuDialog').show()" icon="pi pi-search" title="View">
-                        <f:setPropertyActionListener value="#{usu}" target="#{userManagement.entity}" />
+                    <p:commandButton update=":card" oncomplete="PF('payDialog').show()" icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{pay}" target="#{payrollManagement.entity}" />
                     </p:commandButton>
 
                 </p:column>
@@ -46,24 +49,24 @@
         <h:form id="card"> 
             <p:dialog closable="false" style="height: auto;" widgetVar="usuDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <f:facet name="header">
-                    Informacion del usuario
+                    Informacion de la planilla
                     <p:commandButton 
                         style="float: right; border: none;"
-                        actionListener="#{userManagement.init()}" 
+                        actionListener="#{payrollManagement.init()}" 
                         styleClass="bg-danger" 
                         icon="pi pi-times"
                         process="@this"
-                        oncomplete="PF('usuDialog').hide()"/>
+                        oncomplete="PF('payDialog').hide()"/>
                 </f:facet>
                 <p:outputPanel  style="text-align:center;">
 
-                    <p:panelGrid id="matchGrid" columns="2" style="border: none"  columnClasses="label,value">
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
 
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="No.Usuario" />
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.usrUserNo}" />
+                        <h:outputText rendered="#{payrollManagement.entity.payPayrollNo!=null}" value="No.Planilla" />
+                        <h:outputText rendered="#{payrollManagement.entity.payPayrollNo!=null}" value="#{payrollManagement.entity.payPayrollNo}" />
 
-                        <h:outputText value="Nombre usuario" />
-                        <p:inputText value="#{userManagement.entity.usrUser}" />
+                        <h:outputText value="Nombre empleado" />
+                        <p:inputText value="#{payrollManagement.entity.payEmpNo.empFirstName}" />
 
                         <h:outputText value="Contraseña: *" />
                         <p:password id="pwd1" value="#{userManagement.entity.userPassword}" match="pwd2" label="Password 1" required="true" />
@@ -72,39 +75,37 @@
                         <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
 
                         <h:outputText value="Rol" />
+
                         <p:selectOneMenu value="#{userManagement.entity.usrRolNo}" style="width: 100%">
                             <f:selectItem itemLabel="Seleccione..." noSelectionOption="false"></f:selectItem> 
                             <f:selectItems itemLabel="#{rol.rolRol}" var="rol" value="#{userManagement.rol}">
 
                             </f:selectItems>
+
                         </p:selectOneMenu>
 
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Fecha creación" />
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.adatecreate}">
-                            <f:convertDateTime pattern="yyyy-MM-dd"/>
-                        </h:outputText>
+                        <h:outputText value="Fecha creación" />
+                        <p:calendar value="#{userManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
 
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Usuario creación" />
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.ausercreate}" />
+                        <h:outputText value="Usuario creación" />
+                        <p:inputText value="#{userManagement.entity.ausercreate}" />
 
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Fecha de actualización" />
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.adatechange}" >
-                            <f:convertDateTime pattern="yyyy-MM-dd"/>
-                        </h:outputText>
+                        <h:outputText value="Fecha de actualización" />
+                        <p:calendar value="#{userManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
 
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="Usuario actualización" />
-                        <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}"  value="#{userManagement.entity.auserchange}"/>
+                        <h:outputText value="Usuario actualización" />
+                        <p:inputText value="#{userManagement.entity.auserchange}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userManagement.createEntity()}"
                                      value="Crear" 
-                                     update=":form matchGrid :formMsj:msj"
+                                     update="form"
                                      oncomplete="PF('usuDialog').hide()"
                                      rendered="#{userManagement.entity.usrUserNo==null}" />
                     <p:commandButton actionListener="#{userManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{userManagement.entity.usrUserNo!=null}" 
                                      oncomplete="PF('usuDialog').hide()"
-                                     update=":form :formMsj:msj matchGrid"/>
+                                     update="form"/>
                     <p:commandButton actionListener="#{userManagement.deteleEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
