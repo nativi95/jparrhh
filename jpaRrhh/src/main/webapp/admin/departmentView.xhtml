@@ -62,17 +62,19 @@
                         <h:outputText value="Nombre" />
                         <p:inputText value="#{departmentManagement.entity.depDeptName}" />
 
-                        <h:outputText value="Fecha creación" />
-                        <p:calendar value="#{departmentManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Fecha creación" />
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.adatecreate}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Usuario creación" />
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.ausercreate}" />
 
-                        <h:outputText value="Usuario creación" />
-                        <p:inputText value="#{departmentManagement.entity.ausercreate}" />
-
-                        <h:outputText value="Fecha de actualización" />
-                        <p:calendar value="#{departmentManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
-
-                        <h:outputText value="Usuario actualización" />
-                        <p:inputText value="#{departmentManagement.entity.auserchange}"/>
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Fecha de actualización" />
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.adatechange}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Usuario actualización" />
+                        <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.auserchange}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentManagement.createEntity()}"
                                      value="Crear" 
