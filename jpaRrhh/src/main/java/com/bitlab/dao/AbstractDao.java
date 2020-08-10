@@ -9,13 +9,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author juana
  */
 public abstract class AbstractDao<T> {
-
+ private static final Logger logger = LoggerFactory.getLogger(AbstractDao.class);
     /**
      * Constante para definir la transaccion create
      */
@@ -82,14 +84,18 @@ public abstract class AbstractDao<T> {
      */
     public T find(Object id) throws Exception {
         EntityManager em = getEntityManager();
+        logger.debug("Se inicia Get Entity Manager");
         try {
+            logger.debug("Retornando el objeto por ID");
             return em.find(entityClass, id);
+        
         } catch (Exception e) {
-
+        
             throw new Exception(e);
         } finally {
             if (em.isOpen()) {
                 em.close();
+                logger.debug("Conexion Cerrada");
             }
         }
 
@@ -102,13 +108,18 @@ public abstract class AbstractDao<T> {
      */
     public List<T> findAll() {
         EntityManager em = getEntityManager();
+        logger.debug("Se inicia Get Entity Manager");
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(entityClass));
+            logger.debug("Realizando consulta");
             Query q = em.createQuery(cq);
+            logger.debug("Retornando resultado de la consulta");
             return q.getResultList();
+            
         } catch (Exception e) {
             em.close();
+            logger.debug("Retornando resultado de la consulta");
             return null;
         }
     }
@@ -124,18 +135,23 @@ public abstract class AbstractDao<T> {
      */
     public void transaction(String method, T entity) throws Exception {
         EntityManager em = getEntityManager();
+         logger.debug("Se inicia Get Entity Manager");
         try {
 
             em.getTransaction().begin();
+            logger.debug("Se inicia la transaccion");
             switch (method) {
                 case CREATE:
                     em.persist(entity);
+                    logger.debug("Creando nueva entidad");
                     break;
                 case UPDATE:
                     em.merge(entity);
+                    logger.debug("Actualizando entidad");
                     break;
                 case REMOVE:
                     em.remove(em.merge(entity));
+                    logger.debug("Eliminando entidad");
                     break;
             }
             em.getTransaction().commit();
@@ -145,6 +161,7 @@ public abstract class AbstractDao<T> {
         } finally {
             if (em.isOpen()) {
                 em.close();
+                 logger.debug("Conexion Cerrada");
             }
         }
     }

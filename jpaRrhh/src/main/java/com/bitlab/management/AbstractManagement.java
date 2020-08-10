@@ -44,6 +44,11 @@ public abstract class AbstractManagement<T> {
         }
     }
 
+    /**
+     * Metodo Postconstruct
+     *
+     */
+    
     @PostConstruct
     public void init() {
         entities = getController().findAll();
@@ -54,6 +59,10 @@ public abstract class AbstractManagement<T> {
         }
     }
 
+    /**
+     * Metodo Predestroyer
+     *
+     */
     @PreDestroy
     public void destroyed() {
         entities = null;
@@ -70,16 +79,23 @@ public abstract class AbstractManagement<T> {
 
     public abstract void setEntities(List<T> entities);
 
+    /**
+     * Metodo para crear una nueva entidad
+     *
+     * @param entity de la base de datos
+     * @throws Exception
+     * @throws NoSuchMethodException
+     */
     public void createEntity() {
         try {
-            System.out.println("La entidad de creacion era "+entity);
+            System.out.println("La entidad de creacion era " + entity);
             getController().create(entity);
             message("Transacción exitosa", "Se agregó un nuevo elemento", INFO);
         } catch (Exception ex) {
             message("No se completó la transacción", "No fue creado por " + ex.getMessage(), ERROR);
 
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 newEntity();
             } catch (NoSuchMethodException ex) {
@@ -88,6 +104,13 @@ public abstract class AbstractManagement<T> {
         }
     }
 
+    /**
+     * Metodo para Eliminar una Entidad
+     *
+     * @param entity de la base de datos
+     * @throws Exception
+     * @throws NoSuchMethodException
+     */
     public void deteleEntity() {
         try {
             getController().delete(entity);
@@ -97,7 +120,7 @@ public abstract class AbstractManagement<T> {
             message("No se completó la transacción", "No fue eliminado por " + ex.getMessage(), ERROR);
 
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 newEntity();
             } catch (NoSuchMethodException ex) {
@@ -106,16 +129,23 @@ public abstract class AbstractManagement<T> {
         }
     }
 
+    /**
+     * Metodo para Actualizar una Entidad
+     *
+     * @param entity de la base de datos
+     * @throws Exception
+     * @throws NoSuchMethodException
+     */
     public void updateEntity() {
         try {
             getController().update(entity);
             message("Transacción exitosa", "Se actualizó el elemento seleccionado", INFO);
-            
+
         } catch (Exception e) {
             message("No se completó la transacción", "No fue actualizado por " + e.getMessage(), ERROR);
 
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, e);
-        }finally{
+        } finally {
             try {
                 newEntity();
             } catch (NoSuchMethodException ex) {
@@ -124,6 +154,13 @@ public abstract class AbstractManagement<T> {
         }
     }
 
+    /**
+     * Metodo para Encontrar una Entidad
+     *
+     * @param int i
+     * @throws Exception
+     * @throws NoSuchMethodException
+     */
     public void findEntity(int i) {
         try {
             entity = getController().find(i);
@@ -133,6 +170,14 @@ public abstract class AbstractManagement<T> {
         }
     }
 
+    /**
+     * Metodo para Enviar Alertas al Usuario
+     *
+     * @param String head
+     * @param String body
+     * @param String type
+     *
+     */
     public void message(String head, String body, String type) {
 
         FacesMessage m = new FacesMessage();
