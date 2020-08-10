@@ -40,11 +40,11 @@ public class SessionManagement extends AbstractManagement<User> {
 
     public void logIn() {
         userDao = new UserDao();
-        
+
         entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
-        
+
         entity = userDao.login(entity);//se llena entity con la busqueda del login
-        
+
         if (entity != null) {
 
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", entity);// se crea sesion con objeto de tipo user y clave User
@@ -92,7 +92,8 @@ public class SessionManagement extends AbstractManagement<User> {
     }
 
     public void logOut() {
-
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        entity=null;
         redirect("index");
 
     }

@@ -86,17 +86,18 @@
                         <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empHireDate}" />
 
                         <h:outputText value="Puesto" />
-                        <p:selectOneMenu value="#{employeeManagement.entity.empPositionNo}">
+                        <p:selectOneMenu value="#{employeeManagement.position.posPositionNo}">
                             <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{pos.posPosition}" var="pos" value="#{employeeManagement.positions}">
+                            <f:selectItems itemLabel="#{pos.posPosition}" var="pos" itemValue="#{pos.posPositionNo}" value="#{employeeManagement.positions}">
+
                             </f:selectItems>
 
                         </p:selectOneMenu>
 
                         <h:outputText value="Departamento" />
-                        <p:selectOneMenu value="#{employeeManagement.entity.empDeptNo}">
+                        <p:selectOneMenu value="#{employeeManagement.department.depDeptNo}">
                             <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" value="#{employeeManagement.departments}">
+                            <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" itemValue="#{dept.depDeptNo}" value="#{employeeManagement.departments}">
 
                             </f:selectItems>
 
