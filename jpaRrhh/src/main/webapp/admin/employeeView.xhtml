@@ -80,10 +80,13 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Fecha de nacimiento" />
-                        <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empBirthDate}" />
+                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.empBirthDate}" />
 
                         <h:outputText value="Fecha de contración" />
-                        <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empHireDate}" />
+                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.empHireDate}" />
+                        
+                        <h:outputText value="Email de empleado" />
+                        <p:inputText value="#{employeeManagement.entity.empEmail}" />
 
                         <h:outputText value="Puesto" />
                         <p:selectOneMenu value="#{employeeManagement.position.posPositionNo}">
