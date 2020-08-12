@@ -7,7 +7,6 @@ package com.bitlab.dao;
 
 import com.bitlab.connection.ConnectionFactory;
 import com.bitlab.entities.Department;
-import java.util.List;
 import javax.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

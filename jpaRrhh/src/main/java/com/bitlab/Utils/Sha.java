@@ -22,14 +22,14 @@ public class Sha {
             byte[] messageDigest = md.digest(input.getBytes());
 
             BigInteger no = new BigInteger(1, messageDigest);
-
-            String hashtext = no.toString(16);
+            StringBuilder hashtext = new StringBuilder();
+            hashtext.append(no.toString(16));
 
             while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
+                hashtext.append("0" + hashtext);
             }
 
-            return hashtext;
+            return hashtext.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }

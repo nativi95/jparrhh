@@ -40,6 +40,9 @@ public abstract class AbstractDao<T> {
     public AbstractDao(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
+    
+    public AbstractDao(){
+    }
 
     /**
      * metodo para agregar un campo
