@@ -36,7 +36,7 @@
                 </p:column>
                 <p:column style="width:4%;text-align: center">
 
-                    <p:commandButton update=":card" oncomplete="PF('usuDialog').show()" icon="pi pi-search" title="View">
+                    <p:commandButton update=":card:matchGrid" oncomplete="PF('usuDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{usu}" target="#{userManagement.entity}" />
                     </p:commandButton>
 
@@ -105,13 +105,13 @@
                                      rendered="#{userManagement.entity.usrUserNo!=null}" 
                                      oncomplete="PF('usuDialog').hide()"
                                      update=":form :formMsj:msj matchGrid"/>
-                    <p:commandButton actionListener="#{userManagement.deteleEntity()}" 
+                    <p:commandButton actionListener="#{userManagement.deleteEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
                                      styleClass="bg-danger"
                                      rendered="#{userManagement.entity.usrUserNo!=null}" 
                                      oncomplete="PF('usuDialog').hide()"
-                                     update=":form"/>
+                                     update=":form @this"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>

@@ -130,7 +130,7 @@
                                  rendered="#{employeeManagement.entity.empEmpNo==null}" 
                                  oncomplete="PF('empDialog').hide()"
                                  update=":form :formMsj:msj"/>
-                <p:commandButton actionListener="#{employeeManagement.deteleEntity}" 
+                <p:commandButton actionListener="#{employeeManagement.deleteEntity()}" 
                                  value="Eliminar" 
                                  rendered="#{employeeManagement.entity.empEmpNo!=null}" 
                                  oncomplete="PF('empDialog').hide()"
