@@ -93,7 +93,7 @@ public abstract class AbstractManagement<T> {
         } catch (Exception ex) {
             message("No se completó la transacción", "No fue creado por " + ex.getMessage(), ERROR);
 
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             try {
                 newEntity();
@@ -110,15 +110,15 @@ public abstract class AbstractManagement<T> {
      * @throws Exception
      * @throws NoSuchMethodException
      */
-    public void deteleEntity() {
+    public void deleteEntity() {
         try {
             getController().delete(entity);
             message("Transacción exitosa", "Se eliminó el elemento seleccionado", INFO);
-        } catch (Exception ex) {
 
-            message("No se completó la transacción", "No fue eliminado por " + ex.getMessage(), ERROR);
+        } catch (Exception e) {
+            message("No se completó la transacción", "No fue eliminado por " + e.getMessage(), ERROR);
 
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             try {
                 newEntity();
@@ -198,7 +198,7 @@ public abstract class AbstractManagement<T> {
 
     public void redirect(String page) {//permite redireccionar a la pagina extablecida
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/jpaRrhh/" + page + ".rh");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() +"/"+ page + ".rh");
         } catch (IOException ex) {
             Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
         }

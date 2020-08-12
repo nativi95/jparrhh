@@ -49,7 +49,7 @@ public class SessionManagement extends AbstractManagement<User> {
 
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", entity);// se crea sesion con objeto de tipo user y clave User
 
-            if (entity.getUsrRolNo().getRolRolNo() == 1) {
+            if (entity.getUsrRolNo().getRolRol().equals("rrhh")) {
                 redirect("rrhh/index");
             } else {
 
@@ -68,20 +68,21 @@ public class SessionManagement extends AbstractManagement<User> {
 
     }
 
-    public void checkSession(int rol) {
+    public void checkSession(String rol) {
         userDao = new UserDao();
 
         setEntity((User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User"));//se obtiene la sesion actual
         if (getEntity() != null) {
-            if (getEntity().getUsrRolNo().getRolRolNo() == rol) {
+            if (getEntity().getUsrRolNo().getRolRol().equals(rol)) {
 
             } else {
-                if (getEntity().getUsrRolNo().getRolRolNo() == 1) {
+                if (getEntity().getUsrRolNo().getRolRol().equals("rrhh")) {
                     redirect("rrhh/index");
 
                 } else {
-                    redirect("admin/index");
-
+                    if (getEntity().getUsrRolNo().getRolRol().equals("admin")) {
+                        redirect("admin/index");
+                    }else{redirect("index");}
                 }
             }
         } else {
@@ -93,7 +94,7 @@ public class SessionManagement extends AbstractManagement<User> {
 
     public void logOut() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        entity=null;
+        entity = null;
         redirect("index");
 
     }

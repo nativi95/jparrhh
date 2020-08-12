@@ -13,33 +13,32 @@
             </p:commandButton>
         </h:form>
 
-        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-        <h:form id="form"> 
-            <p:dataTable id="table" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
-                <f:facet name="header">
-                    Lista de puestos
-                </f:facet>
-                <p:column headerText="No.Departamento">
-                    <h:outputText value="#{dept.depDeptNo}" />
-                </p:column>
-                <p:column headerText="Nombre">
-                    <h:outputText value="#{dept.depDeptName}" />
-                </p:column>
-                <p:column headerText="Ultima actualización">
-                    <h:outputText value="#{dept.adatechange}" />
-                </p:column>
-                <p:column headerText="Usuario">
-                    <h:outputText value="#{dept.auserchange}" />
-                </p:column>
-                <p:column style="width:4%;text-align: center">
 
+        <p:dataTable id="table" var="dept" style="margin-top: 5%" value="#{departmentManagement.entities}" paginator="true" rows="25" reflow="true">
+            <f:facet name="header">
+                Lista de puestos
+            </f:facet>
+            <p:column headerText="No.Departamento">
+                <h:outputText value="#{dept.depDeptNo}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{dept.depDeptName}" />
+            </p:column>
+            <p:column headerText="Ultima actualización">
+                <h:outputText value="#{dept.adatechange}" />
+            </p:column>
+            <p:column headerText="Usuario">
+                <h:outputText value="#{dept.auserchange}" />
+            </p:column>
+            <p:column style="width:4%;text-align: center">
+                <h:form>
                     <p:commandButton update=":card" oncomplete="PF('deptDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{dept}" target="#{departmentManagement.entity}" />
                     </p:commandButton>
+                </h:form>
+            </p:column>
+        </p:dataTable>
 
-                </p:column>
-            </p:dataTable>
-        </h:form>
         <h:form id="card"> 
             <p:dialog closable="false" style="height: auto;" widgetVar="deptDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <f:facet name="header">
@@ -64,36 +63,39 @@
 
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Fecha creación" />
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.adatecreate}" >
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
                         </h:outputText>
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Usuario creación" />
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.ausercreate}" />
 
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Fecha de actualización" />
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.adatechange}">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
                         </h:outputText>
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="Usuario actualización" />
                         <h:outputText rendered="#{departmentManagement.entity.depDeptNo!=null}" value="#{departmentManagement.entity.auserchange}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentManagement.createEntity()}"
-                                     value="Crear" 
-                                     update=":form:table :formMsj:msj"
+                                     value="Crear"
+
+                                     update=":formMsj:msj :table"
                                      oncomplete="PF('deptDialog').hide()"
-                                     rendered="#{departmentManagement.entity.depDeptNo==null}" />
+                                     rendered="#{departmentManagement.entity.depDeptNo==null}" ></p:commandButton>
                     <p:commandButton actionListener="#{departmentManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{departmentManagement.entity.depDeptNo!=null}" 
                                      oncomplete="PF('deptDialog').hide()"
-                                     update=":form:table :formMsj:msj"/>
-                    <p:commandButton actionListener="#{departmentManagement.deteleEntity()}" 
+                                     update=":table :formMsj:msj"/>
+                    <p:commandButton action="#{departmentManagement.deleteEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
                                      styleClass="bg-danger"
                                      rendered="#{departmentManagement.entity.depDeptNo!=null}" 
                                      oncomplete="PF('deptDialog').hide()"
-                                     update=":form:table :formMsj:msj"/>
+                                     update=":table :formMsj:msj">
+                        </p:commandButton>
                 </p:outputPanel>
+
             </p:dialog>            
         </h:form>
     </ui:define>
