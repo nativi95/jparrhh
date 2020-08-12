@@ -17,25 +17,23 @@
         <h:form id="form"> 
             <p:dataTable id="table" var="pay" style="margin-top: 5%" value="#{payrollManagement.entities}" paginator="true" rows="25" reflow="true">
                 <f:facet name="header">
-                    Lista de usuarios
+                    Lista de planillas
                 </f:facet>
-                <p:column headerText="No.Planilla">
-                    <h:outputText value="#{usu.usrUserNo}" />
-                </p:column>
+                
                 <p:column headerText="Empleado">
-                    <h:outputText value="#{usu.usrUser}" />
+                    <h:outputText value="#{pay.payEmpNo.empFirstName}" />
                 </p:column>
                 <p:column headerText="Cargo">
-                    <h:outputText value="#{usu.usrRolNo.rolRol}" />
+                    <h:outputText value="#{pay.payEmpNo.empPositionNo.posPosition}" />
                 </p:column>
                 <p:column headerText="Departamento">
-                    <h:outputText value="#{usu.adatechange}" />
+                    <h:outputText value="#{pay.payEmpNo.empDeptNo.depDeptName}" />
                 </p:column>
                 <p:column headerText="Fecha desde">
-                    <h:outputText value="#{usu.auserchange}" />
+                    <h:outputText value="#{pay.payFromDate}" />
                 </p:column>
                 <p:column headerText="Fecha hasta">
-                    <h:outputText value="#{usu.auserchange}" />
+                    <h:outputText value="#{pay.payToDate}" />
                 </p:column>
                 <p:column style="width:4%;text-align: center">
 
@@ -47,7 +45,7 @@
             </p:dataTable>
         </h:form>
         <h:form id="card"> 
-            <p:dialog closable="false" style="height: auto;" widgetVar="usuDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog closable="false" style="height: auto;" widgetVar="payDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <f:facet name="header">
                     Informacion de la planilla
                     <p:commandButton 
@@ -68,50 +66,46 @@
                         <h:outputText value="Nombre empleado" />
                         <p:inputText value="#{payrollManagement.entity.payEmpNo.empFirstName}" />
 
-                        <h:outputText value="Contraseña: *" />
-                        <p:password id="pwd1" value="#{userManagement.entity.userPassword}" match="pwd2" label="Password 1" required="true" />
+                        <h:outputText value="Puesto" />
+                        <p:inputText value="#{payrollManagement.entity.payEmpNo.empPositionNo.posPosition}" required="true" />
 
-                        <h:outputText value="Confirmar contraseña: *" />
-                        <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
+                        <h:outputText value="Departamento" />
+                        <p:inputText value="#{payrollManagement.entity.payEmpNo.empDeptNo.depDeptName}" required="true" />
 
-                        <h:outputText value="Rol" />
-
-                        <p:selectOneMenu value="#{userManagement.entity.usrRolNo}" style="width: 100%">
-                            <f:selectItem itemLabel="Seleccione..." noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{rol.rolRol}" var="rol" value="#{userManagement.rol}">
-
-                            </f:selectItems>
-
-                        </p:selectOneMenu>
-
+                        <h:outputText value="Fecha desde" />
+                        <p:calendar value="#{payrollManagement.entity.payFromDate}" pattern="yyyy-MM-dd"/>
+                        
+                        <h:outputText value="Fecha hasta" />
+                        <p:calendar value="#{payrollManagement.entity.payToDate}" pattern="yyyy-MM-dd"/>
+                        
                         <h:outputText value="Fecha creación" />
-                        <p:calendar value="#{userManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
+                        <p:calendar value="#{payrollManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
 
                         <h:outputText value="Usuario creación" />
-                        <p:inputText value="#{userManagement.entity.ausercreate}" />
+                        <p:inputText value="#{payrollManagement.entity.ausercreate}" />
 
                         <h:outputText value="Fecha de actualización" />
-                        <p:calendar value="#{userManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
+                        <p:calendar value="#{payrollManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
 
                         <h:outputText value="Usuario actualización" />
-                        <p:inputText value="#{userManagement.entity.auserchange}"/>
+                        <p:inputText value="#{payrollManagement.entity.auserchange}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{userManagement.createEntity()}"
+                    <p:commandButton actionListener="#{payrollManagement.createEntity()}"
                                      value="Crear" 
                                      update="form"
-                                     oncomplete="PF('usuDialog').hide()"
-                                     rendered="#{userManagement.entity.usrUserNo==null}" />
-                    <p:commandButton actionListener="#{userManagement.updateEntity()}" 
+                                     oncomplete="PF('payDialog').hide()"
+                                     rendered="#{payrollManagement.entity.payPayrollNo==null}" />
+                    <p:commandButton actionListener="#{payrollManagement.updateEntity()}" 
                                      value="Actualizar" 
-                                     rendered="#{userManagement.entity.usrUserNo!=null}" 
-                                     oncomplete="PF('usuDialog').hide()"
+                                     rendered="#{payrollManagement.entity.payPayrollNo!=null}" 
+                                     oncomplete="PF('payDialog').hide()"
                                      update="form"/>
-                    <p:commandButton actionListener="#{userManagement.deteleEntity()}" 
+                    <p:commandButton actionListener="#{payrollManagement.deteleEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
                                      styleClass="bg-danger"
-                                     rendered="#{userManagement.entity.usrUserNo!=null}" 
-                                     oncomplete="PF('usuDialog').hide()"
+                                     rendered="#{payrollManagement.entity.payPayrollNo!=null}" 
+                                     oncomplete="PF('payDialog').hide()"
                                      update=":form"/>
                 </p:outputPanel>
             </p:dialog>            
