@@ -203,7 +203,9 @@ public class Position implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.Position[ posPositionNo=" + posPositionNo + " ]";
+        return "Position{" + "posPositionNo=" + posPositionNo + ", posPosition=" + posPosition + ", ausercreate=" + ausercreate + ", adatecreate=" + adatecreate + ", auserchange=" + auserchange + ", adatechange=" + adatechange + ", employeeList=" + employeeList + '}';
     }
+
+    
 
 }

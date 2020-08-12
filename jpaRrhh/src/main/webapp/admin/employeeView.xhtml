@@ -104,14 +104,14 @@
                         </p:selectOneMenu>
 
                         <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Fecha de creación" />
-                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}">
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.adatecreate}">
                             <f:convertDateTime pattern="yyyy-MM-dd"/>
                         </h:outputText>
                         <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Usuario de creación" />
                         <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.ausercreate}" />
 
                         <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Fecha de actualización" />
-                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" >
+                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.adatechange}">
                             <f:convertDateTime pattern="yyyy-MM-dd"/>
                         </h:outputText>
                         <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Usuario de actualización" />

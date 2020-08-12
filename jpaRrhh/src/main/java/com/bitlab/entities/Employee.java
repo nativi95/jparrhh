@@ -309,7 +309,9 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.Employee[ empEmpNo=" + empEmpNo + " ]";
+        return "Employee{" + "empEmpNo=" + empEmpNo + ", empBirthDate=" + empBirthDate + ", empFirstName=" + empFirstName + ", empLastName=" + empLastName + ", empGender=" + empGender + ", empHireDate=" + empHireDate + ", empEmail=" + empEmail + ", ausercreate=" + ausercreate + ", adatecreate=" + adatecreate + ", auserchange=" + auserchange + ", adatechange=" + adatechange + ", payrollList=" + payrollList + ", empPositionNo=" + empPositionNo + ", empDeptNo=" + empDeptNo + '}';
     }
+
+    
 
 }

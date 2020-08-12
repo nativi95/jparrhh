@@ -109,7 +109,6 @@ public abstract class AbstractManagement<T> {
      */
     public void deleteEntity() {
         try {
-            getController().delete(entity);
             message("Transacción exitosa", "Se eliminó el elemento seleccionado", INFO);
 
         } catch (Exception e) {

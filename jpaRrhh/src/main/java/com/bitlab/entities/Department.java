@@ -207,7 +207,9 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entities.Department[ depDeptNo=" + depDeptNo + " ]";
+        return "Department{" + "depDeptNo=" + depDeptNo + ", depDeptName=" + depDeptName + ", ausercreate=" + ausercreate + ", adatecreate=" + adatecreate + ", auserchange=" + auserchange + ", adatechange=" + adatechange + ", employeeList=" + employeeList + '}';
     }
+
+    
 
 }
