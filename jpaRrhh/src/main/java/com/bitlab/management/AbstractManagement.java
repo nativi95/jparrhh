@@ -22,14 +22,19 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractManagement<T> {
 
     /**
-     *constante para especificar error
+     * constante para especificar error
      */
     protected static final String ERROR = "error";
 
     /**
-     *constante para especificar info
+     * constante para especificar info
      */
     protected static final String INFO = "info";
+
+    /**
+     * constante para especificar advertencia
+     */
+    protected static final String WARN = "warn";
 
     protected T entity;
     protected List<T> entities;
@@ -44,7 +49,7 @@ public abstract class AbstractManagement<T> {
         try {
             entity = entityClass.getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            
+
         }
     }
 
@@ -52,14 +57,13 @@ public abstract class AbstractManagement<T> {
      * Metodo Postconstruct
      *
      */
-    
     @PostConstruct
     public void init() {
         entities = getController().findAll();
         try {
             newEntity();
         } catch (NoSuchMethodException ex) {
-            
+
         }
     }
 
@@ -94,19 +98,14 @@ public abstract class AbstractManagement<T> {
         } catch (Exception ex) {
             message("No se completó la transacción", "No fue creado por " + ex.getMessage(), ERROR);
 
-            
         } finally {
-            try {
-                newEntity();
-            } catch (NoSuchMethodException ex) {
-                
-            }
+            init();
         }
     }
 
-   /**
-    * Metodo que permite eliminar una entidad
-    */
+    /**
+     * Metodo que permite eliminar una entidad
+     */
     public void deleteEntity() {
         try {
             getController().delete(entity);
@@ -115,19 +114,14 @@ public abstract class AbstractManagement<T> {
         } catch (Exception e) {
             message("No se completó la transacción", "No fue elimina por " + e.getMessage(), ERROR);
 
-            
         } finally {
-            try {
-                newEntity();
-            } catch (NoSuchMethodException ex) {
-                
-            }
+            init();
         }
     }
 
     /**
      * Metodo para Actualizar una Entidad
-     * 
+     *
      */
     public void updateEntity() {
         try {
@@ -137,13 +131,8 @@ public abstract class AbstractManagement<T> {
         } catch (Exception e) {
             message("No se completó la transacción", "No fue actualizado por " + e.getMessage(), ERROR);
 
-            
         } finally {
-            try {
-                newEntity();
-            } catch (NoSuchMethodException ex) {
-                
-            }
+            init();
         }
     }
 
@@ -157,18 +146,18 @@ public abstract class AbstractManagement<T> {
             entity = getController().find(i);
             System.out.println(entity);
         } catch (Exception ex) {
-           
+
         }
     }
 
     /**
      * Metodo para Enviar Alertas al Usuario
      *
-     * @param  head
-     * @param  body
-     * @param  type
+     * @param head
+     * @param body
+     * @param type
      *
-     * 
+     *
      */
     public void message(String head, String body, String type) {
 
@@ -182,7 +171,7 @@ public abstract class AbstractManagement<T> {
             case INFO:
                 m.setSeverity(FacesMessage.SEVERITY_INFO);
                 break;
-            default:
+            case WARN:
                 m.setSeverity(FacesMessage.SEVERITY_WARN);
                 break;
         }
@@ -191,9 +180,9 @@ public abstract class AbstractManagement<T> {
 
     public void redirect(String page) {//permite redireccionar a la pagina extablecida
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() +"/"+ page + ".rh");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/" + page + ".rh");
         } catch (IOException ex) {
-           
+
         }
     }
 

@@ -38,27 +38,28 @@ public class SessionManagement extends AbstractManagement<User> {
     public void logIn() {
         entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
 
-        entity = userDao.login(entity);//se llena entity con la busqueda del login
+        try {
+            entity = userDao.login(entity);//se llena entity con la busqueda del login
 
-        if (entity != null) {
+            if (entity != null) {
 
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", entity);// se crea sesion con objeto de tipo user y clave User
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("User", entity);// se crea sesion con objeto de tipo user y clave User
 
-            if (entity.getUsrRolNo().getRolRol().equals("rrhh")) {
-                redirect("rrhh/index");
-            } else {
+                if (entity.getUsrRolNo().getRolRol().equals("rrhh")) {
+                    redirect("rrhh/index");
+                } else {
 
-                redirect("admin/index");
+                    redirect("admin/index");
+
+                }
+
+                message("Sesión iniciada", "Bienvenido " + entity.getUsrUser(), INFO);
 
             }
-
-            message("Sesión iniciada", "Bienvenido " + entity.getUsrUser(), INFO);
-
-        } else {
-            message("No se pudo iniciar sesión", "Algunos de los datos no esta correcto", "WARN");
-
-            entity = new User();
-
+        } catch (Exception e) {
+            message("No se pudo iniciar sesión", "Algunos de los datos no estan correcto", WARN);
+        }finally{
+        entity= new User();
         }
 
     }
@@ -77,7 +78,9 @@ public class SessionManagement extends AbstractManagement<User> {
                 } else {
                     if (getEntity().getUsrRolNo().getRolRol().equals("admin")) {
                         redirect("admin/index");
-                    }else{redirect("index");}
+                    } else {
+                        redirect("index");
+                    }
                 }
             }
         } else {
