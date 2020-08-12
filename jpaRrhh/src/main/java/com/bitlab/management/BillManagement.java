@@ -13,7 +13,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import static javax.ws.rs.client.Entity.entity;
 
 /**
  *

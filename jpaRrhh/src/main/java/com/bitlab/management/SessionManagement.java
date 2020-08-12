@@ -6,16 +6,13 @@
 package com.bitlab.management;
 
 import com.bitlab.Utils.Sha;
-import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.UserDao;
 import com.bitlab.entities.User;
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -39,8 +36,6 @@ public class SessionManagement extends AbstractManagement<User> {
     }
 
     public void logIn() {
-        userDao = new UserDao();
-
         entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
 
         entity = userDao.login(entity);//se llena entity con la busqueda del login
@@ -57,7 +52,7 @@ public class SessionManagement extends AbstractManagement<User> {
 
             }
 
-            message("Sesión iniciada", "Bienvenido " + entity.getUsrUser(), "INFO");
+            message("Sesión iniciada", "Bienvenido " + entity.getUsrUser(), INFO);
 
         } else {
             message("No se pudo iniciar sesión", "Algunos de los datos no esta correcto", "WARN");

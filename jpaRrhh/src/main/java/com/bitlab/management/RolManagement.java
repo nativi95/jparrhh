@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 public class RolManagement extends AbstractManagement<Rol> {
 
     private RolDao rolDao;
+    private User user;
 
     public RolManagement() {
         super(Rol.class);
@@ -54,24 +55,28 @@ public class RolManagement extends AbstractManagement<Rol> {
     public void setEntities(List<Rol> entities) {
         this.entities = entities;
     }
-    
+
     @Override
     public void createEntity() {
+        autoSet();
         entity.setRolRolNo(0);
-        entity.setAdatechange(new Date());
         entity.setAdatecreate(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAusercreate(user.getUsrUser());
-        entity.setAuserchange(user.getUsrUser());
+        user = null;
         super.createEntity();
     }
-    
+
     @Override
     public void updateEntity() {
-        entity.setAdatechange(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
-        entity.setAuserchange(user.getUsrUser());
+        autoSet();
+        user = null;
         super.updateEntity();
+    }
+
+    public void autoSet() {
+        entity.setAdatechange(new Date());
+        user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
     }
 
 }

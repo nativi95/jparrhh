@@ -6,12 +6,9 @@
 package com.bitlab.management;
 
 import com.bitlab.dao.AbstractDao;
-import com.bitlab.entities.Position;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
@@ -24,8 +21,15 @@ import javax.faces.context.FacesContext;
  */
 public abstract class AbstractManagement<T> {
 
-    private final String ERROR = "error";
-    private final String INFO = "info";
+    /**
+     *constante para especificar error
+     */
+    protected static final String ERROR = "error";
+
+    /**
+     *constante para especificar info
+     */
+    protected static final String INFO = "info";
 
     protected T entity;
     protected List<T> entities;
@@ -40,7 +44,7 @@ public abstract class AbstractManagement<T> {
         try {
             entity = entityClass.getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -55,7 +59,7 @@ public abstract class AbstractManagement<T> {
         try {
             newEntity();
         } catch (NoSuchMethodException ex) {
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -82,9 +86,6 @@ public abstract class AbstractManagement<T> {
     /**
      * Metodo para crear una nueva entidad
      *
-     * @param entity de la base de datos
-     * @throws Exception
-     * @throws NoSuchMethodException
      */
     public void createEntity() {
         try {
@@ -98,42 +99,35 @@ public abstract class AbstractManagement<T> {
             try {
                 newEntity();
             } catch (NoSuchMethodException ex) {
-                Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
     }
 
-    /**
-     * Metodo para Eliminar una Entidad
-     *
-     * @param entity de la base de datos
-     * @throws Exception
-     * @throws NoSuchMethodException
-     */
+   /**
+    * Metodo que permite eliminar una entidad
+    */
     public void deleteEntity() {
         try {
             getController().delete(entity);
             message("Transacción exitosa", "Se eliminó el elemento seleccionado", INFO);
 
         } catch (Exception e) {
-            message("No se completó la transacción", "No fue eliminado por " + e.getMessage(), ERROR);
+            message("No se completó la transacción", "No fue elimina por " + e.getMessage(), ERROR);
 
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, e);
+            
         } finally {
             try {
                 newEntity();
             } catch (NoSuchMethodException ex) {
-                Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
     }
 
     /**
      * Metodo para Actualizar una Entidad
-     *
-     * @param entity de la base de datos
-     * @throws Exception
-     * @throws NoSuchMethodException
+     * 
      */
     public void updateEntity() {
         try {
@@ -143,12 +137,12 @@ public abstract class AbstractManagement<T> {
         } catch (Exception e) {
             message("No se completó la transacción", "No fue actualizado por " + e.getMessage(), ERROR);
 
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, e);
+            
         } finally {
             try {
                 newEntity();
             } catch (NoSuchMethodException ex) {
-                Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
     }
@@ -156,26 +150,25 @@ public abstract class AbstractManagement<T> {
     /**
      * Metodo para Encontrar una Entidad
      *
-     * @param int i
-     * @throws Exception
-     * @throws NoSuchMethodException
+     * @param i
      */
     public void findEntity(int i) {
         try {
             entity = getController().find(i);
             System.out.println(entity);
         } catch (Exception ex) {
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
     }
 
     /**
      * Metodo para Enviar Alertas al Usuario
      *
-     * @param String head
-     * @param String body
-     * @param String type
+     * @param  head
+     * @param  body
+     * @param  type
      *
+     * 
      */
     public void message(String head, String body, String type) {
 
@@ -200,7 +193,7 @@ public abstract class AbstractManagement<T> {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() +"/"+ page + ".rh");
         } catch (IOException ex) {
-            Logger.getLogger(AbstractManagement.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
     }
 

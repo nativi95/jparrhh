@@ -6,10 +6,7 @@
 package com.bitlab.dao;
 
 import com.bitlab.connection.ConnectionFactory;
-import com.bitlab.entities.Rol;
 import com.bitlab.entities.User;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.slf4j.Logger;

@@ -23,12 +23,12 @@ import javax.faces.context.FacesContext;
 public class PositionManagement extends AbstractManagement<Position> {
 
     private PositionDao positionDao;
+    private User user;
 
     public PositionManagement() {
         super(Position.class);
         positionDao = new PositionDao();
     }
-
 
     @Override
     public PositionDao getController() {
@@ -52,26 +52,30 @@ public class PositionManagement extends AbstractManagement<Position> {
 
     @Override
     public void setEntities(List<Position> entities) {
-       this.entities = entities;
+        this.entities = entities;
     }
 
     @Override
     public void createEntity() {
+        autoSet();
         entity.setPosPositionNo(0);
-        entity.setAdatechange(new Date());
         entity.setAdatecreate(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAusercreate(user.getUsrUser());
-        entity.setAuserchange(user.getUsrUser());
+        user=null;
         super.createEntity();
     }
-    
+
     @Override
     public void updateEntity() {
-        entity.setAdatechange(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
-        entity.setAuserchange(user.getUsrUser());
+        autoSet();
+        user=null;
         super.updateEntity();
     }
-    
+
+    public void autoSet() {
+        entity.setAdatechange(new Date());
+        user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+    }
+
 }
