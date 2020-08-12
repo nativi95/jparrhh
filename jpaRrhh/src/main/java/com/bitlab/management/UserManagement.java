@@ -27,6 +27,8 @@ public class UserManagement extends AbstractManagement<User> {
     private UserDao userDao;
     private RolDao rolDao;
     private Rol rol;
+    private User user;
+
     public UserManagement() {
         super(User.class);
         userDao = new UserDao();
@@ -58,7 +60,7 @@ public class UserManagement extends AbstractManagement<User> {
     public void setEntities(List<User> entities) {
         this.entities = entities;
     }
-    
+
     public List<Rol> getRoles() {
         return rolDao.findAll();
     }
@@ -70,28 +72,31 @@ public class UserManagement extends AbstractManagement<User> {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
+
     @Override
     public void createEntity() {
         entity.setUsrUserNo(0);
-        entity.setUsrRolNo(rol);
-        entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
-        entity.setAdatechange(new Date());
+        autoSet();
         entity.setAdatecreate(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAusercreate(user.getUsrUser());
-        entity.setAuserchange(user.getUsrUser());
+        user = null;
         super.createEntity();
     }
-    
+
     @Override
     public void updateEntity() {
-        entity.setAdatechange(new Date());
-        entity.setUsrRolNo(rol);
-        entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
-        entity.setAuserchange(user.getUsrUser());
+        autoSet();
+        user = null;
         super.updateEntity();
     }
-    
+
+    public void autoSet() {
+        entity.setAdatechange(new Date());
+        entity.setUsrRolNo(rol);
+        rol = new Rol();
+        entity.setUserPassword(Sha.encrypt(entity.getUserPassword()));
+        user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
+    }
+
 }

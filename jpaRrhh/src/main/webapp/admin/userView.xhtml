@@ -4,7 +4,8 @@
                 template="./templateAdmin.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
 
     <ui:define name="content">
 
@@ -36,7 +37,7 @@
                 </p:column>
                 <p:column style="width:4%;text-align: center">
 
-                    <p:commandButton update=":card:matchGrid" oncomplete="PF('usuDialog').show()" icon="pi pi-search" title="View">
+                    <p:commandButton update=":card" oncomplete="PF('usuDialog').show()" icon="pi pi-search" title="View">
                         <f:setPropertyActionListener value="#{usu}" target="#{userManagement.entity}" />
                     </p:commandButton>
 
@@ -57,7 +58,7 @@
                 </f:facet>
                 <p:outputPanel  style="text-align:center;">
 
-                    <p:panelGrid id="matchGrid" columns="2" style="border: none"  columnClasses="label,value">
+                    <p:panelGrid columns="2" style="border: none"  columnClasses="label,value">
 
                         <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="No.Usuario" />
                         <h:outputText rendered="#{userManagement.entity.usrUserNo!=null}" value="#{userManagement.entity.usrUserNo}" />
@@ -66,14 +67,14 @@
                         <p:inputText value="#{userManagement.entity.usrUser}" />
 
                         <h:outputText value="Contraseña: *" />
-                        <p:password id="pwd1" value="#{userManagement.entity.userPassword}" match="pwd2" label="Password 1" required="true" />
+                        <p:password id="pwd1" value="#{userManagement.entity.userPassword}" required="true" match="pwd2" label="Password 1" />
 
                         <h:outputText value="Confirmar contraseña: *" />
-                        <p:password id="pwd2" value="#{userManagement.entity.userPassword}" label="Password 2" required="true" />
+                        <p:password id="pwd2" value="#{userManagement.entity.userPassword}" required="true" label="Password 2" />
 
                         <h:outputText value="Rol" />
                         <p:selectOneMenu value="#{userManagement.rol.rolRolNo}" style="width: 100%">
-                            <f:selectItem itemLabel="Seleccione..." noSelectionOption="false"></f:selectItem> 
+                            <f:selectItem itemLabel="Seleccione..." itemValue="#{userManagement.entity.usrRolNo.rolRolNo}"></f:selectItem> 
                             <f:selectItems itemLabel="#{rol.rolRol}" itemValue="#{rol.rolRolNo}" var="rol" value="#{userManagement.roles}">
 
                             </f:selectItems>
@@ -97,21 +98,22 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userManagement.createEntity()}"
                                      value="Crear" 
-                                     update=":form matchGrid :formMsj:msj"
+                                     update=":form card :formMsj:msj"
                                      oncomplete="PF('usuDialog').hide()"
                                      rendered="#{userManagement.entity.usrUserNo==null}" />
                     <p:commandButton actionListener="#{userManagement.updateEntity()}" 
                                      value="Actualizar" 
                                      rendered="#{userManagement.entity.usrUserNo!=null}" 
                                      oncomplete="PF('usuDialog').hide()"
-                                     update=":form :formMsj:msj matchGrid"/>
+                                     update=":form :formMsj:msj card"/>
                     <p:commandButton actionListener="#{userManagement.deleteEntity()}" 
                                      value="Eliminar" 
                                      style="border: none;"
                                      styleClass="bg-danger"
                                      rendered="#{userManagement.entity.usrUserNo!=null}" 
                                      oncomplete="PF('usuDialog').hide()"
-                                     update=":form @this"/>
+                                     update=":form"
+                                     process="@this"/>
                 </p:outputPanel>
             </p:dialog>            
         </h:form>

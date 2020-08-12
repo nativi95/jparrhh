@@ -32,6 +32,8 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
 
     private PositionDao positionDao;
 
+    private User user;
+
     private Position position;
     private Department department;
 
@@ -97,24 +99,27 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
     @Override
     public void createEntity() {
         entity.setEmpEmpNo(0);
-        entity.setEmpDeptNo(department);
-        entity.setEmpPositionNo(position);
-        entity.setAdatechange(new Date());
+        autoSet();
         entity.setAdatecreate(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAusercreate(user.getUsrUser());
-        entity.setAuserchange(user.getUsrUser());
+        user = null;
         super.createEntity();
     }
 
     @Override
     public void updateEntity() {
+        autoSet();
+        super.updateEntity();
+    }
+
+    public void autoSet() {
         entity.setAdatechange(new Date());
         entity.setEmpDeptNo(department);
+        department = new Department();
         entity.setEmpPositionNo(position);
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        position = new Position();
+        user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAuserchange(user.getUsrUser());
-        super.updateEntity();
     }
 
 }

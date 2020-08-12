@@ -87,7 +87,7 @@
 
                         <h:outputText value="Puesto" />
                         <p:selectOneMenu value="#{employeeManagement.position.posPositionNo}">
-                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
+                            <f:selectItem itemLabel="Seleccione" itemValue="#{employeeManagement.entity.empPositionNo.posPositionNo}"></f:selectItem> 
                             <f:selectItems itemLabel="#{pos.posPosition}" var="pos" itemValue="#{pos.posPositionNo}" value="#{employeeManagement.positions}">
 
                             </f:selectItems>
@@ -96,7 +96,7 @@
 
                         <h:outputText value="Departamento" />
                         <p:selectOneMenu value="#{employeeManagement.department.depDeptNo}">
-                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
+                            <f:selectItem itemLabel="Seleccione" itemValue="#{employeeManagement.entity.empDeptNo.depDeptNo}"></f:selectItem> 
                             <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" itemValue="#{dept.depDeptNo}" value="#{employeeManagement.departments}">
 
                             </f:selectItems>
@@ -119,26 +119,24 @@
 
 
                     </p:panelGrid>
+                    <p:commandButton actionListener="#{employeeManagement.updateEntity}" 
+                                     value="Actualizar" 
+                                     rendered="#{employeeManagement.entity.empEmpNo!=null}" 
+                                     oncomplete="PF('empDialog').hide()"
+                                     update=":form :formMsj:msj"/>
+                    <p:commandButton actionListener="#{employeeManagement.createEntity}" 
+                                     value="Agregar" 
+                                     rendered="#{employeeManagement.entity.empEmpNo==null}" 
+                                     oncomplete="PF('empDialog').hide()"
+                                     update=":form :formMsj:msj"/>
+                    <p:commandButton actionListener="#{employeeManagement.deleteEntity()}" 
+                                     value="Eliminar" 
+                                     rendered="#{employeeManagement.entity.empEmpNo!=null}" 
+                                     oncomplete="PF('empDialog').hide()"
+                                     update=":form :formMsj:msj"
+                                     styleClass="bg-danger"
+                                     style="border: none"/>
                 </p:outputPanel>
-                <p:commandButton actionListener="#{employeeManagement.updateEntity}" 
-                                 value="Actualizar" 
-                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
-                                 oncomplete="PF('empDialog').hide()"
-                                 update=":form :formMsj:msj"/>
-                <p:commandButton actionListener="#{employeeManagement.createEntity}" 
-                                 value="Agregar" 
-                                 rendered="#{employeeManagement.entity.empEmpNo==null}" 
-                                 oncomplete="PF('empDialog').hide()"
-                                 update=":form :formMsj:msj"/>
-                <p:commandButton actionListener="#{employeeManagement.deleteEntity()}" 
-                                 value="Eliminar" 
-                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
-                                 oncomplete="PF('empDialog').hide()"
-                                 update=":form :formMsj:msj"
-                                 styleClass="bg-danger"
-                                 style="border: none"/>
-
-
             </p:dialog>
 
         </h:form>
