@@ -35,21 +35,21 @@ public abstract class AbstractManagement<T> {
      * constante para especificar advertencia
      */
     protected static final String WARN = "warn";
-
+    
     protected T entity;
     protected List<T> entities;
     private Class<T> entityClass;
-
+    
     public AbstractManagement(Class<T> entityClass) {
         this.entityClass = entityClass;
-
+        
     }
-
+    
     public void newEntity() throws NoSuchMethodException {
         try {
             entity = entityClass.getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-
+            
         }
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractManagement<T> {
         try {
             newEntity();
         } catch (NoSuchMethodException ex) {
-
+            
         }
     }
 
@@ -76,15 +76,15 @@ public abstract class AbstractManagement<T> {
         entities = null;
         entity = null;
     }
-
+    
     public abstract AbstractDao<T> getController();
-
+    
     public abstract T getEntity();
-
+    
     public abstract void setEntity(T entity);
-
+    
     public abstract List<T> getEntities();
-
+    
     public abstract void setEntities(List<T> entities);
 
     /**
@@ -93,12 +93,11 @@ public abstract class AbstractManagement<T> {
      */
     public void createEntity() {
         try {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@LA ENTITY "+entity);
             getController().create(entity);
             message("Transacción exitosa", "Se agregó un nuevo elemento", INFO);
         } catch (Exception ex) {
             message("No se completó la transacción", "No fue creado por " + ex.getMessage(), ERROR);
-
+            
         } finally {
             init();
         }
@@ -109,11 +108,12 @@ public abstract class AbstractManagement<T> {
      */
     public void deleteEntity() {
         try {
+            getController().update(entity);
             message("Transacción exitosa", "Se eliminó el elemento seleccionado", INFO);
-
+            
         } catch (Exception e) {
             message("No se completó la transacción", "No fue elimina por " + e.getMessage(), ERROR);
-
+            
         } finally {
             init();
         }
@@ -127,10 +127,10 @@ public abstract class AbstractManagement<T> {
         try {
             getController().update(entity);
             message("Transacción exitosa", "Se actualizó el elemento seleccionado", INFO);
-
+            
         } catch (Exception e) {
             message("No se completó la transacción", "No fue actualizado por " + e.getMessage(), ERROR);
-
+            
         } finally {
             init();
         }
@@ -146,7 +146,7 @@ public abstract class AbstractManagement<T> {
             entity = getController().find(i);
             System.out.println(entity);
         } catch (Exception ex) {
-
+            
         }
     }
 
@@ -160,7 +160,7 @@ public abstract class AbstractManagement<T> {
      *
      */
     public void message(String head, String body, String type) {
-
+        
         FacesMessage m = new FacesMessage();
         m.setSummary(head);
         m.setDetail(body);
@@ -177,13 +177,13 @@ public abstract class AbstractManagement<T> {
         }
         FacesContext.getCurrentInstance().addMessage(null, m);
     }
-
+    
     public void redirect(String page) {//permite redireccionar a la pagina extablecida
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/" + page + ".rh");
         } catch (IOException ex) {
-
+            
         }
     }
-
+    
 }
