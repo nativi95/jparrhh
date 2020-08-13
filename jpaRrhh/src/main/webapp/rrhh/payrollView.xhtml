@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateRrhh.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:commandButton value="Generar planilla" update=":card" oncomplete="PF('payDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            </p:commandButton>
+        </h:form>
+
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" var="pay" style="margin-top: 5%" value="#{payrollManagement.entities}" paginator="true" rows="25" reflow="true">
+                <f:facet name="header">
+                    Lista de planillas
+                </f:facet>
+                
+                <p:column headerText="Empleado">
+                    <h:outputText value="#{pay.payEmpNo.empFirstName}" />
+                </p:column>
+                <p:column headerText="Cargo">
+                    <h:outputText value="#{pay.payEmpNo.empPositionNo.posPosition}" />
+                </p:column>
+                <p:column headerText="Departamento">
+                    <h:outputText value="#{pay.payEmpNo.empDeptNo.depDeptName}" />
+                </p:column>
+                <p:column headerText="Fecha desde">
+                    <h:outputText value="#{pay.payFromDate}" />
+                </p:column>
+                <p:column headerText="Fecha hasta">
+                    <h:outputText value="#{pay.payToDate}" />
+                </p:column>
+                <p:column style="width:4%;text-align: center">
+
+                    <p:commandButton update=":card" oncomplete="PF('payDialog').show()" icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{pay}" target="#{payrollManagement.entity}" />
+                    </p:commandButton>
+
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <h:form id="card"> 
+            <p:dialog closable="false" style="height: auto;" widgetVar="payDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Informacion de la planilla
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{payrollManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('payDialog').hide()"/>
+                </f:facet>
+                <p:outputPanel  style="text-align:center;">
+
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
+
+                        <h:outputText rendered="#{payrollManagement.entity.payPayrollNo!=null}" value="No.Planilla" />
+                        <h:outputText rendered="#{payrollManagement.entity.payPayrollNo!=null}" value="#{payrollManagement.entity.payPayrollNo}" />
+
+                        <h:outputText value="Nombre empleado" />
+                        <p:inputText value="#{payrollManagement.entity.payEmpNo.empFirstName}" />
+
+                        <h:outputText value="Puesto" />
+                        <p:inputText value="#{payrollManagement.entity.payEmpNo.empPositionNo.posPosition}" required="true" />
+
+                        <h:outputText value="Departamento" />
+                        <p:inputText value="#{payrollManagement.entity.payEmpNo.empDeptNo.depDeptName}" required="true" />
+
+                        <h:outputText value="Fecha desde" />
+                        <p:calendar value="#{payrollManagement.entity.payFromDate}" pattern="yyyy-MM-dd"/>
+                        
+                        <h:outputText value="Fecha hasta" />
+                        <p:calendar value="#{payrollManagement.entity.payToDate}" pattern="yyyy-MM-dd"/>
+                        
+                        <h:outputText value="Fecha creación" />
+                        <p:calendar value="#{payrollManagement.entity.adatecreate}" pattern="yyyy-MM-dd"/>
+
+                        <h:outputText value="Usuario creación" />
+                        <p:inputText value="#{payrollManagement.entity.ausercreate}" />
+
+                        <h:outputText value="Fecha de actualización" />
+                        <p:calendar value="#{payrollManagement.entity.adatechange}" pattern="yyyy-MM-dd"/>
+
+                        <h:outputText value="Usuario actualización" />
+                        <p:inputText value="#{payrollManagement.entity.auserchange}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{payrollManagement.createEntity()}"
+                                     value="Crear" 
+                                     update="form"
+                                     oncomplete="PF('payDialog').hide()"
+                                     rendered="#{payrollManagement.entity.payPayrollNo==null}" />
+                    <p:commandButton actionListener="#{payrollManagement.updateEntity()}" 
+                                     value="Actualizar" 
+                                     rendered="#{payrollManagement.entity.payPayrollNo!=null}" 
+                                     oncomplete="PF('payDialog').hide()"
+                                     update="form"/>
+                    <p:commandButton actionListener="#{payrollManagement.deteleEntity()}" 
+                                     value="Eliminar" 
+                                     style="border: none;"
+                                     styleClass="bg-danger"
+                                     rendered="#{payrollManagement.entity.payPayrollNo!=null}" 
+                                     oncomplete="PF('payDialog').hide()"
+                                     update=":form"/>
+                </p:outputPanel>
+            </p:dialog>            
+        </h:form>
+    </ui:define>
+
+</ui:composition>

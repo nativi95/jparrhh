@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateAdmin.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:commandButton value="Nuevo rol" update=":card" oncomplete="PF('rolDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            </p:commandButton>
+        </h:form>
+
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" var="rol" style="margin-top: 5%" value="#{rolManagement.entities}" paginator="true" rows="10" reflow="true">
+                <f:facet name="header">
+                    Lista de roles
+                </f:facet>
+                <p:column headerText="No.rol">
+                    <h:outputText value="#{rol.rolRolNo}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{rol.rolRol}" />
+                </p:column>
+                <p:column headerText="Ultima actualización">
+                    <h:outputText value="#{rol.adatechange}" />
+                </p:column>
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{rol.auserchange}" />
+                </p:column>
+                <p:column style="width:4%;text-align: center">
+
+                    <p:commandButton update=":card" oncomplete="PF('rolDialog').show()" icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{rol}" target="#{rolManagement.entity}" />
+                    </p:commandButton>
+
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <h:form id="card"> 
+            <p:dialog closable="false" style="height: auto;" header="Información del rol" widgetVar="rolDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Información del rol
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{rolManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('rolDialog').hide()"/>
+                </f:facet>
+                <p:outputPanel  style="text-align:center;">
+
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
+
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="No.Rol" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="#{rolManagement.entity.rolRolNo}" />
+
+                        <h:outputText value="Nombre" />
+                        <p:inputText value="#{rolManagement.entity.rolRol}" />
+
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="Fecha creación" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="#{rolManagement.entity.adatecreate}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="Usuario creación" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="#{rolManagement.entity.ausercreate}" />
+
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="Fecha de actualización" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="#{rolManagement.entity.adatechange}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="Usuario actualización" />
+                        <h:outputText rendered="#{rolManagement.entity.rolRolNo!=null}" value="#{rolManagement.entity.auserchange}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolManagement.createEntity()}"
+                                     value="Crear" 
+                                     update="form"
+                                     oncomplete="PF('rolDialog').hide()"
+                                     rendered="#{rolManagement.entity.rolRolNo==null}" />
+                    <p:commandButton actionListener="#{rolManagement.updateEntity()}" 
+                                     value="Actualizar" 
+                                     rendered="#{rolManagement.entity.rolRolNo!=null}" 
+                                     oncomplete="PF('rolDialog').hide()"
+                                     update="form"/>
+                    <p:commandButton actionListener="#{rolManagement.deleteEntity()}" 
+                                     value="Eliminar" 
+                                     style="border: none;"
+                                     styleClass="bg-danger"
+                                     rendered="#{rolManagement.entity.rolRolNo!=null}" 
+                                     oncomplete="PF('rolDialog').hide()"
+                                     update=":form"/>
+                </p:outputPanel>
+            </p:dialog>            
+        </h:form>
+    </ui:define>
+
+</ui:composition>

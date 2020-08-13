@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templateAdmin.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:commandButton value="Nuevo puesto" update=":card" oncomplete="PF('positionDialog').show()" icon="pi pi-plus" title="Nuevo registro">
+            </p:commandButton>
+        </h:form>
+
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <h:form id="form"> 
+            <p:dataTable id="table" var="position" style="margin-top: 5%" value="#{positionManagement.entities}" paginator="true" rows="25" reflow="true">
+                <f:facet name="header">
+                    Lista de puestos
+                </f:facet>
+                <p:column headerText="No.Puesto">
+                    <h:outputText value="#{position.posPositionNo}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{position.posPosition}" />
+                </p:column>
+                <p:column headerText="Ultima actualización">
+                    <h:outputText value="#{position.adatechange}" />
+                </p:column>
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{position.auserchange}" />
+                </p:column>
+                <p:column style="width:4%;text-align: center">
+
+                    <p:commandButton update=":card" oncomplete="PF('positionDialog').show()" icon="pi pi-search" title="View">
+                        <f:setPropertyActionListener value="#{position}" target="#{positionManagement.entity}" />
+                    </p:commandButton>
+
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <h:form id="card"> 
+            <p:dialog closable="false" style="height: auto;" widgetVar="positionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <f:facet name="header">
+                    Informacion del puesto
+                    <p:commandButton 
+                        style="float: right; border: none;"
+                        actionListener="#{positionManagement.init()}" 
+                        styleClass="bg-danger" 
+                        icon="pi pi-times"
+                        process="@this"
+                        oncomplete="PF('positionDialog').hide()"/>
+                </f:facet>
+                <p:outputPanel  style="text-align:center;">
+
+                    <p:panelGrid  columns="2" style="border: none"  columnClasses="label,value">
+
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="No.Puesto" />
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="#{positionManagement.entity.posPositionNo}" />
+
+                        <h:outputText value="Nombre" />
+                        <p:inputText value="#{positionManagement.entity.posPosition}" />
+
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="Fecha creación" />
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="#{positionManagement.entity.adatecreate}" >
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="Usuario creación" />
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="#{positionManagement.entity.ausercreate}" />
+
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="Fecha de actualización" />
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="#{positionManagement.entity.adatechange}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:outputText>
+                        
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="Usuario actualización" />
+                        <h:outputText rendered="#{positionManagement.entity.posPositionNo!=null}" value="#{positionManagement.entity.auserchange}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{positionManagement.createEntity()}"
+                                     value="Crear" 
+                                     update=":form:table :formMsj:msj"
+                                     oncomplete="PF('positionDialog').hide()"
+                                     rendered="#{positionManagement.entity.posPositionNo==null}" />
+                    <p:commandButton actionListener="#{positionManagement.updateEntity()}" 
+                                     value="Actualizar" 
+                                     rendered="#{positionManagement.entity.posPositionNo!=null}" 
+                                     oncomplete="PF('positionDialog').hide()"
+                                     update=":form:table :formMsj:msj"/>
+                    <p:commandButton actionListener="#{positionManagement.deleteEntity()}" 
+                                     value="Eliminar" 
+                                     style="border: none;"
+                                     styleClass="bg-danger"
+                                     rendered="#{positionManagement.entity.posPositionNo!=null}" 
+                                     oncomplete="PF('positionDialog').hide()"
+                                     update=":form:table :formMsj:msj"/>
+                </p:outputPanel>
+            </p:dialog>            
+        </h:form>
+    </ui:define>
+
+</ui:composition>
