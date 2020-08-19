@@ -5,8 +5,8 @@
  */
 package com.bitlab.management;
 
-import com.bitlab.dao.AbstractDao;
 import com.bitlab.dao.PayrollDao;
+import com.bitlab.entities.Employee;
 import com.bitlab.entities.Payroll;
 import com.bitlab.entities.User;
 import java.util.Date;
@@ -14,6 +14,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 /**
  *
@@ -24,10 +25,26 @@ import javax.faces.context.FacesContext;
 public class PayrollManagement extends AbstractManagement<Payroll> {
 
     private PayrollDao payrollDao;
+    private User user;
+    private Employee employee;
+    private int id;
+    private Flash flash;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+            
+            
+    
 
     public PayrollManagement() {
         super(Payroll.class);
         payrollDao = new PayrollDao();
+
     }
 
     @Override
@@ -54,24 +71,49 @@ public class PayrollManagement extends AbstractManagement<Payroll> {
     public void setEntities(List<Payroll> entities) {
         this.entities = entities;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+   public void onPageLoad() 
+       {
+           flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+
+           id = ((int) flash.get("id"));
+
+           flash.putNow("id", id);
+
+           flash.keep("id");
+       }
     
+    
+
     @Override
     public void createEntity() {
         entity.setPayPayrollNo(0);
-        entity.setAdatechange(new Date());
+        autoSet();
         entity.setAdatecreate(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAusercreate(user.getUsrUser());
-        entity.setAuserchange(user.getUsrUser());
+        user = null;
         super.createEntity();
     }
-    
+
     @Override
     public void updateEntity() {
-        entity.setAdatechange(new Date());
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
-        entity.setAuserchange(user.getUsrUser());
+        autoSet();
+        user = null;
         super.updateEntity();
+    }
+
+    public void autoSet() {
+        entity.setAdatechange(new Date());
+        user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
+        entity.setAuserchange(user.getUsrUser());
     }
 
 }

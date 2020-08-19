@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -33,6 +34,7 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
     private PositionDao positionDao;
 
     private User user;
+    int id;
 
     private Position position;
     private Department department;
@@ -96,6 +98,14 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
         this.department = department;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public void createEntity() {
         entity.setEmpEmpNo(0);
@@ -120,6 +130,12 @@ public class EmployeeManagement extends AbstractManagement<Employee> {
         position = new Position();
         user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("User");
         entity.setAuserchange(user.getUsrUser());
+    }
+
+    public String showProfile(int id) {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.getFlash().put("id", id);
+        return "profileView?faces-redirect=true";
     }
 
 }

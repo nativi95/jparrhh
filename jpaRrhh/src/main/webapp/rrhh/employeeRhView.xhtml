@@ -4,7 +4,8 @@
                 template="./templateRrhh.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="content">
         <h:form id="form">
@@ -36,10 +37,10 @@
 
                 <p:column style="width:4%;text-align: center">
 
-                    <p:commandButton update=":card" oncomplete="PF('empDialog').show()" icon="pi pi-search" title="View">
-                        <f:setPropertyActionListener value="#{emp}" target="#{employeeManagement.entity}" />
-                    </p:commandButton>
-
+                    
+                    <h:link id="nextButton" value="Next" outcome="profileView.rh" >
+                        <c:set target="#{flash}" property="id" value="bar#{emp.empEmpNo}" />
+                    </h:link>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -60,10 +61,6 @@
 
                     <p:panelGrid  columns="2" columnClasses="label,value">
 
-
-                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="Empleado Id:" />
-                        <h:outputText rendered="#{employeeManagement.entity.empEmpNo!=null}" value="#{employeeManagement.entity.empEmpNo}" />
-
                         <h:outputText value="Nombre" />
                         <p:inputText value="#{employeeManagement.entity.empFirstName}" />
 
@@ -80,66 +77,49 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Fecha de nacimiento" />
-                        <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empBirthDate}" />
+                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.empBirthDate}" />
 
                         <h:outputText value="Fecha de contración" />
-                        <p:calendar pattern="yyyy-MMM-dd" value="#{employeeManagement.entity.empHireDate}" />
+                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.empHireDate}" />
+
+                        <h:outputText value="Email de empleado" />
+                        <p:inputText value="#{employeeManagement.entity.empEmail}" />
 
                         <h:outputText value="Puesto" />
-                        <p:selectOneMenu value="#{employeeManagement.entity.empPositionNo}">
-                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{pos.posPosition}" var="pos" value="#{employeeManagement.positions}">
+                        <p:selectOneMenu value="#{employeeManagement.position.posPositionNo}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="#{employeeManagement.entity.empPositionNo.posPositionNo}"></f:selectItem> 
+                            <f:selectItems itemLabel="#{pos.posPosition}" var="pos" itemValue="#{pos.posPositionNo}" value="#{employeeManagement.positions}">
 
                             </f:selectItems>
 
                         </p:selectOneMenu>
 
                         <h:outputText value="Departamento" />
-                        <p:selectOneMenu value="#{employeeManagement.entity.empDeptNo}">
-                            <f:selectItem itemLabel="Seleccione" noSelectionOption="false"></f:selectItem> 
-                            <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" value="#{employeeManagement.departments}">
+                        <p:selectOneMenu value="#{employeeManagement.department.depDeptNo}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="#{employeeManagement.entity.empDeptNo.depDeptNo}"></f:selectItem> 
+                            <f:selectItems itemLabel="#{dept.depDeptName}" var="dept" itemValue="#{dept.depDeptNo}" value="#{employeeManagement.departments}">
 
                             </f:selectItems>
 
                         </p:selectOneMenu>
 
-                        <h:outputText value="Fecha de creación" />
-                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.adatecreate}" />
-
-                        <h:outputText value="Usuario de creación" />
-                        <p:inputText value="#{employeeManagement.entity.ausercreate}" />
-
-                        <h:outputText value="Fecha de actualización" />
-                        <p:calendar pattern="yyyy-MM-dd" value="#{employeeManagement.entity.adatecreate}" />
-
-                        <h:outputText value="Usuario de actualización" />
-                        <p:inputText value="#{employeeManagement.entity.auserchange}" />
-
 
                     </p:panelGrid>
+                    <p:commandButton actionListener="#{employeeManagement.createEntity}" 
+                                     value="Agregar" 
+                                     rendered="#{employeeManagement.entity.empEmpNo==null}" 
+                                     oncomplete="PF('empDialog').hide()"
+                                     update=":form :formMsj:msj"/>
+
                 </p:outputPanel>
-                <p:commandButton actionListener="#{employeeManagement.updateEntity}" 
-                                 value="Actualizar" 
-                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
-                                 oncomplete="PF('empDialog').hide()"
-                                 update=":form :formMsj:msj"/>
-                <p:commandButton actionListener="#{employeeManagement.createEntity}" 
-                                 value="Agregar" 
-                                 rendered="#{employeeManagement.entity.empEmpNo==null}" 
-                                 oncomplete="PF('empDialog').hide()"
-                                 update=":form :formMsj:msj"/>
-                <p:commandButton actionListener="#{employeeManagement.deteleEntity}" 
-                                 value="Desactivar" 
-                                 rendered="#{employeeManagement.entity.empEmpNo!=null}" 
-                                 oncomplete="PF('empDialog').hide()"
-                                 update=":form :formMsj:msj"
-                                 styleClass="bg-danger"
-                                 style="border: none"/>
-
-
             </p:dialog>
 
+
+
+
+
         </h:form>
+
     </ui:define>
 
 </ui:composition>
